@@ -5,7 +5,10 @@ import 'package:drift/drift.dart' show Value;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+// Supabase exports an AuthState of its own; this file has its own session type.
+import 'package:supabase_flutter/supabase_flutter.dart' as sb;
 
+import 'config/env.dart';
 import 'data/ocr_service.dart';
 import 'data/seed_data.dart';
 import 'data/sync_service.dart';
@@ -77,12 +80,15 @@ class AshaSession {
 }
 
 class AuthController extends StateNotifier<AshaSession> {
-  AuthController(this._prefs) : super(_read(_prefs));
+  AuthController(this._prefs, this._client) : super(_read(_prefs));
 
   static const _emailKey = 'asha_email';
   static const _nameKey = 'asha_name';
   static const _pinKey = 'asha_pin';
   final SharedPreferences _prefs;
+
+  /// Null when Supabase is switched off or failed to initialise.
+  final sb.SupabaseClient? _client;
 
   static AshaSession _read(SharedPreferences prefs) => AshaSession(
         email: prefs.getString(_emailKey),
@@ -90,10 +96,76 @@ class AuthController extends StateNotifier<AshaSession> {
         pin: prefs.getString(_pinKey),
       );
 
-  /// The session is cached locally and never expires on its own — she must
-  /// never be asked to re-authenticate in a village with no signal.
-  Future<void> signIn({required String email, required String password}) async {
-    await Future.delayed(const Duration(milliseconds: 400));
+  /// Set when the backend could not send a code — no signal, or no email
+  /// provider configured. She then signs in locally and the app keeps working
+  /// on local data, because being stuck at a login screen in a village is
+  /// worse than an unverified session.
+  bool _otpUnavailable = false;
+
+  bool get otpUnavailable => _otpUnavailable;
+
+  static bool _cannotSend(Object error) {
+    if (error is sb.AuthException) {
+      final code = error.code ?? '';
+      final message = error.message.toLowerCase();
+      if (code == 'email_provider_disabled' ||
+          message.contains('provider disabled') ||
+          message.contains('unsupported')) {
+        return true;
+      }
+    }
+    final text = error.toString().toLowerCase();
+    return text.contains('socketexception') ||
+        text.contains('failed host lookup') ||
+        text.contains('connection closed') ||
+        text.contains('timed out');
+  }
+
+  /// Emails a six digit code. SMTP credentials live in Supabase's server-side
+  /// config and never touch this app.
+  Future<void> sendOtp(String email) async {
+    final client = _client;
+    if (client == null) {
+      _otpUnavailable = true;
+      return;
+    }
+    try {
+      await client.auth.signInWithOtp(email: email.trim());
+      _otpUnavailable = false;
+    } catch (error) {
+      if (_cannotSend(error)) {
+        _otpUnavailable = true;
+        debugPrint('OTP could not be sent; falling back to local sign-in.');
+        return;
+      }
+      rethrow;
+    }
+  }
+
+  /// Verifies the code and caches the session. The session is never expired by
+  /// this app — she must not be asked to re-authenticate with no signal.
+  Future<void> verifyOtp({
+    required String email,
+    required String code,
+  }) async {
+    final client = _client;
+    if (client == null || _otpUnavailable) {
+      await _signInLocally(email);
+      return;
+    }
+
+    final response = await client.auth.verifyOTP(
+      type: sb.OtpType.email,
+      email: email.trim(),
+      token: code,
+    );
+    if (response.session == null) {
+      throw const sb.AuthException('Verification did not return a session');
+    }
+    await _signInLocally(email.trim());
+  }
+
+  Future<void> _signInLocally(String email) async {
     await _prefs.setString(_emailKey, email);
     await _prefs.setString(_nameKey, SeedData.ashaName);
     state = state.copyWith(
@@ -113,15 +185,29 @@ class AuthController extends StateNotifier<AshaSession> {
   void unlock() => state = state.copyWith(unlocked: true);
 
   Future<void> signOut() async {
+    await _client?.auth.signOut();
     await _prefs.remove(_emailKey);
     await _prefs.remove(_pinKey);
     state = const AshaSession();
   }
 }
 
+/// Null when Supabase is off, unconfigured, or failed to initialise.
+final supabaseClientProvider = Provider<sb.SupabaseClient?>((ref) {
+  if (!Env.useSupabase || !Env.isSupabaseConfigured) return null;
+  try {
+    return sb.Supabase.instance.client;
+  } catch (_) {
+    return null;
+  }
+});
+
 final authControllerProvider =
     StateNotifierProvider<AuthController, AshaSession>(
-  (ref) => AuthController(ref.watch(prefsProvider)),
+  (ref) => AuthController(
+    ref.watch(prefsProvider),
+    ref.watch(supabaseClientProvider),
+  ),
 );
 
 // -------------------------------------------------------------------- risk

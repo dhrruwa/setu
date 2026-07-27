@@ -24,6 +24,18 @@
   "requiredField": "ಇದು ಬೇಕೇ ಬೇಕು",
   "settingsTitle": "ಸೆಟ್ಟಿಂಗ್ಸ್",
   "logout": "ಹೊರಗೆ ಬನ್ನಿ",
+  "accountSection": "ಖಾತೆ",
+  "signedInAs": "{email} ಆಗಿ ಒಳಗಿದ್ದೀರಿ",
+  "@signedInAs": {
+    "placeholders": { "email": { "type": "String" } }
+  },
+  "logoutWarningTitle": "ಹೊರಗೆ ಬರಬೇಕೇ?",
+  "logoutWarningBody": "ಮತ್ತೆ ಒಳಗೆ ಬರಲು ಇಂಟರ್ನೆಟ್ ಬೇಕು. ನೆಟ್‌ವರ್ಕ್ ಇಲ್ಲದ ಊರಿನಲ್ಲಿ ಇದ್ದಾಗ ಹೊರಗೆ ಬರಬೇಡಿ.",
+  "logoutPendingWarning": "{count} ನಮೂದುಗಳು ಇನ್ನೂ ಕಳುಹಿಸಿಲ್ಲ. ಅವು ಈ ಫೋನಿನಲ್ಲೇ ಇರುತ್ತವೆ, ಆದರೆ ಬೇಗ ಮತ್ತೆ ಒಳಗೆ ಬಂದು ಕಳುಹಿಸಿ.",
+  "@logoutPendingWarning": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "logoutConfirm": "ಹೌದು, ಹೊರಗೆ ಬರುತ್ತೇನೆ",
 
   "loginTitle": "ಒಳಗೆ ಬನ್ನಿ",
   "loginSubtitle": "ಒಮ್ಮೆ ಒಳಗೆ ಬಂದರೆ ಸಾಕು. ನೆಟ್‌ವರ್ಕ್ ಇಲ್ಲದಿದ್ದರೂ ಒಳಗೇ ಇರುತ್ತೀರಿ.",
@@ -33,6 +45,21 @@
   "passwordLabel": "ಪಾಸ್‌ವರ್ಡ್",
   "passwordInvalid": "ಪಾಸ್‌ವರ್ಡ್ ಹಾಕಿ",
   "signIn": "ಒಳಗೆ ಬನ್ನಿ",
+  "otpTitle": "ಕೋಡ್ ಹಾಕಿ",
+  "otpSentTo": "{email} ಗೆ ಕಳುಹಿಸಿದ್ದೇವೆ",
+  "@otpSentTo": {
+    "placeholders": { "email": { "type": "String" } }
+  },
+  "otpInvalid": "6 ಅಂಕಿಗಳನ್ನೂ ಹಾಕಿ",
+  "otpVerify": "ಪರಿಶೀಲಿಸಿ",
+  "otpSending": "ಕೋಡ್ ಕಳುಹಿಸುತ್ತಿದ್ದೇವೆ…",
+  "otpVerifying": "ಪರಿಶೀಲಿಸುತ್ತಿದ್ದೇವೆ…",
+  "otpSendFailed": "ಕೋಡ್ ಕಳುಹಿಸಲು ಆಗಲಿಲ್ಲ. ವಿಳಾಸ ಸರಿ ಇದೆಯೇ ನೋಡಿ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
+  "otpWrongCode": "ಈ ಕೋಡ್ ಸರಿಯಿಲ್ಲ. ಇಮೇಲ್ ನೋಡಿ ಮತ್ತೆ ಹಾಕಿ.",
+  "otpResend": "ಕೋಡ್ ಮತ್ತೆ ಕಳುಹಿಸಿ",
+  "otpChangeEmail": "ಇಮೇಲ್ ಬದಲಿಸಿ",
+  "otpNoNetwork": "ಇಂಟರ್ನೆಟ್ ಇಲ್ಲ. ಮೊದಲ ಸಲ ಒಳಗೆ ಬರಲು ಒಮ್ಮೆ ನೆಟ್‌ವರ್ಕ್ ಬೇಕು.",
+  "otpOfflineFallback": "ನೆಟ್‌ವರ್ಕ್ ಇಲ್ಲ — ಈ ಫೋನಿನಲ್ಲಿ ಮಾತ್ರ ಒಳಗೆ ಬಂದಿದ್ದೀರಿ. ಸಿಗ್ನಲ್ ಸಿಕ್ಕಾಗ ಸರಿಯಾಗಿ ಒಳಗೆ ಬನ್ನಿ.",
   "forgotPassword": "ಪಾಸ್‌ವರ್ಡ್ ಮರೆತಿರಾ?",
   "forgotPasswordTitle": "ಪಾಸ್‌ವರ್ಡ್ ಮರೆತಿರಾ",
   "forgotPasswordBody": "ಪಾಸ್‌ವರ್ಡ್ ಬದಲಿಸಲು ನಿಮ್ಮ ಎಎನ್‌ಎಂ ಅವರನ್ನು ಸಂಪರ್ಕಿಸಿ. ಆ್ಯಪ್‌ನಲ್ಲೇ ಬದಲಿಸುವ ಸೌಲಭ್ಯ ಶೀಘ್ರದಲ್ಲಿ ಬರುತ್ತದೆ.",

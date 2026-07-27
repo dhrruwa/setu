@@ -75,6 +75,29 @@ class AppLocalizationsKn extends AppLocalizations {
   String get logout => 'ಹೊರಗೆ ಬನ್ನಿ';
 
   @override
+  String get accountSection => 'ಖಾತೆ';
+
+  @override
+  String signedInAs(String email) {
+    return '$email ಆಗಿ ಒಳಗಿದ್ದೀರಿ';
+  }
+
+  @override
+  String get logoutWarningTitle => 'ಹೊರಗೆ ಬರಬೇಕೇ?';
+
+  @override
+  String get logoutWarningBody =>
+      'ಮತ್ತೆ ಒಳಗೆ ಬರಲು ಇಂಟರ್ನೆಟ್ ಬೇಕು. ನೆಟ್‌ವರ್ಕ್ ಇಲ್ಲದ ಊರಿನಲ್ಲಿ ಇದ್ದಾಗ ಹೊರಗೆ ಬರಬೇಡಿ.';
+
+  @override
+  String logoutPendingWarning(int count) {
+    return '$count ನಮೂದುಗಳು ಇನ್ನೂ ಕಳುಹಿಸಿಲ್ಲ. ಅವು ಈ ಫೋನಿನಲ್ಲೇ ಇರುತ್ತವೆ, ಆದರೆ ಬೇಗ ಮತ್ತೆ ಒಳಗೆ ಬಂದು ಕಳುಹಿಸಿ.';
+  }
+
+  @override
+  String get logoutConfirm => 'ಹೌದು, ಹೊರಗೆ ಬರುತ್ತೇನೆ';
+
+  @override
   String get loginTitle => 'ಒಳಗೆ ಬನ್ನಿ';
 
   @override
@@ -98,6 +121,47 @@ class AppLocalizationsKn extends AppLocalizations {
 
   @override
   String get signIn => 'ಒಳಗೆ ಬನ್ನಿ';
+
+  @override
+  String get otpTitle => 'ಕೋಡ್ ಹಾಕಿ';
+
+  @override
+  String otpSentTo(String email) {
+    return '$email ಗೆ ಕಳುಹಿಸಿದ್ದೇವೆ';
+  }
+
+  @override
+  String get otpInvalid => '6 ಅಂಕಿಗಳನ್ನೂ ಹಾಕಿ';
+
+  @override
+  String get otpVerify => 'ಪರಿಶೀಲಿಸಿ';
+
+  @override
+  String get otpSending => 'ಕೋಡ್ ಕಳುಹಿಸುತ್ತಿದ್ದೇವೆ…';
+
+  @override
+  String get otpVerifying => 'ಪರಿಶೀಲಿಸುತ್ತಿದ್ದೇವೆ…';
+
+  @override
+  String get otpSendFailed =>
+      'ಕೋಡ್ ಕಳುಹಿಸಲು ಆಗಲಿಲ್ಲ. ವಿಳಾಸ ಸರಿ ಇದೆಯೇ ನೋಡಿ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.';
+
+  @override
+  String get otpWrongCode => 'ಈ ಕೋಡ್ ಸರಿಯಿಲ್ಲ. ಇಮೇಲ್ ನೋಡಿ ಮತ್ತೆ ಹಾಕಿ.';
+
+  @override
+  String get otpResend => 'ಕೋಡ್ ಮತ್ತೆ ಕಳುಹಿಸಿ';
+
+  @override
+  String get otpChangeEmail => 'ಇಮೇಲ್ ಬದಲಿಸಿ';
+
+  @override
+  String get otpNoNetwork =>
+      'ಇಂಟರ್ನೆಟ್ ಇಲ್ಲ. ಮೊದಲ ಸಲ ಒಳಗೆ ಬರಲು ಒಮ್ಮೆ ನೆಟ್‌ವರ್ಕ್ ಬೇಕು.';
+
+  @override
+  String get otpOfflineFallback =>
+      'ನೆಟ್‌ವರ್ಕ್ ಇಲ್ಲ — ಈ ಫೋನಿನಲ್ಲಿ ಮಾತ್ರ ಒಳಗೆ ಬಂದಿದ್ದೀರಿ. ಸಿಗ್ನಲ್ ಸಿಕ್ಕಾಗ ಸರಿಯಾಗಿ ಒಳಗೆ ಬನ್ನಿ.';
 
   @override
   String get forgotPassword => 'ಪಾಸ್‌ವರ್ಡ್ ಮರೆತಿರಾ?';

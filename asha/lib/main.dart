@@ -6,7 +6,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'config/env.dart';
 import 'data/seed_data.dart';
 import 'data/sync_service.dart';
 import 'db/database.dart';
@@ -19,6 +21,7 @@ import 'screens/login_screen.dart';
 import 'screens/mothers_screen.dart';
 import 'screens/pin_screen.dart';
 import 'screens/register_mother_screen.dart';
+import 'screens/settings_screen.dart';
 import 'screens/splash_screen.dart';
 import 'screens/sync_status_screen.dart';
 import 'screens/tasks_screen.dart';
@@ -28,6 +31,20 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+  // Only the publishable key ever reaches the device. If this fails — no
+  // signal in the field, project down — the app still starts and runs
+  // entirely on local data.
+  if (Env.useSupabase && Env.isSupabaseConfigured) {
+    try {
+      await Supabase.initialize(
+        url: Env.supabaseUrl,
+        publishableKey: Env.supabaseAnonKey,
+      );
+    } catch (error) {
+      debugPrint('Supabase init failed, continuing offline: $error');
+    }
+  }
 
   final prefs = await SharedPreferences.getInstance();
   final db = AppDatabase();
@@ -107,6 +124,7 @@ class _SetuAshaAppState extends ConsumerState<SetuAshaApp> {
         Routes.tasks: (_) => const TasksScreen(),
         Routes.syncStatus: (_) => const SyncStatusScreen(),
         Routes.incentive: (_) => const IncentiveScreen(),
+        Routes.settings: (_) => const SettingsScreen(),
       },
       builder: (context, child) {
         final scale = MediaQuery.textScalerOf(context)

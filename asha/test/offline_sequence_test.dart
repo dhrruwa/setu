@@ -31,8 +31,8 @@ void main() {
       File('assets/rules/risk_rules.json').readAsStringSync(),
     );
     // No latency and no random failures: this test is about the sequence,
-    // not about retry behaviour.
-    sync = MockSyncService(latency: Duration.zero);
+    // not about retry behaviour, and must never be flaky.
+    sync = MockSyncService(latency: Duration.zero, failurePercent: 0);
     worker = SyncWorker(db, sync);
   });
 

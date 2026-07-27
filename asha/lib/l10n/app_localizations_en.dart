@@ -75,6 +75,29 @@ class AppLocalizationsEn extends AppLocalizations {
   String get logout => 'Sign out';
 
   @override
+  String get accountSection => 'ACCOUNT';
+
+  @override
+  String signedInAs(String email) {
+    return 'Signed in as $email';
+  }
+
+  @override
+  String get logoutWarningTitle => 'Sign out?';
+
+  @override
+  String get logoutWarningBody =>
+      'You will need internet to sign in again. Do not sign out while you are in a village with no network.';
+
+  @override
+  String logoutPendingWarning(int count) {
+    return '$count entries have not been sent yet. They stay on this phone, but sign in again soon so they can be sent.';
+  }
+
+  @override
+  String get logoutConfirm => 'Yes, sign out';
+
+  @override
   String get loginTitle => 'Sign in';
 
   @override
@@ -98,6 +121,48 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get signIn => 'Sign in';
+
+  @override
+  String get otpTitle => 'Enter the code';
+
+  @override
+  String otpSentTo(String email) {
+    return 'Sent to $email';
+  }
+
+  @override
+  String get otpInvalid => 'Please enter all 6 digits';
+
+  @override
+  String get otpVerify => 'Verify';
+
+  @override
+  String get otpSending => 'Sending the code…';
+
+  @override
+  String get otpVerifying => 'Checking…';
+
+  @override
+  String get otpSendFailed =>
+      'The code could not be sent. Please check the address and try again.';
+
+  @override
+  String get otpWrongCode =>
+      'That code is not right. Please check your email and try again.';
+
+  @override
+  String get otpResend => 'Send the code again';
+
+  @override
+  String get otpChangeEmail => 'Change email';
+
+  @override
+  String get otpNoNetwork =>
+      'No internet. You need a signal once, to sign in the first time.';
+
+  @override
+  String get otpOfflineFallback =>
+      'No network — signed in on this phone only. Sign in properly when you have a signal.';
 
   @override
   String get forgotPassword => 'Forgot password?';

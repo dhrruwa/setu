@@ -24,6 +24,18 @@
   "requiredField": "This is needed",
   "settingsTitle": "Settings",
   "logout": "Sign out",
+  "accountSection": "ACCOUNT",
+  "signedInAs": "Signed in as {email}",
+  "@signedInAs": {
+    "placeholders": { "email": { "type": "String" } }
+  },
+  "logoutWarningTitle": "Sign out?",
+  "logoutWarningBody": "You will need internet to sign in again. Do not sign out while you are in a village with no network.",
+  "logoutPendingWarning": "{count} entries have not been sent yet. They stay on this phone, but sign in again soon so they can be sent.",
+  "@logoutPendingWarning": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "logoutConfirm": "Yes, sign out",
 
   "loginTitle": "Sign in",
   "loginSubtitle": "Sign in once. You stay signed in even with no network.",
@@ -33,6 +45,21 @@
   "passwordLabel": "Password",
   "passwordInvalid": "Please enter your password",
   "signIn": "Sign in",
+  "otpTitle": "Enter the code",
+  "otpSentTo": "Sent to {email}",
+  "@otpSentTo": {
+    "placeholders": { "email": { "type": "String" } }
+  },
+  "otpInvalid": "Please enter all 6 digits",
+  "otpVerify": "Verify",
+  "otpSending": "Sending the code…",
+  "otpVerifying": "Checking…",
+  "otpSendFailed": "The code could not be sent. Please check the address and try again.",
+  "otpWrongCode": "That code is not right. Please check your email and try again.",
+  "otpResend": "Send the code again",
+  "otpChangeEmail": "Change email",
+  "otpNoNetwork": "No internet. You need a signal once, to sign in the first time.",
+  "otpOfflineFallback": "No network — signed in on this phone only. Sign in properly when you have a signal.",
   "forgotPassword": "Forgot password?",
   "forgotPasswordTitle": "Forgot password",
   "forgotPasswordBody": "Please contact your ANM supervisor to reset your password. Password reset from the app is coming soon.",

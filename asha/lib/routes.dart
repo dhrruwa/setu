@@ -12,4 +12,5 @@ class Routes {
   static const tasks = '/tasks';
   static const syncStatus = '/sync';
   static const incentive = '/incentive';
+  static const settings = '/settings';
 }

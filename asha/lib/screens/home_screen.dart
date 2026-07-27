@@ -72,6 +72,12 @@ class HomeScreen extends ConsumerWidget {
                     Navigator.pushNamed(context, Routes.syncStatus),
                 icon: const Icon(Icons.sync),
               ),
+              IconButton(
+                iconSize: 30,
+                tooltip: l.settingsTitle,
+                onPressed: () => Navigator.pushNamed(context, Routes.settings),
+                icon: const Icon(Icons.settings_outlined),
+              ),
             ],
           ),
           const SizedBox(height: S.md),

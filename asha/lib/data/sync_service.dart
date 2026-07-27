@@ -22,9 +22,17 @@ abstract class SyncService {
 }
 
 class MockSyncService implements SyncService {
-  MockSyncService({this.latency = const Duration(milliseconds: 600)});
+  MockSyncService({
+    this.latency = const Duration(milliseconds: 600),
+    this.failurePercent = 5,
+  });
 
   final Duration latency;
+
+  /// A small failure rate keeps the retry path honest in the app. Tests set
+  /// it to 0 so they are not flaky.
+  final int failurePercent;
+
   final _random = Random();
 
   bool _forceOffline = false;
@@ -48,9 +56,9 @@ class MockSyncService implements SyncService {
       throw const SyncFailure('offline');
     }
     await Future.delayed(latency);
-    // A small failure rate keeps the retry path honest — the Sync Status
-    // screen exists precisely to answer "what happens when this fails".
-    if (_random.nextInt(100) < 5) {
+    // The Sync Status screen exists precisely to answer "what happens when
+    // this fails", so failures have to actually happen.
+    if (failurePercent > 0 && _random.nextInt(100) < failurePercent) {
       throw const SyncFailure('server rejected the request');
     }
     debugPrint('synced ${item.entityTable}/${item.recordId}');

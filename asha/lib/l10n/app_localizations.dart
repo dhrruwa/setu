@@ -230,6 +230,42 @@ abstract class AppLocalizations {
   /// **'Sign out'**
   String get logout;
 
+  /// No description provided for @accountSection.
+  ///
+  /// In en, this message translates to:
+  /// **'ACCOUNT'**
+  String get accountSection;
+
+  /// No description provided for @signedInAs.
+  ///
+  /// In en, this message translates to:
+  /// **'Signed in as {email}'**
+  String signedInAs(String email);
+
+  /// No description provided for @logoutWarningTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign out?'**
+  String get logoutWarningTitle;
+
+  /// No description provided for @logoutWarningBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You will need internet to sign in again. Do not sign out while you are in a village with no network.'**
+  String get logoutWarningBody;
+
+  /// No description provided for @logoutPendingWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} entries have not been sent yet. They stay on this phone, but sign in again soon so they can be sent.'**
+  String logoutPendingWarning(int count);
+
+  /// No description provided for @logoutConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes, sign out'**
+  String get logoutConfirm;
+
   /// No description provided for @loginTitle.
   ///
   /// In en, this message translates to:
@@ -277,6 +313,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sign in'**
   String get signIn;
+
+  /// No description provided for @otpTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the code'**
+  String get otpTitle;
+
+  /// No description provided for @otpSentTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Sent to {email}'**
+  String otpSentTo(String email);
+
+  /// No description provided for @otpInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter all 6 digits'**
+  String get otpInvalid;
+
+  /// No description provided for @otpVerify.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify'**
+  String get otpVerify;
+
+  /// No description provided for @otpSending.
+  ///
+  /// In en, this message translates to:
+  /// **'Sending the code…'**
+  String get otpSending;
+
+  /// No description provided for @otpVerifying.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking…'**
+  String get otpVerifying;
+
+  /// No description provided for @otpSendFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The code could not be sent. Please check the address and try again.'**
+  String get otpSendFailed;
+
+  /// No description provided for @otpWrongCode.
+  ///
+  /// In en, this message translates to:
+  /// **'That code is not right. Please check your email and try again.'**
+  String get otpWrongCode;
+
+  /// No description provided for @otpResend.
+  ///
+  /// In en, this message translates to:
+  /// **'Send the code again'**
+  String get otpResend;
+
+  /// No description provided for @otpChangeEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Change email'**
+  String get otpChangeEmail;
+
+  /// No description provided for @otpNoNetwork.
+  ///
+  /// In en, this message translates to:
+  /// **'No internet. You need a signal once, to sign in the first time.'**
+  String get otpNoNetwork;
+
+  /// No description provided for @otpOfflineFallback.
+  ///
+  /// In en, this message translates to:
+  /// **'No network — signed in on this phone only. Sign in properly when you have a signal.'**
+  String get otpOfflineFallback;
 
   /// No description provided for @forgotPassword.
   ///
