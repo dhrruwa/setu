@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:setu_thayi/main.dart';
 import 'package:setu_thayi/providers.dart';
+import 'package:setu_thayi/screens/splash_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -20,6 +21,11 @@ void main() {
 
     // Kannada is the default locale, not English.
     expect(find.text('ಸೇತು ತಾಯಿ'), findsOneWidget);
+    expect(find.byType(SplashScreen), findsOneWidget);
+
+    // Let the splash timer fire so the test does not end with it pending.
+    await tester.pump(const Duration(milliseconds: 1600));
+    await tester.pump();
   });
 
   testWidgets('an unauthenticated start lands on login', (tester) async {

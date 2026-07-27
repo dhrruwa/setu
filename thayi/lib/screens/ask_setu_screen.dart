@@ -209,7 +209,14 @@ class _AskSetuScreenState extends ConsumerState<AskSetuScreen> {
 
     return SetuScaffold(
       title: l.askSetuTitle,
-      showEmergencyButton: false,
+      bottomBar: _Composer(
+        input: _input,
+        listening: _listening,
+        onSend: () => _send(_input.text),
+        onMic: _toggleMic,
+        onSuggestion: (q) =>
+            _send(l.suggestedQuestion(q.id), preferred: q.answer),
+      ),
       body: Column(
         children: [
           Expanded(
@@ -242,17 +249,10 @@ class _AskSetuScreenState extends ConsumerState<AskSetuScreen> {
                   const SizedBox(height: S.md),
                   _Bubble.setu(text: l.chatThinking, muted: true),
                 ],
-                const SizedBox(height: S.lg),
+                // Clears the floating emergency button.
+                const SizedBox(height: 96),
               ],
             ),
-          ),
-          _Composer(
-            input: _input,
-            listening: _listening,
-            onSend: () => _send(_input.text),
-            onMic: _toggleMic,
-            onSuggestion: (q) =>
-                _send(l.suggestedQuestion(q.id), preferred: q.answer),
           ),
         ],
       ),

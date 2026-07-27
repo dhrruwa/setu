@@ -26,6 +26,13 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^5.0.0
 
+dependency_overrides:
+  # path_provider_android 2.3.x pulls in package:jni, whose android/build.gradle
+  # calls kotlin {} without applying the Kotlin plugin under AGP 9, which fails
+  # the Android build. 2.2.x has the same API and no jni. Drop this override
+  # once package:jni supports AGP 9.
+  path_provider_android: 2.2.23
+
 flutter:
   uses-material-design: true
   generate: true

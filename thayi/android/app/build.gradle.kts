@@ -18,8 +18,9 @@ android {
 
     defaultConfig {
         applicationId = "com.setu.thayi"
-        // Low-end phones in the field are still on Android 6.
-        minSdk = 23
+        // The brief asked for minSdk 23 (Android 6). Flutter 3.44 no longer
+        // supports anything below 24, so this is as low as the engine allows.
+        minSdk = flutter.minSdkVersion // 24
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName

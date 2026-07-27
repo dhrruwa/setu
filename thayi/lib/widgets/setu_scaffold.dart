@@ -52,6 +52,7 @@ class SetuScaffold extends StatelessWidget {
     this.actions,
     this.backgroundColor = C.bg,
     this.bottom,
+    this.bottomBar,
   });
 
   final Widget body;
@@ -61,6 +62,10 @@ class SetuScaffold extends StatelessWidget {
   final List<Widget>? actions;
   final Color backgroundColor;
   final PreferredSizeWidget? bottom;
+
+  /// Pinned to the bottom of the screen. The emergency button floats above
+  /// it rather than on top of it, which is why the chat composer lives here.
+  final Widget? bottomBar;
 
   @override
   Widget build(BuildContext context) {
@@ -76,6 +81,7 @@ class SetuScaffold extends StatelessWidget {
               bottom: bottom,
             ),
       body: SafeArea(top: title == null, child: body),
+      bottomNavigationBar: bottomBar,
       floatingActionButton:
           showEmergencyButton ? const EmergencyFab() : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
