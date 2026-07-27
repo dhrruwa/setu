@@ -229,7 +229,11 @@ class TaskCard extends StatelessWidget {
                   builder: (_) => MotherProfileScreen(motherId: mother!.id),
                 ),
               ),
-      child: Row(
+      // IntrinsicHeight is what lets the stripe match the card's height. A
+      // bare CrossAxisAlignment.stretch would give the Row an unbounded
+      // height inside a ListView and break the whole list.
+      child: IntrinsicHeight(
+        child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           // The origin stripe. Cheapest possible way to make doctor work
@@ -320,6 +324,7 @@ class TaskCard extends StatelessWidget {
             ),
           ),
         ],
+        ),
       ),
     );
   }
