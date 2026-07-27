@@ -9,7 +9,6 @@ import '../l10n/content.dart';
 import '../providers.dart';
 import '../routes.dart';
 import '../theme/tokens.dart';
-import '../widgets/setu_card.dart';
 import '../widgets/setu_scaffold.dart';
 import 'danger_alert_screen.dart';
 
@@ -179,8 +178,10 @@ class _AskSetuScreenState extends ConsumerState<AskSetuScreen> {
 
     setState(() => _listening = true);
     await _speech.listen(
-      localeId: localeId,
-      listenOptions: SpeechListenOptions(partialResults: true),
+      listenOptions: SpeechListenOptions(
+        localeId: localeId,
+        partialResults: true,
+      ),
       onResult: (result) {
         _input.value = TextEditingValue(
           text: result.recognizedWords,

@@ -1,0 +1,53 @@
+plugins {
+    id("com.android.application")
+    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+    id("dev.flutter.flutter-gradle-plugin")
+}
+
+android {
+    namespace = "com.setu.thayi"
+    compileSdk = flutter.compileSdkVersion
+    ndkVersion = flutter.ndkVersion
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+        // Needed for the desugared java.time APIs some plugins rely on.
+        isCoreLibraryDesugaringEnabled = true
+    }
+
+    defaultConfig {
+        applicationId = "com.setu.thayi"
+        // Low-end phones in the field are still on Android 6.
+        minSdk = 23
+        targetSdk = flutter.targetSdkVersion
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
+        // Ship both languages; Kannada is chosen in-app, not by the device.
+        resourceConfigurations += listOf("en", "kn")
+    }
+
+    buildTypes {
+        release {
+            // Demo builds are signed with the debug key so `flutter build apk`
+            // produces an installable artifact. Replace before any store upload.
+            signingConfig = signingConfigs.getByName("debug")
+            isMinifyEnabled = false
+            isShrinkResources = false
+        }
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+    }
+}
+
+flutter {
+    source = "../.."
+}
+
+dependencies {
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
+}

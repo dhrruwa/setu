@@ -1,6 +1,7 @@
 /// Plain data models. Nothing here knows about widgets or localisation —
 /// text that the user sees is referenced by id and resolved through
 /// `lib/l10n/content.dart`.
+library;
 
 class Mother {
   const Mother({
