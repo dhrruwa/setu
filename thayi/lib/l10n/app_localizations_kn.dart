@@ -63,10 +63,10 @@ class AppLocalizationsKn extends AppLocalizations {
   String get logout => 'ಹೊರಗೆ ಬನ್ನಿ';
 
   @override
-  String get loginTitle => 'ನಿಮ್ಮ ಫೋನ್ ನಂಬರ್ ಹಾಕಿ';
+  String get loginTitle => 'ನಿಮ್ಮ ಇಮೇಲ್ ವಿಳಾಸ ಹಾಕಿ';
 
   @override
-  String get loginSubtitle => 'ನಿಮಗೆ 6 ಅಂಕಿಯ ಕೋಡ್ ಕಳುಹಿಸುತ್ತೇವೆ';
+  String get loginSubtitle => 'ನಿಮ್ಮ ಇಮೇಲ್‌ಗೆ 6 ಅಂಕಿಯ ಕೋಡ್ ಕಳುಹಿಸುತ್ತೇವೆ';
 
   @override
   String get phoneLabel => 'ಮೊಬೈಲ್ ನಂಬರ್';
@@ -76,6 +76,19 @@ class AppLocalizationsKn extends AppLocalizations {
 
   @override
   String get phoneInvalid => '10 ಅಂಕಿಯ ನಂಬರ್ ಹಾಕಿ';
+
+  @override
+  String get emailLabel => 'ಇಮೇಲ್ ವಿಳಾಸ';
+
+  @override
+  String get emailHint => 'name@example.com';
+
+  @override
+  String get emailInvalid => 'ಸರಿಯಾದ ಇಮೇಲ್ ವಿಳಾಸ ಹಾಕಿ';
+
+  @override
+  String get checkYourEmail =>
+      'ನಿಮ್ಮ ಇಮೇಲ್ ನೋಡಿ. ಕೋಡ್ ಬರಲು ಒಂದು ನಿಮಿಷ ಆಗಬಹುದು.';
 
   @override
   String get sendOtp => 'ಕೋಡ್ ಕಳುಹಿಸಿ';

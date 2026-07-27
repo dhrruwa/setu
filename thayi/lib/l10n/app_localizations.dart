@@ -209,13 +209,13 @@ abstract class AppLocalizations {
   /// No description provided for @loginTitle.
   ///
   /// In en, this message translates to:
-  /// **'Enter your phone number'**
+  /// **'Enter your email address'**
   String get loginTitle;
 
   /// No description provided for @loginSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'We will send you a 6 digit code'**
+  /// **'We will email you a 6 digit code'**
   String get loginSubtitle;
 
   /// No description provided for @phoneLabel.
@@ -235,6 +235,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please enter a 10 digit number'**
   String get phoneInvalid;
+
+  /// No description provided for @emailLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Email address'**
+  String get emailLabel;
+
+  /// No description provided for @emailHint.
+  ///
+  /// In en, this message translates to:
+  /// **'name@example.com'**
+  String get emailHint;
+
+  /// No description provided for @emailInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a correct email address'**
+  String get emailInvalid;
+
+  /// No description provided for @checkYourEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Check your email. The code can take a minute to arrive.'**
+  String get checkYourEmail;
 
   /// No description provided for @sendOtp.
   ///

@@ -52,10 +52,10 @@ final localeControllerProvider =
 
 @immutable
 class AuthState {
-  const AuthState({this.token, this.phone, this.consentAt});
+  const AuthState({this.token, this.email, this.consentAt});
 
   final String? token;
-  final String? phone;
+  final String? email;
   final DateTime? consentAt;
 
   bool get isSignedIn => token != null;
@@ -65,7 +65,7 @@ class AuthController extends StateNotifier<AuthState> {
   AuthController(this._prefs, this._client) : super(_read(_prefs));
 
   static const _tokenKey = 'auth_token';
-  static const _phoneKey = 'auth_phone';
+  static const _emailKey = 'auth_email';
   static const _consentKey = 'consent_at';
   final SharedPreferences _prefs;
 
@@ -79,41 +79,44 @@ class AuthController extends StateNotifier<AuthState> {
     final consent = prefs.getString(_consentKey);
     return AuthState(
       token: prefs.getString(_tokenKey),
-      phone: prefs.getString(_phoneKey),
+      email: prefs.getString(_emailKey),
       consentAt: consent == null ? null : DateTime.tryParse(consent),
     );
   }
 
-  /// Ten local digits in, E.164 out. Supabase will not accept anything else.
-  static String toE164(String tenDigits) => '+91$tenDigits';
+  /// Set when the project cannot send a code (provider disabled, SMTP
+  /// rejected). She must not be dead-ended at the login screen because of a
+  /// backend setting, so the app falls back to the local flow.
+  bool _otpUnavailable = false;
 
-  /// Set when the project has no SMS provider configured. She must not be
-  /// dead-ended at the login screen because of a backend setting, so the app
-  /// falls back to the local flow and carries on with mock data.
-  bool _smsUnavailable = false;
+  bool get otpUnavailable => _otpUnavailable;
 
-  bool get smsUnavailable => _smsUnavailable;
+  static bool _isProviderDisabled(sb.AuthException error) {
+    final code = error.code ?? '';
+    final message = error.message.toLowerCase();
+    return code == 'email_provider_disabled' ||
+        code == 'phone_provider_disabled' ||
+        message.contains('provider disabled') ||
+        message.contains('unsupported');
+  }
 
-  static bool _isPhoneProviderDisabled(sb.AuthException error) =>
-      error.code == 'phone_provider_disabled' ||
-      error.message.toLowerCase().contains('phone provider');
-
-  /// Sends the SMS code. A no-op in mock mode, where any code is accepted.
-  Future<void> sendOtp(String tenDigitPhone) async {
+  /// Emails her a six digit code. The SMTP credentials live in Supabase's
+  /// server-side config and never touch this app.
+  Future<void> sendOtp(String email) async {
     final client = _client;
     if (client == null) {
-      _smsUnavailable = true;
+      _otpUnavailable = true;
       return;
     }
     try {
-      await client.auth.signInWithOtp(phone: toE164(tenDigitPhone));
-      _smsUnavailable = false;
+      await client.auth.signInWithOtp(email: email.trim());
+      _otpUnavailable = false;
     } on sb.AuthException catch (error) {
-      if (_isPhoneProviderDisabled(error)) {
-        _smsUnavailable = true;
+      if (_isProviderDisabled(error)) {
+        _otpUnavailable = true;
         debugPrint(
-          'Supabase phone auth is not configured; using the local sign-in '
-          'flow and mock data. Enable an SMS provider to go live.',
+          'Supabase email auth is not configured; using the local sign-in '
+          'flow and mock data.',
         );
         return;
       }
@@ -124,18 +127,18 @@ class AuthController extends StateNotifier<AuthState> {
   /// Verifies the code and opens a real Supabase session, which is what Row
   /// Level Security scopes her record to. In mock mode any 6 digits pass.
   Future<void> verifyOtp({
-    required String tenDigitPhone,
+    required String email,
     required String code,
   }) async {
     final client = _client;
-    if (client == null || _smsUnavailable) {
-      await _signInMock(phone: tenDigitPhone);
+    if (client == null || _otpUnavailable) {
+      await _signInMock(email: email);
       return;
     }
 
     final response = await client.auth.verifyOTP(
-      type: sb.OtpType.sms,
-      phone: toE164(tenDigitPhone),
+      type: sb.OtpType.email,
+      email: email.trim(),
       token: code,
     );
     final session = response.session;
@@ -144,26 +147,26 @@ class AuthController extends StateNotifier<AuthState> {
     }
 
     await _prefs.setString(_tokenKey, session.accessToken);
-    await _prefs.setString(_phoneKey, tenDigitPhone);
+    await _prefs.setString(_emailKey, email.trim());
     state = AuthState(
       token: session.accessToken,
-      phone: tenDigitPhone,
+      email: email.trim(),
       consentAt: state.consentAt,
     );
   }
 
-  Future<void> _signInMock({required String phone}) async {
+  Future<void> _signInMock({required String email}) async {
     final now = DateTime.now();
     final token = 'mock-${now.millisecondsSinceEpoch}';
     await _prefs.setString(_tokenKey, token);
-    await _prefs.setString(_phoneKey, phone);
-    state = AuthState(token: token, phone: phone, consentAt: state.consentAt);
+    await _prefs.setString(_emailKey, email);
+    state = AuthState(token: token, email: email, consentAt: state.consentAt);
   }
 
   Future<void> recordConsent() async {
     final now = DateTime.now();
     await _prefs.setString(_consentKey, now.toIso8601String());
-    state = AuthState(token: state.token, phone: state.phone, consentAt: now);
+    state = AuthState(token: state.token, email: state.email, consentAt: now);
   }
 
   /// She was promised at login that she could take this back. Clears the
@@ -172,14 +175,14 @@ class AuthController extends StateNotifier<AuthState> {
     await _prefs.remove(_consentKey);
     await _client?.auth.signOut();
     await _prefs.remove(_tokenKey);
-    await _prefs.remove(_phoneKey);
+    await _prefs.remove(_emailKey);
     state = const AuthState();
   }
 
   Future<void> signOut() async {
     await _client?.auth.signOut();
     await _prefs.remove(_tokenKey);
-    await _prefs.remove(_phoneKey);
+    await _prefs.remove(_emailKey);
     state = AuthState(consentAt: state.consentAt);
   }
 }

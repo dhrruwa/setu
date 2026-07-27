@@ -63,10 +63,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get logout => 'Sign out';
 
   @override
-  String get loginTitle => 'Enter your phone number';
+  String get loginTitle => 'Enter your email address';
 
   @override
-  String get loginSubtitle => 'We will send you a 6 digit code';
+  String get loginSubtitle => 'We will email you a 6 digit code';
 
   @override
   String get phoneLabel => 'Mobile number';
@@ -76,6 +76,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get phoneInvalid => 'Please enter a 10 digit number';
+
+  @override
+  String get emailLabel => 'Email address';
+
+  @override
+  String get emailHint => 'name@example.com';
+
+  @override
+  String get emailInvalid => 'Please enter a correct email address';
+
+  @override
+  String get checkYourEmail =>
+      'Check your email. The code can take a minute to arrive.';
 
   @override
   String get sendOtp => 'Send code';

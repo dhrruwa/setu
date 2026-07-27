@@ -41,10 +41,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     super.dispose();
   }
 
+  static final _emailPattern = RegExp(r'^[\w.+-]+@[\w-]+\.[\w.-]+$');
+
   Future<void> _submitPhone(AppLocalizations l) async {
-    final digits = _phone.text.replaceAll(RegExp(r'\D'), '');
-    if (digits.length != 10 || !RegExp(r'^[6-9]').hasMatch(digits)) {
-      setState(() => _error = l.phoneInvalid);
+    final email = _phone.text.trim();
+    if (!_emailPattern.hasMatch(email)) {
+      setState(() => _error = l.emailInvalid);
       return;
     }
 
@@ -54,7 +56,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     });
 
     try {
-      await ref.read(authControllerProvider.notifier).sendOtp(digits);
+      await ref.read(authControllerProvider.notifier).sendOtp(email);
     } catch (error) {
       if (!mounted) return;
       setState(() {
@@ -84,10 +86,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       _busy = true;
     });
 
-    final digits = _phone.text.replaceAll(RegExp(r'\D'), '');
     try {
       await ref.read(authControllerProvider.notifier).verifyOtp(
-            tenDigitPhone: digits,
+            email: _phone.text.trim(),
             code: _otp.text,
           );
     } catch (error) {
@@ -217,17 +218,18 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           const SizedBox(height: S.lg),
           TextField(
             controller: _phone,
-            keyboardType: TextInputType.phone,
-            style: T.body.copyWith(fontSize: 22, letterSpacing: 1.5),
-            maxLength: 10,
-            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            keyboardType: TextInputType.emailAddress,
+            autocorrect: false,
+            autofillHints: const [AutofillHints.email],
+            textCapitalization: TextCapitalization.none,
+            style: T.body.copyWith(fontSize: 20),
             decoration: InputDecoration(
-              labelText: l.phoneLabel,
-              hintText: l.phoneHint,
+              labelText: l.emailLabel,
+              hintText: l.emailHint,
               counterText: '',
               prefixIcon: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: S.md),
-                child: Text('+91', style: TextStyle(fontSize: 20)),
+                padding: EdgeInsets.only(left: S.md, right: S.sm),
+                child: Icon(Icons.mail_outline, size: 26, color: C.textSoft),
               ),
               prefixIconConstraints: const BoxConstraints(minWidth: 0),
             ),
@@ -252,7 +254,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         children: [
           Text(l.otpTitle, style: T.h2),
           const SizedBox(height: S.xs),
-          Text(l.otpSentTo('+91 ${_phone.text}'), style: T.bodySoft),
+          Text(l.otpSentTo(_phone.text.trim()), style: T.bodySoft),
           const SizedBox(height: S.lg),
           _OtpBoxes(controller: _otp, focusNode: _otpFocus),
           const SizedBox(height: S.lg),

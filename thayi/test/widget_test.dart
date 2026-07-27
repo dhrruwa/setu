@@ -41,7 +41,7 @@ void main() {
     await tester.pump(const Duration(milliseconds: 1600));
     await tester.pump();
 
-    expect(find.text('ನಿಮ್ಮ ಫೋನ್ ನಂಬರ್ ಹಾಕಿ'), findsOneWidget);
+    expect(find.text('ನಿಮ್ಮ ಇಮೇಲ್ ವಿಳಾಸ ಹಾಕಿ'), findsOneWidget);
     // The language toggle has to work before login.
     expect(find.text('English'), findsOneWidget);
   });
