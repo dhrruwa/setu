@@ -138,7 +138,8 @@ class Referrals extends Table {
 /// Every local write also lands here. The sync worker drains it when online.
 class Outbox extends Table {
   TextColumn get id => text()();
-  TextColumn get tableName => text()();
+  // Named explicitly: `tableName` is taken by Drift's own Table.tableName.
+  TextColumn get entityTable => text().named('table_name')();
   TextColumn get recordId => text()();
 
   /// insert | update
@@ -268,7 +269,7 @@ class AppDatabase extends _$AppDatabase {
   /// The only way anything gets written. Local row and outbox entry go in one
   /// transaction, so a queued change can never be lost or half-written.
   Future<void> enqueue({
-    required String tableName,
+    required String entityTable,
     required String recordId,
     required String operation,
     required Map<String, dynamic> payload,
@@ -276,7 +277,7 @@ class AppDatabase extends _$AppDatabase {
     return into(outbox).insert(
       OutboxCompanion.insert(
         id: 'ob-$recordId-${DateTime.now().microsecondsSinceEpoch}',
-        tableName: tableName,
+        entityTable: entityTable,
         recordId: recordId,
         operation: operation,
         payload: jsonEncode(payload),
