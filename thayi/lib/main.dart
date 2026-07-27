@@ -4,7 +4,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'config/env.dart';
 import 'l10n/app_localizations.dart';
 import 'providers.dart';
 import 'routes.dart';
@@ -17,6 +19,7 @@ import 'screens/emergency_screen.dart';
 import 'screens/health_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/login_screen.dart';
+import 'screens/profile_screen.dart';
 import 'screens/schemes_screen.dart';
 import 'screens/splash_screen.dart';
 import 'screens/thayi_card_screen.dart';
@@ -27,6 +30,21 @@ Future<void> main() async {
   await initializeDateFormatting();
   final prefs = await SharedPreferences.getInstance();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+  // Only the publishable key ever reaches the device; RLS does the guarding.
+  // If this fails (no signal on a field phone, project down), the app still
+  // starts and falls back to the mock repository rather than showing nothing.
+  if (Env.useSupabase && Env.isSupabaseConfigured) {
+    try {
+      await Supabase.initialize(
+        url: Env.supabaseUrl,
+        publishableKey: Env.supabaseAnonKey,
+      );
+    } catch (error, stack) {
+      debugPrint('Supabase init failed, continuing on mock data: $error');
+      debugPrintStack(stackTrace: stack);
+    }
+  }
 
   runApp(
     ProviderScope(
@@ -60,6 +78,7 @@ class SetuThayiApp extends ConsumerWidget {
         Routes.splash: (_) => const SplashScreen(),
         Routes.login: (_) => const LoginScreen(),
         Routes.home: (_) => const HomeScreen(),
+        Routes.profile: (_) => const ProfileScreen(),
         Routes.thayiCard: (_) => const ThayiCardScreen(),
         Routes.checkups: (_) => const CheckupsScreen(),
         Routes.health: (_) => const HealthScreen(),

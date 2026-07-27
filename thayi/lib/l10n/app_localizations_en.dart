@@ -101,6 +101,28 @@ class AppLocalizationsEn extends AppLocalizations {
   String get resendOtp => 'Send the code again';
 
   @override
+  String get otpSending => 'Sending the code…';
+
+  @override
+  String get otpVerifying => 'Checking…';
+
+  @override
+  String get otpSendFailed =>
+      'The code could not be sent. Please check your number and try again.';
+
+  @override
+  String get otpWrongCode =>
+      'That code is not right. Please check the SMS and try again.';
+
+  @override
+  String get noNetwork =>
+      'No internet. Please check your connection and try again.';
+
+  @override
+  String get recordNotLinked =>
+      'Your Thayi Card record is not linked to this number yet. Please ask your ASHA worker.';
+
+  @override
   String get consentTitle => 'About your information';
 
   @override
@@ -189,6 +211,77 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get navSchemes => 'My Schemes';
+
+  @override
+  String get navProfile => 'My Details';
+
+  @override
+  String get profileTitle => 'My Details';
+
+  @override
+  String get photoSectionLabel => 'PHOTO';
+
+  @override
+  String get addPhoto => 'Add a photo';
+
+  @override
+  String get changePhoto => 'Change photo';
+
+  @override
+  String get removePhoto => 'Remove photo';
+
+  @override
+  String get takePhoto => 'Take a photo';
+
+  @override
+  String get chooseFromGallery => 'Choose from phone';
+
+  @override
+  String get photoPrivacyNote =>
+      'This photo stays on your phone. It is not sent anywhere.';
+
+  @override
+  String get photoFailed => 'The photo could not be saved. Please try again.';
+
+  @override
+  String get photoRemoved => 'Photo removed';
+
+  @override
+  String get yourDetailsSection => 'YOUR DETAILS';
+
+  @override
+  String get detailsWrittenByAsha =>
+      'These details are written by your ASHA worker. You cannot change them here.';
+
+  @override
+  String get reportMistake => 'Something here is wrong';
+
+  @override
+  String get consentSection => 'YOUR PERMISSION';
+
+  @override
+  String consentGivenOn(String date) {
+    return 'You agreed on $date';
+  }
+
+  @override
+  String get consentNotRecorded => 'No agreement recorded';
+
+  @override
+  String get withdrawConsent => 'Take back my permission';
+
+  @override
+  String get withdrawConsentTitle => 'Take back your permission?';
+
+  @override
+  String get withdrawConsentBody =>
+      'You will be signed out and this phone will stop showing your record. Your ASHA worker and health centre still keep your paper record. You can agree again any time.';
+
+  @override
+  String get withdrawConsentConfirm => 'Yes, take it back';
+
+  @override
+  String get settingsSection => 'SETTINGS';
 
   @override
   String get navDangerSigns => 'Danger Signs';

@@ -9,11 +9,11 @@ import '../routes.dart';
 import '../theme/tokens.dart';
 import '../widgets/big_action_button.dart';
 import '../widgets/empty_state.dart';
-import '../widgets/language_toggle.dart';
 import '../widgets/risk_chip.dart';
 import '../widgets/setu_card.dart';
 import '../widgets/setu_scaffold.dart';
 import '../widgets/stat_card.dart';
+import 'profile_screen.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -128,6 +128,12 @@ class HomeScreen extends ConsumerWidget {
           const SizedBox(height: S.lg),
           SectionHeader(l.moreLabel),
           _RowLink(
+            label: l.navProfile,
+            icon: Icons.badge_outlined,
+            onTap: () => Navigator.pushNamed(context, Routes.profile),
+          ),
+          const SizedBox(height: S.sm),
+          _RowLink(
             label: l.navDangerSigns,
             icon: Icons.warning_amber_rounded,
             accent: C.red,
@@ -176,57 +182,11 @@ class _Header extends ConsumerWidget {
             ],
           ),
         ),
-        IconButton(
-          iconSize: 30,
-          tooltip: l.settingsTitle,
-          onPressed: () => _openSettings(context, ref),
-          icon: const Icon(Icons.settings_outlined),
-        ),
+        const ProfileAvatarButton(),
       ],
     );
   }
 
-  void _openSettings(BuildContext context, WidgetRef ref) {
-    final l = AppLocalizations.of(context);
-    showModalBottomSheet<void>(
-      context: context,
-      backgroundColor: C.bg,
-      showDragHandle: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(S.lg)),
-      ),
-      builder: (sheetContext) => SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(S.screen, 0, S.screen, S.lg),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(l.settingsTitle, style: T.h2),
-              const SizedBox(height: S.lg),
-              Text(l.languageLabel, style: T.label),
-              const SizedBox(height: S.sm),
-              const LanguageToggle(),
-              const SizedBox(height: S.lg),
-              BigActionButton(
-                label: l.logout,
-                icon: Icons.logout,
-                outlined: true,
-                background: C.terra,
-                onPressed: () async {
-                  await ref.read(authControllerProvider.notifier).signOut();
-                  if (!sheetContext.mounted) return;
-                  Navigator.of(sheetContext).pop();
-                  Navigator.of(context)
-                      .pushNamedAndRemoveUntil(Routes.login, (_) => false);
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 }
 
 class _WeeksCard extends StatelessWidget {

@@ -4,6 +4,7 @@ class Routes {
   static const splash = '/';
   static const login = '/login';
   static const home = '/home';
+  static const profile = '/profile';
   static const thayiCard = '/thayi-card';
   static const checkups = '/checkups';
   static const health = '/health';

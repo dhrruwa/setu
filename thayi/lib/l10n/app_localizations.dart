@@ -278,6 +278,42 @@ abstract class AppLocalizations {
   /// **'Send the code again'**
   String get resendOtp;
 
+  /// No description provided for @otpSending.
+  ///
+  /// In en, this message translates to:
+  /// **'Sending the code…'**
+  String get otpSending;
+
+  /// No description provided for @otpVerifying.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking…'**
+  String get otpVerifying;
+
+  /// No description provided for @otpSendFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The code could not be sent. Please check your number and try again.'**
+  String get otpSendFailed;
+
+  /// No description provided for @otpWrongCode.
+  ///
+  /// In en, this message translates to:
+  /// **'That code is not right. Please check the SMS and try again.'**
+  String get otpWrongCode;
+
+  /// No description provided for @noNetwork.
+  ///
+  /// In en, this message translates to:
+  /// **'No internet. Please check your connection and try again.'**
+  String get noNetwork;
+
+  /// No description provided for @recordNotLinked.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Thayi Card record is not linked to this number yet. Please ask your ASHA worker.'**
+  String get recordNotLinked;
+
   /// No description provided for @consentTitle.
   ///
   /// In en, this message translates to:
@@ -433,6 +469,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'My Schemes'**
   String get navSchemes;
+
+  /// No description provided for @navProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'My Details'**
+  String get navProfile;
+
+  /// No description provided for @profileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'My Details'**
+  String get profileTitle;
+
+  /// No description provided for @photoSectionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'PHOTO'**
+  String get photoSectionLabel;
+
+  /// No description provided for @addPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a photo'**
+  String get addPhoto;
+
+  /// No description provided for @changePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Change photo'**
+  String get changePhoto;
+
+  /// No description provided for @removePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove photo'**
+  String get removePhoto;
+
+  /// No description provided for @takePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Take a photo'**
+  String get takePhoto;
+
+  /// No description provided for @chooseFromGallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose from phone'**
+  String get chooseFromGallery;
+
+  /// No description provided for @photoPrivacyNote.
+  ///
+  /// In en, this message translates to:
+  /// **'This photo stays on your phone. It is not sent anywhere.'**
+  String get photoPrivacyNote;
+
+  /// No description provided for @photoFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The photo could not be saved. Please try again.'**
+  String get photoFailed;
+
+  /// No description provided for @photoRemoved.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo removed'**
+  String get photoRemoved;
+
+  /// No description provided for @yourDetailsSection.
+  ///
+  /// In en, this message translates to:
+  /// **'YOUR DETAILS'**
+  String get yourDetailsSection;
+
+  /// No description provided for @detailsWrittenByAsha.
+  ///
+  /// In en, this message translates to:
+  /// **'These details are written by your ASHA worker. You cannot change them here.'**
+  String get detailsWrittenByAsha;
+
+  /// No description provided for @reportMistake.
+  ///
+  /// In en, this message translates to:
+  /// **'Something here is wrong'**
+  String get reportMistake;
+
+  /// No description provided for @consentSection.
+  ///
+  /// In en, this message translates to:
+  /// **'YOUR PERMISSION'**
+  String get consentSection;
+
+  /// No description provided for @consentGivenOn.
+  ///
+  /// In en, this message translates to:
+  /// **'You agreed on {date}'**
+  String consentGivenOn(String date);
+
+  /// No description provided for @consentNotRecorded.
+  ///
+  /// In en, this message translates to:
+  /// **'No agreement recorded'**
+  String get consentNotRecorded;
+
+  /// No description provided for @withdrawConsent.
+  ///
+  /// In en, this message translates to:
+  /// **'Take back my permission'**
+  String get withdrawConsent;
+
+  /// No description provided for @withdrawConsentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Take back your permission?'**
+  String get withdrawConsentTitle;
+
+  /// No description provided for @withdrawConsentBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You will be signed out and this phone will stop showing your record. Your ASHA worker and health centre still keep your paper record. You can agree again any time.'**
+  String get withdrawConsentBody;
+
+  /// No description provided for @withdrawConsentConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes, take it back'**
+  String get withdrawConsentConfirm;
+
+  /// No description provided for @settingsSection.
+  ///
+  /// In en, this message translates to:
+  /// **'SETTINGS'**
+  String get settingsSection;
 
   /// No description provided for @navDangerSigns.
   ///

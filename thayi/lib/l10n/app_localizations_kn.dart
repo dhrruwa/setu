@@ -101,6 +101,26 @@ class AppLocalizationsKn extends AppLocalizations {
   String get resendOtp => 'ಕೋಡ್ ಮತ್ತೆ ಕಳುಹಿಸಿ';
 
   @override
+  String get otpSending => 'ಕೋಡ್ ಕಳುಹಿಸುತ್ತಿದ್ದೇವೆ…';
+
+  @override
+  String get otpVerifying => 'ಪರಿಶೀಲಿಸುತ್ತಿದ್ದೇವೆ…';
+
+  @override
+  String get otpSendFailed =>
+      'ಕೋಡ್ ಕಳುಹಿಸಲು ಆಗಲಿಲ್ಲ. ನಂಬರ್ ಸರಿ ಇದೆಯೇ ನೋಡಿ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.';
+
+  @override
+  String get otpWrongCode => 'ಈ ಕೋಡ್ ಸರಿಯಿಲ್ಲ. ಎಸ್‌ಎಂಎಸ್ ನೋಡಿ ಮತ್ತೆ ಹಾಕಿ.';
+
+  @override
+  String get noNetwork => 'ಇಂಟರ್ನೆಟ್ ಇಲ್ಲ. ಸಂಪರ್ಕ ನೋಡಿ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.';
+
+  @override
+  String get recordNotLinked =>
+      'ಈ ನಂಬರ್‌ಗೆ ನಿಮ್ಮ ತಾಯಿ ಕಾರ್ಡ್ ದಾಖಲೆ ಇನ್ನೂ ಜೋಡಿಸಿಲ್ಲ. ನಿಮ್ಮ ಆಶಾ ಕಾರ್ಯಕರ್ತೆಯನ್ನು ಕೇಳಿ.';
+
+  @override
   String get consentTitle => 'ನಿಮ್ಮ ಮಾಹಿತಿಯ ಬಗ್ಗೆ';
 
   @override
@@ -189,6 +209,77 @@ class AppLocalizationsKn extends AppLocalizations {
 
   @override
   String get navSchemes => 'ನನ್ನ ಯೋಜನೆಗಳು';
+
+  @override
+  String get navProfile => 'ನನ್ನ ವಿವರ';
+
+  @override
+  String get profileTitle => 'ನನ್ನ ವಿವರ';
+
+  @override
+  String get photoSectionLabel => 'ಫೋಟೋ';
+
+  @override
+  String get addPhoto => 'ಫೋಟೋ ಸೇರಿಸಿ';
+
+  @override
+  String get changePhoto => 'ಫೋಟೋ ಬದಲಿಸಿ';
+
+  @override
+  String get removePhoto => 'ಫೋಟೋ ತೆಗೆದುಹಾಕಿ';
+
+  @override
+  String get takePhoto => 'ಕ್ಯಾಮೆರಾದಲ್ಲಿ ತೆಗೆಯಿರಿ';
+
+  @override
+  String get chooseFromGallery => 'ಫೋನಿನಿಂದ ಆರಿಸಿ';
+
+  @override
+  String get photoPrivacyNote =>
+      'ಈ ಫೋಟೋ ನಿಮ್ಮ ಫೋನಿನಲ್ಲೇ ಇರುತ್ತದೆ. ಎಲ್ಲಿಗೂ ಕಳುಹಿಸುವುದಿಲ್ಲ.';
+
+  @override
+  String get photoFailed => 'ಫೋಟೋ ಉಳಿಸಲು ಆಗಲಿಲ್ಲ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.';
+
+  @override
+  String get photoRemoved => 'ಫೋಟೋ ತೆಗೆದುಹಾಕಲಾಗಿದೆ';
+
+  @override
+  String get yourDetailsSection => 'ನಿಮ್ಮ ವಿವರ';
+
+  @override
+  String get detailsWrittenByAsha =>
+      'ಈ ವಿವರವನ್ನು ನಿಮ್ಮ ಆಶಾ ಕಾರ್ಯಕರ್ತೆ ಬರೆದಿದ್ದಾರೆ. ಇಲ್ಲಿ ನೀವು ಬದಲಿಸಲು ಆಗುವುದಿಲ್ಲ.';
+
+  @override
+  String get reportMistake => 'ಇದರಲ್ಲಿ ಏನೋ ತಪ್ಪಿದೆ';
+
+  @override
+  String get consentSection => 'ನಿಮ್ಮ ಒಪ್ಪಿಗೆ';
+
+  @override
+  String consentGivenOn(String date) {
+    return '$date ರಂದು ನೀವು ಒಪ್ಪಿಗೆ ಕೊಟ್ಟಿದ್ದೀರಿ';
+  }
+
+  @override
+  String get consentNotRecorded => 'ಒಪ್ಪಿಗೆ ದಾಖಲಾಗಿಲ್ಲ';
+
+  @override
+  String get withdrawConsent => 'ನನ್ನ ಒಪ್ಪಿಗೆ ಹಿಂಪಡೆಯಿರಿ';
+
+  @override
+  String get withdrawConsentTitle => 'ಒಪ್ಪಿಗೆ ಹಿಂಪಡೆಯಬೇಕೇ?';
+
+  @override
+  String get withdrawConsentBody =>
+      'ನೀವು ಹೊರಗೆ ಬರುತ್ತೀರಿ ಮತ್ತು ಈ ಫೋನಿನಲ್ಲಿ ನಿಮ್ಮ ದಾಖಲೆ ಕಾಣಿಸುವುದಿಲ್ಲ. ನಿಮ್ಮ ಆಶಾ ಕಾರ್ಯಕರ್ತೆ ಮತ್ತು ಆರೋಗ್ಯ ಕೇಂದ್ರದಲ್ಲಿ ನಿಮ್ಮ ಕಾಗದದ ದಾಖಲೆ ಇದ್ದೇ ಇರುತ್ತದೆ. ಯಾವಾಗ ಬೇಕಾದರೂ ಮತ್ತೆ ಒಪ್ಪಿಗೆ ಕೊಡಬಹುದು.';
+
+  @override
+  String get withdrawConsentConfirm => 'ಹೌದು, ಹಿಂಪಡೆಯಿರಿ';
+
+  @override
+  String get settingsSection => 'ಸೆಟ್ಟಿಂಗ್ಸ್';
 
   @override
   String get navDangerSigns => 'ಅಪಾಯದ ಲಕ್ಷಣ';

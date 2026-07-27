@@ -37,6 +37,10 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Setu uses the camera only when you choose to take a photo for your own profile. The photo stays on your phone.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Setu opens your photos only when you choose one for your own profile. Nothing else is read.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Setu uses the microphone only while you are asking a question by voice, so you do not have to type. Nothing is recorded or stored.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>

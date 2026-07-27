@@ -1,6 +1,9 @@
+import 'dart:io' show SocketException;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:supabase_flutter/supabase_flutter.dart' show AuthException;
 
 import '../l10n/app_localizations.dart';
 import '../providers.dart';
@@ -38,30 +41,90 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     super.dispose();
   }
 
-  void _submitPhone(AppLocalizations l) {
+  Future<void> _submitPhone(AppLocalizations l) async {
     final digits = _phone.text.replaceAll(RegExp(r'\D'), '');
     if (digits.length != 10 || !RegExp(r'^[6-9]').hasMatch(digits)) {
       setState(() => _error = l.phoneInvalid);
       return;
     }
+
     setState(() {
       _error = null;
+      _busy = true;
+    });
+
+    try {
+      await ref.read(authControllerProvider.notifier).sendOtp(digits);
+    } catch (error) {
+      if (!mounted) return;
+      setState(() {
+        _busy = false;
+        _error = _messageFor(error, l, fallback: l.otpSendFailed);
+      });
+      return;
+    }
+
+    if (!mounted) return;
+    setState(() {
+      _busy = false;
       _step = _Step.otp;
     });
     WidgetsBinding.instance
         .addPostFrameCallback((_) => _otpFocus.requestFocus());
   }
 
-  void _submitOtp(AppLocalizations l) {
-    // Mock mode: any 6 digits are accepted.
+  Future<void> _submitOtp(AppLocalizations l) async {
     if (_otp.text.length != 6) {
       setState(() => _error = l.otpInvalid);
       return;
     }
+
     setState(() {
       _error = null;
+      _busy = true;
+    });
+
+    final digits = _phone.text.replaceAll(RegExp(r'\D'), '');
+    try {
+      await ref.read(authControllerProvider.notifier).verifyOtp(
+            tenDigitPhone: digits,
+            code: _otp.text,
+          );
+    } catch (error) {
+      if (!mounted) return;
+      setState(() {
+        _busy = false;
+        _error = _messageFor(error, l, fallback: l.otpWrongCode);
+      });
+      return;
+    }
+
+    if (!mounted) return;
+    setState(() {
+      _busy = false;
       _step = _Step.consent;
     });
+  }
+
+  /// Never show her a raw exception. Everything becomes one plain sentence.
+  String _messageFor(Object error, AppLocalizations l,
+      {required String fallback}) {
+    final text = error.toString().toLowerCase();
+    if (error is SocketException ||
+        text.contains('socketexception') ||
+        text.contains('failed host lookup') ||
+        text.contains('connection closed')) {
+      return l.noNetwork;
+    }
+    if (error is AuthException) {
+      final message = error.message.toLowerCase();
+      if (message.contains('expired') ||
+          message.contains('invalid') ||
+          message.contains('token')) {
+        return l.otpWrongCode;
+      }
+    }
+    return fallback;
   }
 
   Future<void> _accept(AppLocalizations l) async {
@@ -73,10 +136,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       _busy = true;
       _error = null;
     });
-    final digits = _phone.text.replaceAll(RegExp(r'\D'), '');
-    final auth = ref.read(authControllerProvider.notifier);
-    await auth.signIn(phone: digits);
-    await auth.recordConsent();
+    await ref.read(authControllerProvider.notifier).recordConsent();
     if (!mounted) return;
     Navigator.of(context).pushNamedAndRemoveUntil(Routes.home, (_) => false);
   }
@@ -175,9 +235,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           ),
           const SizedBox(height: S.md),
           BigActionButton(
-            label: l.sendOtp,
+            label: _busy ? l.otpSending : l.sendOtp,
             icon: Icons.sms_outlined,
-            onPressed: () => _submitPhone(l),
+            onPressed: _busy ? null : () => _submitPhone(l),
           ),
         ],
       ),
@@ -197,9 +257,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           _OtpBoxes(controller: _otp, focusNode: _otpFocus),
           const SizedBox(height: S.lg),
           BigActionButton(
-            label: l.verify,
+            label: _busy ? l.otpVerifying : l.verify,
             icon: Icons.check_circle_outline,
-            onPressed: () => _submitOtp(l),
+            onPressed: _busy ? null : () => _submitOtp(l),
           ),
           const SizedBox(height: S.sm),
           TextButton.icon(

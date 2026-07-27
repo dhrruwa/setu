@@ -1,10 +1,17 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+// Supabase exports an AuthState of its own; this file already has one.
+import 'package:supabase_flutter/supabase_flutter.dart' as sb;
 
+import 'config/env.dart';
 import 'data/chat_service.dart';
 import 'data/models.dart';
 import 'data/mother_repository.dart';
+import 'data/profile_photo_service.dart';
+import 'data/supabase_mother_repository.dart';
 import 'safety/danger_sign_detector.dart';
 
 /// Overridden in main() once SharedPreferences has loaded.
@@ -55,12 +62,18 @@ class AuthState {
 }
 
 class AuthController extends StateNotifier<AuthState> {
-  AuthController(this._prefs) : super(_read(_prefs));
+  AuthController(this._prefs, this._client) : super(_read(_prefs));
 
   static const _tokenKey = 'auth_token';
   static const _phoneKey = 'auth_phone';
   static const _consentKey = 'consent_at';
   final SharedPreferences _prefs;
+
+  /// Null when Supabase is unavailable — the app then runs the mock flow so a
+  /// demo with no signal still works.
+  final sb.SupabaseClient? _client;
+
+  bool get usesSupabase => _client != null;
 
   static AuthState _read(SharedPreferences prefs) {
     final consent = prefs.getString(_consentKey);
@@ -71,9 +84,75 @@ class AuthController extends StateNotifier<AuthState> {
     );
   }
 
-  /// Mock sign-in: any 6 digit code is accepted. The token is a placeholder
-  /// until a real auth provider is added.
-  Future<void> signIn({required String phone}) async {
+  /// Ten local digits in, E.164 out. Supabase will not accept anything else.
+  static String toE164(String tenDigits) => '+91$tenDigits';
+
+  /// Set when the project has no SMS provider configured. She must not be
+  /// dead-ended at the login screen because of a backend setting, so the app
+  /// falls back to the local flow and carries on with mock data.
+  bool _smsUnavailable = false;
+
+  bool get smsUnavailable => _smsUnavailable;
+
+  static bool _isPhoneProviderDisabled(sb.AuthException error) =>
+      error.code == 'phone_provider_disabled' ||
+      error.message.toLowerCase().contains('phone provider');
+
+  /// Sends the SMS code. A no-op in mock mode, where any code is accepted.
+  Future<void> sendOtp(String tenDigitPhone) async {
+    final client = _client;
+    if (client == null) {
+      _smsUnavailable = true;
+      return;
+    }
+    try {
+      await client.auth.signInWithOtp(phone: toE164(tenDigitPhone));
+      _smsUnavailable = false;
+    } on sb.AuthException catch (error) {
+      if (_isPhoneProviderDisabled(error)) {
+        _smsUnavailable = true;
+        debugPrint(
+          'Supabase phone auth is not configured; using the local sign-in '
+          'flow and mock data. Enable an SMS provider to go live.',
+        );
+        return;
+      }
+      rethrow;
+    }
+  }
+
+  /// Verifies the code and opens a real Supabase session, which is what Row
+  /// Level Security scopes her record to. In mock mode any 6 digits pass.
+  Future<void> verifyOtp({
+    required String tenDigitPhone,
+    required String code,
+  }) async {
+    final client = _client;
+    if (client == null || _smsUnavailable) {
+      await _signInMock(phone: tenDigitPhone);
+      return;
+    }
+
+    final response = await client.auth.verifyOTP(
+      type: sb.OtpType.sms,
+      phone: toE164(tenDigitPhone),
+      token: code,
+    );
+    final session = response.session;
+    if (session == null) {
+      throw const sb.AuthException('Verification did not return a session');
+    }
+
+    await _prefs.setString(_tokenKey, session.accessToken);
+    await _prefs.setString(_phoneKey, tenDigitPhone);
+    state = AuthState(
+      token: session.accessToken,
+      phone: tenDigitPhone,
+      consentAt: state.consentAt,
+    );
+  }
+
+  Future<void> _signInMock({required String phone}) async {
     final now = DateTime.now();
     final token = 'mock-${now.millisecondsSinceEpoch}';
     await _prefs.setString(_tokenKey, token);
@@ -87,7 +166,18 @@ class AuthController extends StateNotifier<AuthState> {
     state = AuthState(token: state.token, phone: state.phone, consentAt: now);
   }
 
+  /// She was promised at login that she could take this back. Clears the
+  /// consent record and signs her out; the paper record is unaffected.
+  Future<void> withdrawConsent() async {
+    await _prefs.remove(_consentKey);
+    await _client?.auth.signOut();
+    await _prefs.remove(_tokenKey);
+    await _prefs.remove(_phoneKey);
+    state = const AuthState();
+  }
+
   Future<void> signOut() async {
+    await _client?.auth.signOut();
     await _prefs.remove(_tokenKey);
     await _prefs.remove(_phoneKey);
     state = AuthState(consentAt: state.consentAt);
@@ -96,14 +186,46 @@ class AuthController extends StateNotifier<AuthState> {
 
 final authControllerProvider =
     StateNotifierProvider<AuthController, AuthState>(
-  (ref) => AuthController(ref.watch(prefsProvider)),
+  (ref) => AuthController(
+    ref.watch(prefsProvider),
+    ref.watch(supabaseClientProvider),
+  ),
 );
 
 // -------------------------------------------------------------------- data
 
-final motherRepositoryProvider = Provider<MotherRepository>(
-  (ref) => const MockMotherRepository(),
-);
+/// Null when Supabase is switched off, unconfigured, or failed to initialise.
+final supabaseClientProvider = Provider<sb.SupabaseClient?>((ref) {
+  if (!Env.useSupabase || !Env.isSupabaseConfigured) return null;
+  try {
+    return sb.Supabase.instance.client;
+  } catch (_) {
+    return null;
+  }
+});
+
+/// Rebuilds the repository the moment a Supabase session appears or expires.
+final supabaseSessionProvider = StreamProvider<sb.Session?>((ref) {
+  final client = ref.watch(supabaseClientProvider);
+  if (client == null) return Stream.value(null);
+  return client.auth.onAuthStateChange
+      .map((event) => event.session)
+      .distinct((a, b) => a?.accessToken == b?.accessToken);
+});
+
+/// The swap point. Supabase is used only when there is a real session — every
+/// query is scoped by RLS to that user. Anything else falls back to mock data
+/// so a demo never dies on a bad connection.
+final motherRepositoryProvider = Provider<MotherRepository>((ref) {
+  final client = ref.watch(supabaseClientProvider);
+  final session =
+      ref.watch(supabaseSessionProvider).valueOrNull ?? client?.auth.currentSession;
+
+  if (client != null && session != null) {
+    return SupabaseMotherRepository(client);
+  }
+  return const MockMotherRepository();
+});
 
 final motherProvider = FutureProvider<Mother>(
   (ref) => ref.watch(motherRepositoryProvider).getMother(),
@@ -131,6 +253,54 @@ Checkup? nextCheckup(List<Checkup> all, DateTime now) {
     ..sort((a, b) => a.date.compareTo(b.date));
   return pending.isEmpty ? null : pending.first;
 }
+
+// ----------------------------------------------------------- profile photo
+
+final profilePhotoServiceProvider = Provider<ProfilePhotoService>(
+  (ref) => ProfilePhotoService(ref.watch(prefsProvider)),
+);
+
+@immutable
+class ProfilePhoto {
+  const ProfilePhoto({this.file, this.version = 0});
+
+  final File? file;
+
+  /// The file path never changes, so Flutter's image cache would happily show
+  /// the previous photo forever. Bumping this rebuilds the Image widget.
+  final int version;
+
+  bool get exists => file != null;
+}
+
+class ProfilePhotoController extends StateNotifier<ProfilePhoto> {
+  ProfilePhotoController(this._service)
+      : super(ProfilePhoto(file: _service.currentPhoto()));
+
+  final ProfilePhotoService _service;
+
+  /// Returns false if she backed out of the picker, so the UI can stay quiet
+  /// rather than claim something happened.
+  Future<bool> pick(PhotoSource source) async {
+    final file = await _service.pick(source);
+    if (file == null) return false;
+    await FileImage(file).evict();
+    state = ProfilePhoto(file: file, version: state.version + 1);
+    return true;
+  }
+
+  Future<void> remove() async {
+    final previous = state.file;
+    await _service.remove();
+    if (previous != null) await FileImage(previous).evict();
+    state = ProfilePhoto(file: null, version: state.version + 1);
+  }
+}
+
+final profilePhotoProvider =
+    StateNotifierProvider<ProfilePhotoController, ProfilePhoto>(
+  (ref) => ProfilePhotoController(ref.watch(profilePhotoServiceProvider)),
+);
 
 // ------------------------------------------------------------------ safety
 
