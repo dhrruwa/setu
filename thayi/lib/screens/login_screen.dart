@@ -55,8 +55,19 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       _busy = true;
     });
 
+    final auth = ref.read(authControllerProvider.notifier);
     try {
-      await ref.read(authControllerProvider.notifier).sendOtp(email);
+      // Her account exists only because an ASHA registered her. An address
+      // that is not on a mother's record never gets a code.
+      if (!await auth.isRegistered(email)) {
+        if (!mounted) return;
+        setState(() {
+          _busy = false;
+          _error = l.emailNotRegistered;
+        });
+        return;
+      }
+      await auth.sendOtp(email);
     } catch (error) {
       if (!mounted) return;
       setState(() {
@@ -237,7 +248,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           ),
           const SizedBox(height: S.md),
           BigActionButton(
-            label: _busy ? l.otpSending : l.sendOtp,
+            label: _busy ? l.emailChecking : l.sendOtp,
             icon: Icons.sms_outlined,
             onPressed: _busy ? null : () => _submitPhone(l),
           ),

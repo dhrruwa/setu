@@ -1,5 +1,5 @@
 name: setu_thayi
-description: "Setu Thayi - the mother-facing app of Setu, a maternal health platform for rural Karnataka."
+description: "Thayi Setu - the mother-facing app of Setu, a maternal health platform for rural Karnataka."
 publish_to: "none"
 version: 1.0.0+1
 
@@ -23,6 +23,7 @@ dependencies:
   supabase_flutter: ^2.16.0
   image_picker: ^1.2.3
   path_provider: ^2.1.6
+  geolocator: ^14.0.3
 
 dev_dependencies:
   flutter_test:
@@ -42,3 +43,4 @@ flutter:
   assets:
     - assets/brand/
     - assets/google_fonts/
+    - assets/brand/

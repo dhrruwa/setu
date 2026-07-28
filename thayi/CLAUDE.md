@@ -1,4 +1,4 @@
-# Setu Thayi
+# Thayi Setu
 
 Flutter app for pregnant women in rural Karnataka. Android + iOS, one codebase.
 

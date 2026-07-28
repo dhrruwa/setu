@@ -26,9 +26,20 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   void _go() {
     if (!mounted) return;
     final auth = ref.read(authControllerProvider);
+    final onboarding = ref.read(onboardingProvider);
+
+    // Signed in: straight to her record. Otherwise pick up the first-open
+    // flow wherever she left it, so closing the app while waiting for her
+    // ASHA does not start her over.
     final next = auth.isSignedIn && auth.consentAt != null
         ? Routes.home
-        : Routes.login;
+        : onboarding.finished
+            ? Routes.login
+            : onboarding.calledAsha
+                ? Routes.onboardingWait
+                : onboarding.hasName
+                    ? Routes.onboardingLocation
+                    : Routes.onboardingWelcome;
     Navigator.of(context).pushReplacementNamed(next);
   }
 

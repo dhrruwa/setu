@@ -1,4 +1,4 @@
--- Setu Thayi — demo seed. Mirrors lib/data/mock_data.dart exactly, so the app
+-- Thayi Setu — demo seed. Mirrors lib/data/mock_data.dart exactly, so the app
 -- looks identical whether it is reading the mock repository or Supabase.
 -- Dates are relative to the day you run this: she is 32 weeks pregnant and has
 -- one overdue checkup.

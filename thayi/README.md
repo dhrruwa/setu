@@ -1,4 +1,4 @@
-# Setu Thayi — ಸೇತು ತಾಯಿ
+# Thayi Setu — ತಾಯಿ ಸೇತು
 
 The mother-facing app of Setu, a maternal health platform for rural Karnataka.
 A digital version of the government paper Thayi Card that pregnant women carry.

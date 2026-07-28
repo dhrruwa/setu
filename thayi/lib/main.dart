@@ -19,6 +19,11 @@ import 'screens/emergency_screen.dart';
 import 'screens/health_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/login_screen.dart';
+import 'screens/onboarding/asha_nearby_screen.dart';
+import 'screens/onboarding/location_screen.dart';
+import 'screens/onboarding/name_screen.dart';
+import 'screens/onboarding/waiting_screen.dart';
+import 'screens/onboarding/welcome_screen.dart';
 import 'screens/profile_screen.dart';
 import 'screens/schemes_screen.dart';
 import 'screens/splash_screen.dart';
@@ -77,6 +82,11 @@ class SetuThayiApp extends ConsumerWidget {
       routes: {
         Routes.splash: (_) => const SplashScreen(),
         Routes.login: (_) => const LoginScreen(),
+        Routes.onboardingWelcome: (_) => const WelcomeScreen(),
+        Routes.onboardingName: (_) => const NameScreen(),
+        Routes.onboardingLocation: (_) => const LocationScreen(),
+        Routes.onboardingAshaNearby: (_) => const AshaNearbyScreen(),
+        Routes.onboardingWait: (_) => const WaitingScreen(),
         Routes.home: (_) => const HomeScreen(),
         Routes.profile: (_) => const ProfileScreen(),
         Routes.thayiCard: (_) => const ThayiCardScreen(),

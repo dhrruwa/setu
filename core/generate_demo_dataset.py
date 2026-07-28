@@ -477,6 +477,103 @@ delete from public.staff where role in ('asha','doctor');
             f"{sql_str(facility)}, {sql_str(reason)}, {sql_str(reason)}, "
             f"{sql_str(status)}, now() - interval '{abs(when)} days');")
 
+    # ------------------------------------------------------------------
+    # The mother-facing tables.
+    #
+    # Thayi Setu does not read anc_visits — it has its own shape, built for
+    # someone looking at her own record rather than a clinician reviewing a
+    # caseload. These rows are DERIVED from the visits above rather than
+    # written separately, so her checkup card and the doctor's trend chart can
+    # never show different numbers for the same visit.
+    out.append("\n-- Health centres ---------------------------------------------------------")
+    out.append("delete from public.health_centres;")
+    for hid, name_en, name_kn, phone, lat, lng in HEALTH_CENTRES:
+        out.append(
+            "insert into public.health_centres (id, name_en, name_kn, phone, latitude, longitude) values "
+            f"({sql_str(uid(hid))}, {sql_str(name_en)}, {sql_str(name_kn)}, "
+            f"{sql_str(phone)}, {lat}, {lng});")
+
+    phc = uid("hc-phc")
+    out.append(f"update public.mothers set phc_id = {sql_str(phc)};")
+
+    out.append("\n-- Scheme hospitals -------------------------------------------------------")
+    hospitals = "'{" + ",".join(f'"{uid(h[0])}"' for h in HEALTH_CENTRES) + "}'"
+    out.append(f"update public.schemes set hospital_ids = {hospitals};")
+
+    out.append("\n-- Checkups, weight and BP, as she sees them ------------------------------")
+    for t in ("checkups", "weight_entries", "bp_entries", "tt_doses",
+              "baby_vaccines", "baby_growth"):
+        out.append(f"delete from public.{t};")
+
+    for m in mothers:
+        mv = sorted([v for v in visits if v["mother_id"] == m["id"]],
+                    key=lambda v: v["date"])
+        lmp = dt.date.fromisoformat(m["lmp"])
+        asha_name = next(a["name"] for a in ASHAS if a["id"] == m["asha"])
+        asha_kn = next(a["name_kn"] for a in ASHAS if a["id"] == m["asha"])
+
+        for v in mv:
+            vdate = dt.date.fromisoformat(v["date"])
+            week = max(1, (vdate - lmp).days // 7)
+            out.append(
+                "insert into public.checkups (mother_id, visit_number, scheduled_on, "
+                "location_kn, location_en, activity_ids, completed, weight_kg, "
+                "systolic, diastolic, recorded_by_kn, recorded_by_en) values ("
+                f"{sql_str(uid(v['mother_id']))}, {v['no']}, {sql_str(v['date'])}, "
+                f"{sql_str(KN[m['village']] + ' ಉಪ ಕೇಂದ್ರ')}, "
+                f"{sql_str(m['sub_centre'])}, "
+                f"'{{\"weight\",\"bp\",\"hb\",\"ifa\"}}', true, {v['weight']}, "
+                f"{v['sys']}, {v['dia']}, {sql_str(asha_kn)}, {sql_str(asha_name)});")
+            out.append(
+                "insert into public.weight_entries (mother_id, week, kg) values "
+                f"({sql_str(uid(v['mother_id']))}, {week}, {v['weight']});")
+            out.append(
+                "insert into public.bp_entries (mother_id, week, systolic, diastolic) values "
+                f"({sql_str(uid(v['mother_id']))}, {week}, {v['sys']}, {v['dia']});")
+
+        # The next visit she has not had yet. Without it the checkups screen
+        # only looks backwards, and the one thing she opens the app for is
+        # when she is next expected.
+        if mv:
+            nxt = max(v["no"] for v in mv) + 1
+            due = dt.date.fromisoformat(mv[-1]["date"]) + dt.timedelta(days=28)
+            if due <= DEMO_DATE:
+                due = DEMO_DATE + dt.timedelta(days=6)
+            out.append(
+                "insert into public.checkups (mother_id, visit_number, scheduled_on, "
+                "location_kn, location_en, activity_ids, completed) values ("
+                f"{sql_str(uid(m['id']))}, {nxt}, {sql_str(iso(due))}, "
+                f"{sql_str(KN[m['village']] + ' ಉಪ ಕೇಂದ್ರ')}, "
+                f"{sql_str(m['sub_centre'])}, "
+                f"'{{\"weight\",\"bp\",\"hb\",\"ifa\"}}', false);")
+
+        # Tetanus. Two doses a month apart is the schedule; whether the second
+        # has been given depends on how far along she is.
+        given1 = [v for v in mv if v["tt"] == 1]
+        given2 = [v for v in mv if v["tt"] == 2]
+        if m["id"] == "m-001":
+            out.append("insert into public.tt_doses (mother_id, dose_number, given, given_on) values "
+                       f"({sql_str(uid(m['id']))}, 1, true, {sql_str(iso(TT1))});")
+            out.append("insert into public.tt_doses (mother_id, dose_number, given, given_on) values "
+                       f"({sql_str(uid(m['id']))}, 2, true, {sql_str(iso(TT2))});")
+        else:
+            w = m["weeks"]
+            d1 = iso(lmp + dt.timedelta(weeks=16)) if w >= 16 else None
+            d2 = iso(lmp + dt.timedelta(weeks=20)) if w >= 20 else None
+            out.append("insert into public.tt_doses (mother_id, dose_number, given, given_on) values "
+                       f"({sql_str(uid(m['id']))}, 1, {sql_str(d1 is not None)}, {sql_str(d1)});")
+            out.append("insert into public.tt_doses (mother_id, dose_number, given, given_on) values "
+                       f"({sql_str(uid(m['id']))}, 2, {sql_str(d2 is not None)}, {sql_str(d2)});")
+        del given1, given2
+
+        # The immunisation schedule, shown to her before the birth so she knows
+        # what is coming. Nothing is given yet — none of these mothers has
+        # delivered in this dataset.
+        for order, (vac, age) in enumerate(BABY_VACCINES, start=1):
+            out.append(
+                "insert into public.baby_vaccines (mother_id, vaccine_id, age_id, given, sort_order) values "
+                f"({sql_str(uid(m['id']))}, {sql_str(vac)}, {sql_str(age)}, false, {order});")
+
     out.append("\ncommit;")
     return "\n".join(out)
 

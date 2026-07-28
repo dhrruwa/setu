@@ -101,7 +101,7 @@ abstract class AppLocalizations {
   /// No description provided for @appName.
   ///
   /// In en, this message translates to:
-  /// **'Setu Thayi'**
+  /// **'Thayi Setu'**
   String get appName;
 
   /// No description provided for @appTagline.
@@ -206,6 +206,192 @@ abstract class AppLocalizations {
   /// **'Sign out'**
   String get logout;
 
+  /// No description provided for @welcomeCongrats.
+  ///
+  /// In en, this message translates to:
+  /// **'Congratulations'**
+  String get welcomeCongrats;
+
+  /// No description provided for @welcomeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You are going to be a mother. This app will walk with you through your pregnancy.'**
+  String get welcomeBody;
+
+  /// No description provided for @welcomeHow.
+  ///
+  /// In en, this message translates to:
+  /// **'First we will help you find an ASHA worker near you. Call her, and she will visit you and register you.'**
+  String get welcomeHow;
+
+  /// No description provided for @welcomeStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Let us begin'**
+  String get welcomeStart;
+
+  /// No description provided for @welcomeAlreadyRegistered.
+  ///
+  /// In en, this message translates to:
+  /// **'My ASHA has already registered me'**
+  String get welcomeAlreadyRegistered;
+
+  /// No description provided for @nameTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What is your name?'**
+  String get nameTitle;
+
+  /// No description provided for @nameWhy.
+  ///
+  /// In en, this message translates to:
+  /// **'We use it only to greet you. Nobody else sees this yet.'**
+  String get nameWhy;
+
+  /// No description provided for @nameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Your name'**
+  String get nameLabel;
+
+  /// No description provided for @nameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'For example, Lakshmi'**
+  String get nameHint;
+
+  /// No description provided for @nameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your name'**
+  String get nameRequired;
+
+  /// No description provided for @locationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Where are you?'**
+  String get locationTitle;
+
+  /// No description provided for @locationWhy.
+  ///
+  /// In en, this message translates to:
+  /// **'We will show you the ASHA workers closest to you, so you can call the right one.'**
+  String get locationWhy;
+
+  /// No description provided for @locationPrivacy.
+  ///
+  /// In en, this message translates to:
+  /// **'Your location is used once, on this phone, to sort the list. It is not saved or sent anywhere.'**
+  String get locationPrivacy;
+
+  /// No description provided for @locationAllow.
+  ///
+  /// In en, this message translates to:
+  /// **'Use my location'**
+  String get locationAllow;
+
+  /// No description provided for @locationSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip this'**
+  String get locationSkip;
+
+  /// No description provided for @ashaNearbyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'ASHA workers near you'**
+  String get ashaNearbyTitle;
+
+  /// No description provided for @ashaNearbyIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'These are the ASHA workers closest to you. Call one and tell her you are pregnant.'**
+  String get ashaNearbyIntro;
+
+  /// No description provided for @ashaNearbyIntroNoLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'These are the ASHA workers in your area. Call one and tell her you are pregnant.'**
+  String get ashaNearbyIntroNoLocation;
+
+  /// No description provided for @ashaNearbyCall.
+  ///
+  /// In en, this message translates to:
+  /// **'Call her'**
+  String get ashaNearbyCall;
+
+  /// No description provided for @ashaNearbyWhatToSay.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell her your name, your village, and that you are pregnant. She will come to your home.'**
+  String get ashaNearbyWhatToSay;
+
+  /// No description provided for @ashaNearbyDone.
+  ///
+  /// In en, this message translates to:
+  /// **'I have called'**
+  String get ashaNearbyDone;
+
+  /// No description provided for @waitingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your ASHA will come soon'**
+  String get waitingTitle;
+
+  /// No description provided for @waitingTitleNamed.
+  ///
+  /// In en, this message translates to:
+  /// **'{name}, your ASHA will come soon'**
+  String waitingTitleNamed(String name);
+
+  /// No description provided for @waitingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'She will visit your home, check your reports, and register you. Then you can sign in.'**
+  String get waitingBody;
+
+  /// No description provided for @waitingWhatNext.
+  ///
+  /// In en, this message translates to:
+  /// **'WHAT HAPPENS NEXT'**
+  String get waitingWhatNext;
+
+  /// No description provided for @waitingStep1.
+  ///
+  /// In en, this message translates to:
+  /// **'You called an ASHA worker'**
+  String get waitingStep1;
+
+  /// No description provided for @waitingStep2.
+  ///
+  /// In en, this message translates to:
+  /// **'She visits your home and checks your reports'**
+  String get waitingStep2;
+
+  /// No description provided for @waitingStep3.
+  ///
+  /// In en, this message translates to:
+  /// **'She registers you and enters your email address'**
+  String get waitingStep3;
+
+  /// No description provided for @waitingStep4.
+  ///
+  /// In en, this message translates to:
+  /// **'You get a message at that email, then sign in here'**
+  String get waitingStep4;
+
+  /// No description provided for @waitingHaveEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'I have received the email'**
+  String get waitingHaveEmail;
+
+  /// No description provided for @waitingCallAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Call an ASHA again'**
+  String get waitingCallAgain;
+
   /// No description provided for @loginTitle.
   ///
   /// In en, this message translates to:
@@ -259,6 +445,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Check your email. The code can take a minute to arrive.'**
   String get checkYourEmail;
+
+  /// No description provided for @emailNotRegistered.
+  ///
+  /// In en, this message translates to:
+  /// **'This email is not registered yet. Your ASHA worker adds it when she registers you — please ask her.'**
+  String get emailNotRegistered;
+
+  /// No description provided for @emailChecking.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking…'**
+  String get emailChecking;
 
   /// No description provided for @sendOtp.
   ///
@@ -577,6 +775,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Something here is wrong'**
   String get reportMistake;
+
+  /// No description provided for @accessSection.
+  ///
+  /// In en, this message translates to:
+  /// **'WHO WANTS TO SEE YOUR RECORD'**
+  String get accessSection;
+
+  /// No description provided for @accessRequestFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} wants to see your health record'**
+  String accessRequestFrom(String name);
+
+  /// No description provided for @accessRequestReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason: {reason}'**
+  String accessRequestReason(String reason);
+
+  /// No description provided for @accessApprove.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow'**
+  String get accessApprove;
+
+  /// No description provided for @accessReject.
+  ///
+  /// In en, this message translates to:
+  /// **'Do not allow'**
+  String get accessReject;
+
+  /// No description provided for @accessApproved.
+  ///
+  /// In en, this message translates to:
+  /// **'You allowed {name}'**
+  String accessApproved(String name);
+
+  /// No description provided for @accessRejected.
+  ///
+  /// In en, this message translates to:
+  /// **'You did not allow {name}'**
+  String accessRejected(String name);
+
+  /// No description provided for @accessNone.
+  ///
+  /// In en, this message translates to:
+  /// **'Nobody has asked to see your record'**
+  String get accessNone;
+
+  /// No description provided for @accessActiveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Can see your record now'**
+  String get accessActiveTitle;
+
+  /// No description provided for @accessActiveUntil.
+  ///
+  /// In en, this message translates to:
+  /// **'Until {date}'**
+  String accessActiveUntil(String date);
+
+  /// No description provided for @accessByQr.
+  ///
+  /// In en, this message translates to:
+  /// **'Because you showed your QR code'**
+  String get accessByQr;
+
+  /// No description provided for @accessRevoke.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop this'**
+  String get accessRevoke;
+
+  /// No description provided for @accessRevoked.
+  ///
+  /// In en, this message translates to:
+  /// **'Stopped'**
+  String get accessRevoked;
+
+  /// No description provided for @accessExplain.
+  ///
+  /// In en, this message translates to:
+  /// **'A doctor can only open your record if you allow it, or if you show your QR code at the hospital.'**
+  String get accessExplain;
 
   /// No description provided for @consentSection.
   ///

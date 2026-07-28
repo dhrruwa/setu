@@ -9,7 +9,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appName => 'Setu Thayi';
+  String get appName => 'Thayi Setu';
 
   @override
   String get appTagline => 'Your pregnancy companion';
@@ -63,6 +63,111 @@ class AppLocalizationsEn extends AppLocalizations {
   String get logout => 'Sign out';
 
   @override
+  String get welcomeCongrats => 'Congratulations';
+
+  @override
+  String get welcomeBody =>
+      'You are going to be a mother. This app will walk with you through your pregnancy.';
+
+  @override
+  String get welcomeHow =>
+      'First we will help you find an ASHA worker near you. Call her, and she will visit you and register you.';
+
+  @override
+  String get welcomeStart => 'Let us begin';
+
+  @override
+  String get welcomeAlreadyRegistered => 'My ASHA has already registered me';
+
+  @override
+  String get nameTitle => 'What is your name?';
+
+  @override
+  String get nameWhy =>
+      'We use it only to greet you. Nobody else sees this yet.';
+
+  @override
+  String get nameLabel => 'Your name';
+
+  @override
+  String get nameHint => 'For example, Lakshmi';
+
+  @override
+  String get nameRequired => 'Please enter your name';
+
+  @override
+  String get locationTitle => 'Where are you?';
+
+  @override
+  String get locationWhy =>
+      'We will show you the ASHA workers closest to you, so you can call the right one.';
+
+  @override
+  String get locationPrivacy =>
+      'Your location is used once, on this phone, to sort the list. It is not saved or sent anywhere.';
+
+  @override
+  String get locationAllow => 'Use my location';
+
+  @override
+  String get locationSkip => 'Skip this';
+
+  @override
+  String get ashaNearbyTitle => 'ASHA workers near you';
+
+  @override
+  String get ashaNearbyIntro =>
+      'These are the ASHA workers closest to you. Call one and tell her you are pregnant.';
+
+  @override
+  String get ashaNearbyIntroNoLocation =>
+      'These are the ASHA workers in your area. Call one and tell her you are pregnant.';
+
+  @override
+  String get ashaNearbyCall => 'Call her';
+
+  @override
+  String get ashaNearbyWhatToSay =>
+      'Tell her your name, your village, and that you are pregnant. She will come to your home.';
+
+  @override
+  String get ashaNearbyDone => 'I have called';
+
+  @override
+  String get waitingTitle => 'Your ASHA will come soon';
+
+  @override
+  String waitingTitleNamed(String name) {
+    return '$name, your ASHA will come soon';
+  }
+
+  @override
+  String get waitingBody =>
+      'She will visit your home, check your reports, and register you. Then you can sign in.';
+
+  @override
+  String get waitingWhatNext => 'WHAT HAPPENS NEXT';
+
+  @override
+  String get waitingStep1 => 'You called an ASHA worker';
+
+  @override
+  String get waitingStep2 => 'She visits your home and checks your reports';
+
+  @override
+  String get waitingStep3 => 'She registers you and enters your email address';
+
+  @override
+  String get waitingStep4 =>
+      'You get a message at that email, then sign in here';
+
+  @override
+  String get waitingHaveEmail => 'I have received the email';
+
+  @override
+  String get waitingCallAgain => 'Call an ASHA again';
+
+  @override
   String get loginTitle => 'Enter your email address';
 
   @override
@@ -89,6 +194,13 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get checkYourEmail =>
       'Check your email. The code can take a minute to arrive.';
+
+  @override
+  String get emailNotRegistered =>
+      'This email is not registered yet. Your ASHA worker adds it when she registers you — please ask her.';
+
+  @override
+  String get emailChecking => 'Checking…';
 
   @override
   String get sendOtp => 'Send code';
@@ -268,6 +380,59 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get reportMistake => 'Something here is wrong';
+
+  @override
+  String get accessSection => 'WHO WANTS TO SEE YOUR RECORD';
+
+  @override
+  String accessRequestFrom(String name) {
+    return '$name wants to see your health record';
+  }
+
+  @override
+  String accessRequestReason(String reason) {
+    return 'Reason: $reason';
+  }
+
+  @override
+  String get accessApprove => 'Allow';
+
+  @override
+  String get accessReject => 'Do not allow';
+
+  @override
+  String accessApproved(String name) {
+    return 'You allowed $name';
+  }
+
+  @override
+  String accessRejected(String name) {
+    return 'You did not allow $name';
+  }
+
+  @override
+  String get accessNone => 'Nobody has asked to see your record';
+
+  @override
+  String get accessActiveTitle => 'Can see your record now';
+
+  @override
+  String accessActiveUntil(String date) {
+    return 'Until $date';
+  }
+
+  @override
+  String get accessByQr => 'Because you showed your QR code';
+
+  @override
+  String get accessRevoke => 'Stop this';
+
+  @override
+  String get accessRevoked => 'Stopped';
+
+  @override
+  String get accessExplain =>
+      'A doctor can only open your record if you allow it, or if you show your QR code at the hospital.';
 
   @override
   String get consentSection => 'YOUR PERMISSION';

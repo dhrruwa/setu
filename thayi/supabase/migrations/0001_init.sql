@@ -1,4 +1,4 @@
--- Setu Thayi — initial schema.
+-- Thayi Setu — initial schema.
 -- Run this in the Supabase SQL editor (Dashboard → SQL → New query).
 --
 -- Design notes:

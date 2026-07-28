@@ -1,6 +1,6 @@
 {
   "@@locale": "kn",
-  "appName": "ಸೇತು ತಾಯಿ",
+  "appName": "ತಾಯಿ ಸೇತು",
   "appTagline": "ನಿಮ್ಮ ಗರ್ಭಾವಸ್ಥೆಯ ಸಂಗಾತಿ",
   "langKannada": "ಕನ್ನಡ",
   "langEnglish": "English",
@@ -18,6 +18,44 @@
   "notRecorded": "ಬರೆದಿಲ್ಲ",
   "settingsTitle": "ಸೆಟ್ಟಿಂಗ್ಸ್",
   "logout": "ಹೊರಗೆ ಬನ್ನಿ",
+  "welcomeCongrats": "ಅಭಿನಂದನೆಗಳು",
+  "welcomeBody": "ನೀವು ತಾಯಿ ಆಗಲಿದ್ದೀರಿ. ಈ ಆ್ಯಪ್ ನಿಮ್ಮ ಗರ್ಭಾವಸ್ಥೆಯ ಉದ್ದಕ್ಕೂ ನಿಮ್ಮ ಜೊತೆ ಇರುತ್ತದೆ.",
+  "welcomeHow": "ಮೊದಲು ನಿಮ್ಮ ಹತ್ತಿರದ ಆಶಾ ಕಾರ್ಯಕರ್ತೆಯನ್ನು ಹುಡುಕಿ ಕೊಡುತ್ತೇವೆ. ಅವರಿಗೆ ಕರೆ ಮಾಡಿ, ಅವರು ಮನೆಗೆ ಬಂದು ನಿಮ್ಮನ್ನು ನೋಂದಾಯಿಸುತ್ತಾರೆ.",
+  "welcomeStart": "ಪ್ರಾರಂಭಿಸೋಣ",
+  "welcomeAlreadyRegistered": "ನನ್ನ ಆಶಾ ಈಗಾಗಲೇ ನೋಂದಾಯಿಸಿದ್ದಾರೆ",
+  "nameTitle": "ನಿಮ್ಮ ಹೆಸರೇನು?",
+  "nameWhy": "ನಿಮ್ಮನ್ನು ಕರೆಯಲು ಮಾತ್ರ ಬಳಸುತ್ತೇವೆ. ಇದನ್ನು ಬೇರೆ ಯಾರೂ ಈಗ ನೋಡುವುದಿಲ್ಲ.",
+  "nameLabel": "ನಿಮ್ಮ ಹೆಸರು",
+  "nameHint": "ಉದಾಹರಣೆಗೆ, ಲಕ್ಷ್ಮಿ",
+  "nameRequired": "ದಯವಿಟ್ಟು ನಿಮ್ಮ ಹೆಸರು ಹಾಕಿ",
+  "locationTitle": "ನೀವು ಎಲ್ಲಿದ್ದೀರಿ?",
+  "locationWhy": "ನಿಮ್ಮ ಹತ್ತಿರದ ಆಶಾ ಕಾರ್ಯಕರ್ತೆಯರನ್ನು ತೋರಿಸುತ್ತೇವೆ, ಸರಿಯಾದವರಿಗೆ ಕರೆ ಮಾಡಬಹುದು.",
+  "locationPrivacy": "ನಿಮ್ಮ ಸ್ಥಳವನ್ನು ಈ ಫೋನಿನಲ್ಲಿ ಒಮ್ಮೆ ಮಾತ್ರ ಪಟ್ಟಿ ಜೋಡಿಸಲು ಬಳಸುತ್ತೇವೆ. ಎಲ್ಲಿಯೂ ಉಳಿಸುವುದಿಲ್ಲ, ಕಳುಹಿಸುವುದಿಲ್ಲ.",
+  "locationAllow": "ನನ್ನ ಸ್ಥಳ ಬಳಸಿ",
+  "locationSkip": "ಇದನ್ನು ಬಿಟ್ಟುಬಿಡಿ",
+  "ashaNearbyTitle": "ನಿಮ್ಮ ಹತ್ತಿರದ ಆಶಾ ಕಾರ್ಯಕರ್ತೆಯರು",
+  "ashaNearbyIntro": "ಇವರು ನಿಮ್ಮ ಹತ್ತಿರದ ಆಶಾ ಕಾರ್ಯಕರ್ತೆಯರು. ಒಬ್ಬರಿಗೆ ಕರೆ ಮಾಡಿ ನೀವು ಗರ್ಭಿಣಿ ಎಂದು ಹೇಳಿ.",
+  "ashaNearbyIntroNoLocation": "ಇವರು ನಿಮ್ಮ ಪ್ರದೇಶದ ಆಶಾ ಕಾರ್ಯಕರ್ತೆಯರು. ಒಬ್ಬರಿಗೆ ಕರೆ ಮಾಡಿ ನೀವು ಗರ್ಭಿಣಿ ಎಂದು ಹೇಳಿ.",
+  "ashaNearbyCall": "ಅವರಿಗೆ ಕರೆ ಮಾಡಿ",
+  "ashaNearbyWhatToSay": "ನಿಮ್ಮ ಹೆಸರು, ಗ್ರಾಮ, ಮತ್ತು ನೀವು ಗರ್ಭಿಣಿ ಎಂದು ಹೇಳಿ. ಅವರು ನಿಮ್ಮ ಮನೆಗೆ ಬರುತ್ತಾರೆ.",
+  "ashaNearbyDone": "ನಾನು ಕರೆ ಮಾಡಿದೆ",
+  "waitingTitle": "ನಿಮ್ಮ ಆಶಾ ಶೀಘ್ರದಲ್ಲೇ ಬರುತ್ತಾರೆ",
+  "waitingTitleNamed": "{name}, ನಿಮ್ಮ ಆಶಾ ಶೀಘ್ರದಲ್ಲೇ ಬರುತ್ತಾರೆ",
+  "@waitingTitleNamed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "waitingBody": "ಅವರು ಮನೆಗೆ ಬಂದು ನಿಮ್ಮ ವರದಿಗಳನ್ನು ನೋಡಿ ನಿಮ್ಮನ್ನು ನೋಂದಾಯಿಸುತ್ತಾರೆ. ನಂತರ ನೀವು ಒಳಗೆ ಬರಬಹುದು.",
+  "waitingWhatNext": "ಮುಂದೆ ಏನಾಗುತ್ತದೆ",
+  "waitingStep1": "ನೀವು ಆಶಾ ಕಾರ್ಯಕರ್ತೆಗೆ ಕರೆ ಮಾಡಿದ್ದೀರಿ",
+  "waitingStep2": "ಅವರು ಮನೆಗೆ ಬಂದು ನಿಮ್ಮ ವರದಿಗಳನ್ನು ನೋಡುತ್ತಾರೆ",
+  "waitingStep3": "ಅವರು ನಿಮ್ಮನ್ನು ನೋಂದಾಯಿಸಿ ನಿಮ್ಮ ಇಮೇಲ್ ವಿಳಾಸ ಹಾಕುತ್ತಾರೆ",
+  "waitingStep4": "ಆ ಇಮೇಲ್‌ಗೆ ಸಂದೇಶ ಬರುತ್ತದೆ, ನಂತರ ಇಲ್ಲಿ ಒಳಗೆ ಬನ್ನಿ",
+  "waitingHaveEmail": "ನನಗೆ ಇಮೇಲ್ ಬಂದಿದೆ",
+  "waitingCallAgain": "ಮತ್ತೆ ಆಶಾಗೆ ಕರೆ ಮಾಡಿ",
   "loginTitle": "ನಿಮ್ಮ ಇಮೇಲ್ ವಿಳಾಸ ಹಾಕಿ",
   "loginSubtitle": "ನಿಮ್ಮ ಇಮೇಲ್‌ಗೆ 6 ಅಂಕಿಯ ಕೋಡ್ ಕಳುಹಿಸುತ್ತೇವೆ",
   "phoneLabel": "ಮೊಬೈಲ್ ನಂಬರ್",
@@ -27,6 +65,8 @@
   "emailHint": "name@example.com",
   "emailInvalid": "ಸರಿಯಾದ ಇಮೇಲ್ ವಿಳಾಸ ಹಾಕಿ",
   "checkYourEmail": "ನಿಮ್ಮ ಇಮೇಲ್ ನೋಡಿ. ಕೋಡ್ ಬರಲು ಒಂದು ನಿಮಿಷ ಆಗಬಹುದು.",
+  "emailNotRegistered": "ಈ ಇಮೇಲ್ ಇನ್ನೂ ನೋಂದಣಿ ಆಗಿಲ್ಲ. ನಿಮ್ಮ ಆಶಾ ಕಾರ್ಯಕರ್ತೆ ನಿಮ್ಮನ್ನು ನೋಂದಾಯಿಸುವಾಗ ಇದನ್ನು ಸೇರಿಸುತ್ತಾರೆ — ಅವರನ್ನು ಕೇಳಿ.",
+  "emailChecking": "ಪರಿಶೀಲಿಸುತ್ತಿದೆ…",
   "sendOtp": "ಕೋಡ್ ಕಳುಹಿಸಿ",
   "otpTitle": "ಕೋಡ್ ಹಾಕಿ",
   "otpSentTo": "{phone} ಗೆ ಕಳುಹಿಸಿದ್ದೇವೆ",
@@ -115,6 +155,55 @@
   "yourDetailsSection": "ನಿಮ್ಮ ವಿವರ",
   "detailsWrittenByAsha": "ಈ ವಿವರವನ್ನು ನಿಮ್ಮ ಆಶಾ ಕಾರ್ಯಕರ್ತೆ ಬರೆದಿದ್ದಾರೆ. ಇಲ್ಲಿ ನೀವು ಬದಲಿಸಲು ಆಗುವುದಿಲ್ಲ.",
   "reportMistake": "ಇದರಲ್ಲಿ ಏನೋ ತಪ್ಪಿದೆ",
+  "accessSection": "ನಿಮ್ಮ ದಾಖಲೆ ನೋಡಲು ಕೇಳಿದವರು",
+  "accessRequestFrom": "{name} ನಿಮ್ಮ ಆರೋಗ್ಯ ದಾಖಲೆ ನೋಡಲು ಕೇಳುತ್ತಿದ್ದಾರೆ",
+  "@accessRequestFrom": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "accessRequestReason": "ಕಾರಣ: {reason}",
+  "@accessRequestReason": {
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "accessApprove": "ಅನುಮತಿ ಕೊಡಿ",
+  "accessReject": "ಬೇಡ",
+  "accessApproved": "{name} ಅವರಿಗೆ ಅನುಮತಿ ಕೊಟ್ಟಿದ್ದೀರಿ",
+  "@accessApproved": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "accessRejected": "{name} ಅವರಿಗೆ ಅನುಮತಿ ಕೊಟ್ಟಿಲ್ಲ",
+  "@accessRejected": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "accessNone": "ನಿಮ್ಮ ದಾಖಲೆ ನೋಡಲು ಯಾರೂ ಕೇಳಿಲ್ಲ",
+  "accessActiveTitle": "ಈಗ ನಿಮ್ಮ ದಾಖಲೆ ನೋಡಬಹುದು",
+  "accessActiveUntil": "{date} ವರೆಗೆ",
+  "@accessActiveUntil": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "accessByQr": "ನೀವು ಕ್ಯೂಆರ್ ಕೋಡ್ ತೋರಿಸಿದ್ದರಿಂದ",
+  "accessRevoke": "ನಿಲ್ಲಿಸಿ",
+  "accessRevoked": "ನಿಲ್ಲಿಸಲಾಗಿದೆ",
+  "accessExplain": "ನೀವು ಅನುಮತಿ ಕೊಟ್ಟರೆ ಮಾತ್ರ, ಅಥವಾ ಆಸ್ಪತ್ರೆಯಲ್ಲಿ ಕ್ಯೂಆರ್ ಕೋಡ್ ತೋರಿಸಿದರೆ ಮಾತ್ರ ವೈದ್ಯರು ನಿಮ್ಮ ದಾಖಲೆ ತೆರೆಯಬಹುದು.",
   "consentSection": "ನಿಮ್ಮ ಒಪ್ಪಿಗೆ",
   "consentGivenOn": "{date} ರಂದು ನೀವು ಒಪ್ಪಿಗೆ ಕೊಟ್ಟಿದ್ದೀರಿ",
   "@consentGivenOn": {
