@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../data/mock_data.dart';
 import '../providers.dart';
 import '../theme/tokens.dart';
+import '../widgets/care_logo.dart';
 import '../widgets/care_widgets.dart';
 
 enum _Step { email, otp }
@@ -114,20 +115,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   children: [
                     Row(
                       children: [
-                        Container(
-                          width: 30,
-                          height: 30,
-                          decoration: BoxDecoration(
-                            color: C.teal,
-                            borderRadius: BorderRadius.circular(7),
-                          ),
-                          alignment: Alignment.center,
-                          child: const Text('S',
-                              style: TextStyle(
-                                  color: C.onDark,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 16)),
-                        ),
+                        const CareLogo(size: 30),
                         const SizedBox(width: S.sm),
                         const Text('Setu Care', style: T.h1),
                       ],
