@@ -63,6 +63,111 @@ class AppLocalizationsEn extends AppLocalizations {
   String get logout => 'Sign out';
 
   @override
+  String get welcomeCongrats => 'Congratulations';
+
+  @override
+  String get welcomeBody =>
+      'You are going to be a mother. This app will walk with you through your pregnancy.';
+
+  @override
+  String get welcomeHow =>
+      'First we will help you find an ASHA worker near you. Call her, and she will visit you and register you.';
+
+  @override
+  String get welcomeStart => 'Let us begin';
+
+  @override
+  String get welcomeAlreadyRegistered => 'My ASHA has already registered me';
+
+  @override
+  String get nameTitle => 'What is your name?';
+
+  @override
+  String get nameWhy =>
+      'We use it only to greet you. Nobody else sees this yet.';
+
+  @override
+  String get nameLabel => 'Your name';
+
+  @override
+  String get nameHint => 'For example, Lakshmi';
+
+  @override
+  String get nameRequired => 'Please enter your name';
+
+  @override
+  String get locationTitle => 'Where are you?';
+
+  @override
+  String get locationWhy =>
+      'We will show you the ASHA workers closest to you, so you can call the right one.';
+
+  @override
+  String get locationPrivacy =>
+      'Your location is used once, on this phone, to sort the list. It is not saved or sent anywhere.';
+
+  @override
+  String get locationAllow => 'Use my location';
+
+  @override
+  String get locationSkip => 'Skip this';
+
+  @override
+  String get ashaNearbyTitle => 'ASHA workers near you';
+
+  @override
+  String get ashaNearbyIntro =>
+      'These are the ASHA workers closest to you. Call one and tell her you are pregnant.';
+
+  @override
+  String get ashaNearbyIntroNoLocation =>
+      'These are the ASHA workers in your area. Call one and tell her you are pregnant.';
+
+  @override
+  String get ashaNearbyCall => 'Call her';
+
+  @override
+  String get ashaNearbyWhatToSay =>
+      'Tell her your name, your village, and that you are pregnant. She will come to your home.';
+
+  @override
+  String get ashaNearbyDone => 'I have called';
+
+  @override
+  String get waitingTitle => 'Your ASHA will come soon';
+
+  @override
+  String waitingTitleNamed(String name) {
+    return '$name, your ASHA will come soon';
+  }
+
+  @override
+  String get waitingBody =>
+      'She will visit your home, check your reports, and register you. Then you can sign in.';
+
+  @override
+  String get waitingWhatNext => 'WHAT HAPPENS NEXT';
+
+  @override
+  String get waitingStep1 => 'You called an ASHA worker';
+
+  @override
+  String get waitingStep2 => 'She visits your home and checks your reports';
+
+  @override
+  String get waitingStep3 => 'She registers you and enters your email address';
+
+  @override
+  String get waitingStep4 =>
+      'You get a message at that email, then sign in here';
+
+  @override
+  String get waitingHaveEmail => 'I have received the email';
+
+  @override
+  String get waitingCallAgain => 'Call an ASHA again';
+
+  @override
   String get loginTitle => 'Enter your email address';
 
   @override

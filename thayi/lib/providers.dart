@@ -9,6 +9,7 @@ import 'package:supabase_flutter/supabase_flutter.dart' as sb;
 import 'config/env.dart';
 import 'data/chat_service.dart';
 import 'data/models.dart';
+import 'data/asha_directory.dart';
 import 'data/mother_repository.dart';
 import 'data/profile_photo_service.dart';
 import 'data/supabase_mother_repository.dart';
@@ -194,6 +195,105 @@ final authControllerProvider =
     ref.watch(supabaseClientProvider),
   ),
 );
+
+// -------------------------------------------------------------- onboarding
+
+/// What she has done before an account exists. Persisted, so closing the app
+/// while waiting for her ASHA to register her does not start her over.
+@immutable
+class Onboarding {
+  const Onboarding({
+    this.name,
+    this.locationAsked = false,
+    this.calledAsha = false,
+    this.finished = false,
+  });
+
+  final String? name;
+  final bool locationAsked;
+
+  /// She has called an ASHA and is waiting to be registered.
+  final bool calledAsha;
+
+  /// She has been all the way through and should now see Login.
+  final bool finished;
+
+  bool get hasName => name != null && name!.trim().isNotEmpty;
+}
+
+class OnboardingController extends StateNotifier<Onboarding> {
+  OnboardingController(this._prefs) : super(_read(_prefs));
+
+  static const _nameKey = 'onboarding_name';
+  static const _locKey = 'onboarding_location_asked';
+  static const _calledKey = 'onboarding_called_asha';
+  static const _doneKey = 'onboarding_finished';
+  final SharedPreferences _prefs;
+
+  static Onboarding _read(SharedPreferences prefs) => Onboarding(
+        name: prefs.getString(_nameKey),
+        locationAsked: prefs.getBool(_locKey) ?? false,
+        calledAsha: prefs.getBool(_calledKey) ?? false,
+        finished: prefs.getBool(_doneKey) ?? false,
+      );
+
+  Future<void> setName(String name) async {
+    await _prefs.setString(_nameKey, name.trim());
+    state = Onboarding(
+      name: name.trim(),
+      locationAsked: state.locationAsked,
+      calledAsha: state.calledAsha,
+      finished: state.finished,
+    );
+  }
+
+  Future<void> markLocationAsked() async {
+    await _prefs.setBool(_locKey, true);
+    state = Onboarding(
+      name: state.name,
+      locationAsked: true,
+      calledAsha: state.calledAsha,
+      finished: state.finished,
+    );
+  }
+
+  Future<void> markCalledAsha() async {
+    await _prefs.setBool(_calledKey, true);
+    state = Onboarding(
+      name: state.name,
+      locationAsked: state.locationAsked,
+      calledAsha: true,
+      finished: state.finished,
+    );
+  }
+
+  Future<void> finish() async {
+    await _prefs.setBool(_doneKey, true);
+    state = Onboarding(
+      name: state.name,
+      locationAsked: state.locationAsked,
+      calledAsha: state.calledAsha,
+      finished: true,
+    );
+  }
+}
+
+final onboardingProvider =
+    StateNotifierProvider<OnboardingController, Onboarding>(
+  (ref) => OnboardingController(ref.watch(prefsProvider)),
+);
+
+/// Her coordinates, or null if she declined or the fix timed out. Never blocks.
+final coordsProvider = StateProvider<({double lat, double lng})?>((ref) => null);
+
+final ashaDirectoryProvider = Provider<AshaDirectory>(
+  (ref) => SupabaseAshaDirectory(ref.watch(supabaseClientProvider)),
+);
+
+final nearbyAshasProvider = FutureProvider<List<DirectoryAsha>>((ref) {
+  final at = ref.watch(coordsProvider);
+  return ref.watch(ashaDirectoryProvider).nearby(lat: at?.lat, lng: at?.lng);
+});
 
 // -------------------------------------------------------------------- data
 

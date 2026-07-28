@@ -5,6 +5,10 @@
     <!-- Voice input on Ask Setu. Requested at the point of use, with a
          plain-language explanation shown first. -->
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <!-- Only used before she has an account, to sort the ASHA workers
+         near her. She can skip it and still see the full list. -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <!-- CALL_PHONE is deliberately absent: every call button opens the dialler
          with ACTION_DIAL so she confirms the call herself. -->
 

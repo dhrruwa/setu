@@ -63,6 +63,111 @@ class AppLocalizationsKn extends AppLocalizations {
   String get logout => 'ಹೊರಗೆ ಬನ್ನಿ';
 
   @override
+  String get welcomeCongrats => 'ಅಭಿನಂದನೆಗಳು';
+
+  @override
+  String get welcomeBody =>
+      'ನೀವು ತಾಯಿ ಆಗಲಿದ್ದೀರಿ. ಈ ಆ್ಯಪ್ ನಿಮ್ಮ ಗರ್ಭಾವಸ್ಥೆಯ ಉದ್ದಕ್ಕೂ ನಿಮ್ಮ ಜೊತೆ ಇರುತ್ತದೆ.';
+
+  @override
+  String get welcomeHow =>
+      'ಮೊದಲು ನಿಮ್ಮ ಹತ್ತಿರದ ಆಶಾ ಕಾರ್ಯಕರ್ತೆಯನ್ನು ಹುಡುಕಿ ಕೊಡುತ್ತೇವೆ. ಅವರಿಗೆ ಕರೆ ಮಾಡಿ, ಅವರು ಮನೆಗೆ ಬಂದು ನಿಮ್ಮನ್ನು ನೋಂದಾಯಿಸುತ್ತಾರೆ.';
+
+  @override
+  String get welcomeStart => 'ಪ್ರಾರಂಭಿಸೋಣ';
+
+  @override
+  String get welcomeAlreadyRegistered => 'ನನ್ನ ಆಶಾ ಈಗಾಗಲೇ ನೋಂದಾಯಿಸಿದ್ದಾರೆ';
+
+  @override
+  String get nameTitle => 'ನಿಮ್ಮ ಹೆಸರೇನು?';
+
+  @override
+  String get nameWhy =>
+      'ನಿಮ್ಮನ್ನು ಕರೆಯಲು ಮಾತ್ರ ಬಳಸುತ್ತೇವೆ. ಇದನ್ನು ಬೇರೆ ಯಾರೂ ಈಗ ನೋಡುವುದಿಲ್ಲ.';
+
+  @override
+  String get nameLabel => 'ನಿಮ್ಮ ಹೆಸರು';
+
+  @override
+  String get nameHint => 'ಉದಾಹರಣೆಗೆ, ಲಕ್ಷ್ಮಿ';
+
+  @override
+  String get nameRequired => 'ದಯವಿಟ್ಟು ನಿಮ್ಮ ಹೆಸರು ಹಾಕಿ';
+
+  @override
+  String get locationTitle => 'ನೀವು ಎಲ್ಲಿದ್ದೀರಿ?';
+
+  @override
+  String get locationWhy =>
+      'ನಿಮ್ಮ ಹತ್ತಿರದ ಆಶಾ ಕಾರ್ಯಕರ್ತೆಯರನ್ನು ತೋರಿಸುತ್ತೇವೆ, ಸರಿಯಾದವರಿಗೆ ಕರೆ ಮಾಡಬಹುದು.';
+
+  @override
+  String get locationPrivacy =>
+      'ನಿಮ್ಮ ಸ್ಥಳವನ್ನು ಈ ಫೋನಿನಲ್ಲಿ ಒಮ್ಮೆ ಮಾತ್ರ ಪಟ್ಟಿ ಜೋಡಿಸಲು ಬಳಸುತ್ತೇವೆ. ಎಲ್ಲಿಯೂ ಉಳಿಸುವುದಿಲ್ಲ, ಕಳುಹಿಸುವುದಿಲ್ಲ.';
+
+  @override
+  String get locationAllow => 'ನನ್ನ ಸ್ಥಳ ಬಳಸಿ';
+
+  @override
+  String get locationSkip => 'ಇದನ್ನು ಬಿಟ್ಟುಬಿಡಿ';
+
+  @override
+  String get ashaNearbyTitle => 'ನಿಮ್ಮ ಹತ್ತಿರದ ಆಶಾ ಕಾರ್ಯಕರ್ತೆಯರು';
+
+  @override
+  String get ashaNearbyIntro =>
+      'ಇವರು ನಿಮ್ಮ ಹತ್ತಿರದ ಆಶಾ ಕಾರ್ಯಕರ್ತೆಯರು. ಒಬ್ಬರಿಗೆ ಕರೆ ಮಾಡಿ ನೀವು ಗರ್ಭಿಣಿ ಎಂದು ಹೇಳಿ.';
+
+  @override
+  String get ashaNearbyIntroNoLocation =>
+      'ಇವರು ನಿಮ್ಮ ಪ್ರದೇಶದ ಆಶಾ ಕಾರ್ಯಕರ್ತೆಯರು. ಒಬ್ಬರಿಗೆ ಕರೆ ಮಾಡಿ ನೀವು ಗರ್ಭಿಣಿ ಎಂದು ಹೇಳಿ.';
+
+  @override
+  String get ashaNearbyCall => 'ಅವರಿಗೆ ಕರೆ ಮಾಡಿ';
+
+  @override
+  String get ashaNearbyWhatToSay =>
+      'ನಿಮ್ಮ ಹೆಸರು, ಗ್ರಾಮ, ಮತ್ತು ನೀವು ಗರ್ಭಿಣಿ ಎಂದು ಹೇಳಿ. ಅವರು ನಿಮ್ಮ ಮನೆಗೆ ಬರುತ್ತಾರೆ.';
+
+  @override
+  String get ashaNearbyDone => 'ನಾನು ಕರೆ ಮಾಡಿದೆ';
+
+  @override
+  String get waitingTitle => 'ನಿಮ್ಮ ಆಶಾ ಶೀಘ್ರದಲ್ಲೇ ಬರುತ್ತಾರೆ';
+
+  @override
+  String waitingTitleNamed(String name) {
+    return '$name, ನಿಮ್ಮ ಆಶಾ ಶೀಘ್ರದಲ್ಲೇ ಬರುತ್ತಾರೆ';
+  }
+
+  @override
+  String get waitingBody =>
+      'ಅವರು ಮನೆಗೆ ಬಂದು ನಿಮ್ಮ ವರದಿಗಳನ್ನು ನೋಡಿ ನಿಮ್ಮನ್ನು ನೋಂದಾಯಿಸುತ್ತಾರೆ. ನಂತರ ನೀವು ಒಳಗೆ ಬರಬಹುದು.';
+
+  @override
+  String get waitingWhatNext => 'ಮುಂದೆ ಏನಾಗುತ್ತದೆ';
+
+  @override
+  String get waitingStep1 => 'ನೀವು ಆಶಾ ಕಾರ್ಯಕರ್ತೆಗೆ ಕರೆ ಮಾಡಿದ್ದೀರಿ';
+
+  @override
+  String get waitingStep2 => 'ಅವರು ಮನೆಗೆ ಬಂದು ನಿಮ್ಮ ವರದಿಗಳನ್ನು ನೋಡುತ್ತಾರೆ';
+
+  @override
+  String get waitingStep3 =>
+      'ಅವರು ನಿಮ್ಮನ್ನು ನೋಂದಾಯಿಸಿ ನಿಮ್ಮ ಇಮೇಲ್ ವಿಳಾಸ ಹಾಕುತ್ತಾರೆ';
+
+  @override
+  String get waitingStep4 => 'ಆ ಇಮೇಲ್‌ಗೆ ಸಂದೇಶ ಬರುತ್ತದೆ, ನಂತರ ಇಲ್ಲಿ ಒಳಗೆ ಬನ್ನಿ';
+
+  @override
+  String get waitingHaveEmail => 'ನನಗೆ ಇಮೇಲ್ ಬಂದಿದೆ';
+
+  @override
+  String get waitingCallAgain => 'ಮತ್ತೆ ಆಶಾಗೆ ಕರೆ ಮಾಡಿ';
+
+  @override
   String get loginTitle => 'ನಿಮ್ಮ ಇಮೇಲ್ ವಿಳಾಸ ಹಾಕಿ';
 
   @override

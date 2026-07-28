@@ -206,6 +206,192 @@ abstract class AppLocalizations {
   /// **'Sign out'**
   String get logout;
 
+  /// No description provided for @welcomeCongrats.
+  ///
+  /// In en, this message translates to:
+  /// **'Congratulations'**
+  String get welcomeCongrats;
+
+  /// No description provided for @welcomeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You are going to be a mother. This app will walk with you through your pregnancy.'**
+  String get welcomeBody;
+
+  /// No description provided for @welcomeHow.
+  ///
+  /// In en, this message translates to:
+  /// **'First we will help you find an ASHA worker near you. Call her, and she will visit you and register you.'**
+  String get welcomeHow;
+
+  /// No description provided for @welcomeStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Let us begin'**
+  String get welcomeStart;
+
+  /// No description provided for @welcomeAlreadyRegistered.
+  ///
+  /// In en, this message translates to:
+  /// **'My ASHA has already registered me'**
+  String get welcomeAlreadyRegistered;
+
+  /// No description provided for @nameTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What is your name?'**
+  String get nameTitle;
+
+  /// No description provided for @nameWhy.
+  ///
+  /// In en, this message translates to:
+  /// **'We use it only to greet you. Nobody else sees this yet.'**
+  String get nameWhy;
+
+  /// No description provided for @nameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Your name'**
+  String get nameLabel;
+
+  /// No description provided for @nameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'For example, Lakshmi'**
+  String get nameHint;
+
+  /// No description provided for @nameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your name'**
+  String get nameRequired;
+
+  /// No description provided for @locationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Where are you?'**
+  String get locationTitle;
+
+  /// No description provided for @locationWhy.
+  ///
+  /// In en, this message translates to:
+  /// **'We will show you the ASHA workers closest to you, so you can call the right one.'**
+  String get locationWhy;
+
+  /// No description provided for @locationPrivacy.
+  ///
+  /// In en, this message translates to:
+  /// **'Your location is used once, on this phone, to sort the list. It is not saved or sent anywhere.'**
+  String get locationPrivacy;
+
+  /// No description provided for @locationAllow.
+  ///
+  /// In en, this message translates to:
+  /// **'Use my location'**
+  String get locationAllow;
+
+  /// No description provided for @locationSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip this'**
+  String get locationSkip;
+
+  /// No description provided for @ashaNearbyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'ASHA workers near you'**
+  String get ashaNearbyTitle;
+
+  /// No description provided for @ashaNearbyIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'These are the ASHA workers closest to you. Call one and tell her you are pregnant.'**
+  String get ashaNearbyIntro;
+
+  /// No description provided for @ashaNearbyIntroNoLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'These are the ASHA workers in your area. Call one and tell her you are pregnant.'**
+  String get ashaNearbyIntroNoLocation;
+
+  /// No description provided for @ashaNearbyCall.
+  ///
+  /// In en, this message translates to:
+  /// **'Call her'**
+  String get ashaNearbyCall;
+
+  /// No description provided for @ashaNearbyWhatToSay.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell her your name, your village, and that you are pregnant. She will come to your home.'**
+  String get ashaNearbyWhatToSay;
+
+  /// No description provided for @ashaNearbyDone.
+  ///
+  /// In en, this message translates to:
+  /// **'I have called'**
+  String get ashaNearbyDone;
+
+  /// No description provided for @waitingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your ASHA will come soon'**
+  String get waitingTitle;
+
+  /// No description provided for @waitingTitleNamed.
+  ///
+  /// In en, this message translates to:
+  /// **'{name}, your ASHA will come soon'**
+  String waitingTitleNamed(String name);
+
+  /// No description provided for @waitingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'She will visit your home, check your reports, and register you. Then you can sign in.'**
+  String get waitingBody;
+
+  /// No description provided for @waitingWhatNext.
+  ///
+  /// In en, this message translates to:
+  /// **'WHAT HAPPENS NEXT'**
+  String get waitingWhatNext;
+
+  /// No description provided for @waitingStep1.
+  ///
+  /// In en, this message translates to:
+  /// **'You called an ASHA worker'**
+  String get waitingStep1;
+
+  /// No description provided for @waitingStep2.
+  ///
+  /// In en, this message translates to:
+  /// **'She visits your home and checks your reports'**
+  String get waitingStep2;
+
+  /// No description provided for @waitingStep3.
+  ///
+  /// In en, this message translates to:
+  /// **'She registers you and enters your email address'**
+  String get waitingStep3;
+
+  /// No description provided for @waitingStep4.
+  ///
+  /// In en, this message translates to:
+  /// **'You get a message at that email, then sign in here'**
+  String get waitingStep4;
+
+  /// No description provided for @waitingHaveEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'I have received the email'**
+  String get waitingHaveEmail;
+
+  /// No description provided for @waitingCallAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Call an ASHA again'**
+  String get waitingCallAgain;
+
   /// No description provided for @loginTitle.
   ///
   /// In en, this message translates to:
