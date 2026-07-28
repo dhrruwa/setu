@@ -596,6 +596,64 @@ delete from public.staff where role in ('asha','doctor');
                 "insert into public.baby_vaccines (mother_id, vaccine_id, age_id, given, sort_order) values "
                 f"({sql_str(uid(m['id']))}, {sql_str(vac)}, {sql_str(age)}, false, {order});")
 
+    # ------------------------------------------------------------------
+    # Consent.
+    #
+    # A doctor sees the caseload list but nothing clinical until the mother has
+    # agreed — that gate is the point of the feature, and clearing the table on
+    # reload leaves the console looking broken rather than locked. So the demo
+    # starts with consent already given for most of the caseload.
+    #
+    # Two are deliberately left without a grant so the flow itself can still be
+    # shown: m-003 to demonstrate asking her and waiting, and m-005 to
+    # demonstrate walking past the request entirely by scanning her Thayi Card.
+    out.append("""
+-- Consent already given, except where the flow is being demonstrated --------
+insert into public.access_grants
+  (mother_id, staff_id, status, method, reason, requested_at, decided_at, expires_at)
+select m.id, s.id, 'approved', 'request',
+       'Routine antenatal review', now() - interval '9 days',
+       now() - interval '9 days', now() + interval '21 days'
+  from public.mothers m
+  cross join public.staff s
+ where s.role = 'doctor'
+   and m.thayi_card_number not in ('m-003', 'm-005');""")
+
+    # ------------------------------------------------------------------
+    # Re-attach the demo logins.
+    #
+    # Every row above was deleted and re-inserted, which drops auth_user_id.
+    # RLS scopes a mother to `auth_user_id = auth.uid()`, so without this the
+    # people who have already signed in see a completely empty app while their
+    # record sits right there — and it looks like a seeding bug rather than a
+    # broken link. The trigger only fires on new auth.users rows, so anyone who
+    # signed in before a reload would never be re-attached on their own.
+    out.append("""
+-- Re-attach anyone who has already signed in -------------------------------
+update public.mothers m set auth_user_id = u.id
+  from auth.users u where lower(u.email) = lower(m.email);
+update public.staff s set auth_user_id = u.id
+  from auth.users u where lower(u.email) = lower(s.email);
+
+-- Fail loudly rather than hand back a database that looks fine and is not.
+do $$
+declare orphaned int;
+begin
+  select count(*) into orphaned
+    from auth.users u
+   where not exists (select 1 from public.mothers m
+                      where lower(m.email) = lower(u.email)
+                        and m.auth_user_id = u.id)
+     and not exists (select 1 from public.staff s
+                      where lower(s.email) = lower(u.email)
+                        and s.auth_user_id = u.id)
+     and (exists (select 1 from public.mothers m where lower(m.email) = lower(u.email))
+       or exists (select 1 from public.staff s where lower(s.email) = lower(u.email)));
+  if orphaned > 0 then
+    raise exception 'demo dataset: % signed-in account(s) left unlinked', orphaned;
+  end if;
+end $$;""")
+
     out.append("\ncommit;")
     return "\n".join(out)
 

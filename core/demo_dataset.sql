@@ -1009,4 +1009,40 @@ insert into public.baby_vaccines (mother_id, vaccine_id, age_id, given, sort_ord
 insert into public.baby_vaccines (mother_id, vaccine_id, age_id, given, sort_order) values ('e38ebb40-1f64-5eed-a631-9f284b8292e9', 'mr1', 'm9', false, 15);
 insert into public.baby_vaccines (mother_id, vaccine_id, age_id, given, sort_order) values ('e38ebb40-1f64-5eed-a631-9f284b8292e9', 'je1', 'm9', false, 16);
 
+-- Consent already given, except where the flow is being demonstrated --------
+insert into public.access_grants
+  (mother_id, staff_id, status, method, reason, requested_at, decided_at, expires_at)
+select m.id, s.id, 'approved', 'request',
+       'Routine antenatal review', now() - interval '9 days',
+       now() - interval '9 days', now() + interval '21 days'
+  from public.mothers m
+  cross join public.staff s
+ where s.role = 'doctor'
+   and m.thayi_card_number not in ('m-003', 'm-005');
+
+-- Re-attach anyone who has already signed in -------------------------------
+update public.mothers m set auth_user_id = u.id
+  from auth.users u where lower(u.email) = lower(m.email);
+update public.staff s set auth_user_id = u.id
+  from auth.users u where lower(u.email) = lower(s.email);
+
+-- Fail loudly rather than hand back a database that looks fine and is not.
+do $$
+declare orphaned int;
+begin
+  select count(*) into orphaned
+    from auth.users u
+   where not exists (select 1 from public.mothers m
+                      where lower(m.email) = lower(u.email)
+                        and m.auth_user_id = u.id)
+     and not exists (select 1 from public.staff s
+                      where lower(s.email) = lower(u.email)
+                        and s.auth_user_id = u.id)
+     and (exists (select 1 from public.mothers m where lower(m.email) = lower(u.email))
+       or exists (select 1 from public.staff s where lower(s.email) = lower(u.email)));
+  if orphaned > 0 then
+    raise exception 'demo dataset: % signed-in account(s) left unlinked', orphaned;
+  end if;
+end $$;
+
 commit;
