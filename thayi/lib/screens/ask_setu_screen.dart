@@ -15,21 +15,32 @@ import 'danger_alert_screen.dart';
 class _Message {
   _Message.fromMother(this.text)
       : fromMother = true,
-        answer = null,
+        failure = null,
         blocked = false;
-  _Message.fromSetu(this.answer)
+  _Message.fromSetu(this.text)
+      : fromMother = false,
+        failure = null,
+        blocked = false;
+  _Message.failed(this.failure)
       : fromMother = false,
         text = null,
         blocked = false;
   _Message.blocked()
       : fromMother = false,
         text = null,
-        answer = null,
+        failure = null,
         blocked = true;
 
   final bool fromMother;
+
+  /// What was said — her question, or the assistant's own words. The assistant
+  /// writes each answer for the question she actually asked, so there is no id
+  /// to look up here.
   final String? text;
-  final ChatAnswer? answer;
+
+  /// Set when no answer could be given, so the transcript can explain why and
+  /// offer her ASHA worker.
+  final ChatFailure? failure;
 
   /// A note in the transcript saying the message was held back on purpose.
   final bool blocked;
@@ -59,7 +70,16 @@ class _AskSetuScreenState extends ConsumerState<AskSetuScreen> {
     super.dispose();
   }
 
-  Future<void> _send(String raw, {ChatAnswer? preferred}) async {
+  /// The conversation so far, so a follow-up like "and after delivery?" is
+  /// understood. Blocked and failed turns are left out — they are notes to
+  /// her, not part of what was discussed.
+  List<ChatTurn> get _history => [
+        for (final m in _messages)
+          if (m.text != null)
+            ChatTurn(fromMother: m.fromMother, text: m.text!),
+      ];
+
+  Future<void> _send(String raw) async {
     final text = raw.trim();
     if (text.isEmpty || _thinking) return;
 
@@ -79,6 +99,7 @@ class _AskSetuScreenState extends ConsumerState<AskSetuScreen> {
       return;
     }
 
+    final history = _history;
     setState(() {
       _messages.add(_Message.fromMother(text));
       _input.clear();
@@ -86,12 +107,13 @@ class _AskSetuScreenState extends ConsumerState<AskSetuScreen> {
     });
     _scrollToEnd();
 
-    final reply = await ref
-        .read(chatServiceProvider)
-        .ask(text, preferredAnswer: preferred);
+    final reply =
+        await ref.read(chatServiceProvider).ask(text, history: history);
     if (!mounted) return;
     setState(() {
-      _messages.add(_Message.fromSetu(reply.answer));
+      _messages.add(reply.canAnswer
+          ? _Message.fromSetu(reply.text!)
+          : _Message.failed(reply.failure!));
       _thinking = false;
     });
     _scrollToEnd();
@@ -214,8 +236,9 @@ class _AskSetuScreenState extends ConsumerState<AskSetuScreen> {
         listening: _listening,
         onSend: () => _send(_input.text),
         onMic: _toggleMic,
-        onSuggestion: (q) =>
-            _send(l.suggestedQuestion(q.id), preferred: q.answer),
+        // Tapping an opener sends that sentence to the assistant exactly as if
+        // she had typed it, and she can keep talking from the answer.
+        onSuggestion: (q) => _send(l.suggestedQuestion(q.id)),
       ),
       body: Column(
         children: [
@@ -231,19 +254,19 @@ class _AskSetuScreenState extends ConsumerState<AskSetuScreen> {
                     _BlockedNote()
                   else if (m.fromMother)
                     _Bubble.mother(text: m.text!)
-                  else ...[
-                    _Bubble.setu(text: l.chatAnswer(m.answer!)),
-                    if (m.answer == ChatAnswer.fallback) ...[
-                      const SizedBox(height: S.sm),
-                      _ContactAshaButton(
-                        onDone: () => _toast(
-                          l.messageSentToAsha(
-                            mother == null ? '' : l.ashaName(mother.asha),
-                          ),
+                  else if (m.failure != null) ...[
+                    // Every dead end offers her a person instead.
+                    _Bubble.setu(text: l.chatFailure(m.failure!)),
+                    const SizedBox(height: S.sm),
+                    _ContactAshaButton(
+                      onDone: () => _toast(
+                        l.messageSentToAsha(
+                          mother == null ? '' : l.ashaName(mother.asha),
                         ),
                       ),
-                    ],
-                  ],
+                    ),
+                  ] else
+                    _Bubble.setu(text: m.text!),
                 ],
                 if (_thinking) ...[
                   const SizedBox(height: S.md),

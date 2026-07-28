@@ -312,9 +312,14 @@ final dangerSignDetectorProvider =
 
 // -------------------------------------------------------------------- chat
 
-final chatServiceProvider = Provider<ChatService>(
-  (ref) => const MockChatService(),
-);
+/// The assistant runs on the server. With a session she gets the real thing;
+/// without one there is nothing to talk to, and [MockChatService] says so
+/// rather than inventing an answer.
+final chatServiceProvider = Provider<ChatService>((ref) {
+  final client = ref.watch(supabaseClientProvider);
+  if (client == null) return const MockChatService();
+  return GeminiChatService(client);
+});
 
 // -------------------------------------------------------- tablets for today
 

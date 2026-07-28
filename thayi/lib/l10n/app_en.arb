@@ -1,9 +1,7 @@
 {
   "@@locale": "en",
-
   "appName": "Setu Thayi",
   "appTagline": "Your pregnancy companion",
-
   "langKannada": "ಕನ್ನಡ",
   "langEnglish": "English",
   "chooseLanguage": "Choose your language",
@@ -20,7 +18,6 @@
   "notRecorded": "Not recorded",
   "settingsTitle": "Settings",
   "logout": "Sign out",
-
   "loginTitle": "Enter your email address",
   "loginSubtitle": "We will email you a 6 digit code",
   "phoneLabel": "Mobile number",
@@ -34,7 +31,11 @@
   "otpTitle": "Enter the code",
   "otpSentTo": "Sent to {phone}",
   "@otpSentTo": {
-    "placeholders": { "phone": { "type": "String" } }
+    "placeholders": {
+      "phone": {
+        "type": "String"
+      }
+    }
   },
   "otpInvalid": "Please enter all 6 digits",
   "verify": "Verify",
@@ -46,7 +47,6 @@
   "otpWrongCode": "That code is not right. Please check the SMS and try again.",
   "noNetwork": "No internet. Please check your connection and try again.",
   "recordNotLinked": "Your Thayi Card record is not linked to this number yet. Please ask your ASHA worker.",
-
   "consentTitle": "About your information",
   "consentWhatTitle": "What we keep",
   "consentWhatBody": "Your name, phone number, and the health details written in your Thayi Card.",
@@ -56,25 +56,40 @@
   "consentWithdrawBody": "You can take back this permission at any time. Tell your ASHA worker.",
   "consentAccept": "I understand and agree",
   "consentMustAccept": "Please agree to continue",
-
   "greeting": "Namaskara, {name}",
   "@greeting": {
-    "placeholders": { "name": { "type": "String" } }
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   },
   "homeToday": "Your health today",
   "weeksPregnantLabel": "Weeks pregnant",
   "weeksValue": "{weeks} weeks",
   "@weeksValue": {
-    "placeholders": { "weeks": { "type": "int" } }
+    "placeholders": {
+      "weeks": {
+        "type": "int"
+      }
+    }
   },
   "weeksProgress": "Week {weeks} of 40",
   "@weeksProgress": {
-    "placeholders": { "weeks": { "type": "int" } }
+    "placeholders": {
+      "weeks": {
+        "type": "int"
+      }
+    }
   },
   "eddLabel": "Expected delivery date",
   "daysRemaining": "{days} days to go",
   "@daysRemaining": {
-    "placeholders": { "days": { "type": "int" } }
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
   },
   "nextCheckupLabel": "Next checkup",
   "checkupOverdueBadge": "Overdue",
@@ -82,7 +97,6 @@
   "askSetuCardBody": "Ask anything about your pregnancy. Speak or type.",
   "exploreLabel": "YOUR RECORD",
   "moreLabel": "MORE",
-
   "navThayiCard": "My Thayi Card",
   "navCheckups": "My Checkups",
   "navHealth": "My Health",
@@ -104,7 +118,11 @@
   "consentSection": "YOUR PERMISSION",
   "consentGivenOn": "You agreed on {date}",
   "@consentGivenOn": {
-    "placeholders": { "date": { "type": "String" } }
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
   },
   "consentNotRecorded": "No agreement recorded",
   "withdrawConsent": "Take back my permission",
@@ -115,7 +133,6 @@
   "navDangerSigns": "Danger Signs",
   "navAsha": "My ASHA Worker",
   "navAfterDelivery": "After Delivery",
-
   "emergencyShort": "Emergency",
   "emergencyTitle": "Emergency",
   "emergencyIntro": "Show this screen to whoever is helping you.",
@@ -130,10 +147,13 @@
   "directions": "Show the way",
   "distanceKm": "{km} km away",
   "@distanceKm": {
-    "placeholders": { "km": { "type": "String" } }
+    "placeholders": {
+      "km": {
+        "type": "String"
+      }
+    }
   },
   "callFailed": "Could not open the dialler",
-
   "thayiCardTitle": "My Thayi Card",
   "qrCaption": "Show this code at the hospital",
   "worksOffline": "Works without internet",
@@ -141,7 +161,11 @@
   "fieldAge": "Age",
   "ageYears": "{age} years",
   "@ageYears": {
-    "placeholders": { "age": { "type": "int" } }
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
   },
   "fieldGuardian": "Husband / guardian",
   "fieldVillage": "Village",
@@ -150,39 +174,53 @@
   "fieldCardNumber": "Thayi Card number",
   "fieldAsha": "ASHA worker",
   "fieldPhc": "Health centre",
-
   "checkupsTitle": "My Checkups",
   "tabUpcoming": "Coming up",
   "tabCompleted": "Done",
   "visitNumber": "Checkup {number}",
   "@visitNumber": {
-    "placeholders": { "number": { "type": "int" } }
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
   },
   "whatHappensLabel": "What will be done",
   "locationLabel": "Where",
   "weightLabel": "Weight",
   "weightKg": "{kg} kg",
   "@weightKg": {
-    "placeholders": { "kg": { "type": "String" } }
+    "placeholders": {
+      "kg": {
+        "type": "String"
+      }
+    }
   },
   "bpLabel": "Blood pressure",
   "bpValue": "{systolic}/{diastolic}",
   "@bpValue": {
     "placeholders": {
-      "systolic": { "type": "int" },
-      "diastolic": { "type": "int" }
+      "systolic": {
+        "type": "int"
+      },
+      "diastolic": {
+        "type": "int"
+      }
     }
   },
   "recordedBy": "Recorded by {name}",
   "@recordedBy": {
-    "placeholders": { "name": { "type": "String" } }
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   },
   "overdueTitle": "This checkup is overdue",
   "overdueBody": "Please do not wait. Talk to your ASHA worker today.",
   "contactAsha": "Contact your ASHA",
   "emptyUpcoming": "No checkups booked yet",
   "emptyCompleted": "No checkups done yet",
-
   "healthTitle": "My Health",
   "riskFlagsSection": "BLOOD GROUP AND WARNINGS",
   "noRiskFlags": "No warnings",
@@ -192,7 +230,11 @@
   "diastolic": "Lower",
   "weekShort": "W{week}",
   "@weekShort": {
-    "placeholders": { "week": { "type": "int" } }
+    "placeholders": {
+      "week": {
+        "type": "int"
+      }
+    }
   },
   "tabletsSection": "TABLETS TODAY",
   "tabletIfa": "Iron tablet (IFA)",
@@ -204,16 +246,23 @@
   "ttSection": "TT VACCINE",
   "ttDose": "TT dose {number}",
   "@ttDose": {
-    "placeholders": { "number": { "type": "int" } }
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
   },
   "statusGiven": "Given",
   "statusDue": "Due",
   "givenOn": "Given on {date}",
   "@givenOn": {
-    "placeholders": { "date": { "type": "String" } }
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
   },
   "chartNoData": "No readings yet",
-
   "schemesTitle": "My Schemes",
   "badgeEligible": "You are eligible",
   "badgeNotEligible": "Not eligible now",
@@ -221,7 +270,6 @@
   "documentsNeeded": "Papers to carry",
   "nearbyHospitals": "Nearby hospitals",
   "schemesFootnote": "Benefits and eligibility shown here are indicative only. Please confirm with your ASHA worker or your health centre.",
-
   "schemeThayiBhagyaName": "Thayi Bhagya",
   "schemeThayiBhagyaBenefit": "Free delivery at an approved private hospital when a government hospital is far away.",
   "schemePmmvyName": "PMMVY",
@@ -234,7 +282,6 @@
   "schemeMadiluBenefit": "A kit of clothes and things for you and the baby, given at the hospital after delivery.",
   "schemeJsskName": "JSSK",
   "schemeJsskBenefit": "Free delivery, free medicines, free tests, free food and free transport at government hospitals.",
-
   "docThayiCard": "Thayi Card",
   "docAadhaar": "Your Aadhaar card",
   "docBankPassbook": "Bank passbook in your name",
@@ -242,7 +289,6 @@
   "docHusbandAadhaar": "Husband's Aadhaar card",
   "docMchRegistration": "Pregnancy registration slip",
   "docDeliveryProof": "Delivery discharge paper",
-
   "askSetuTitle": "Ask Setu",
   "chatWelcome": "Namaskara. Ask me anything about your pregnancy. You can speak or type.",
   "chatHint": "Write your question",
@@ -255,52 +301,38 @@
   "topicFood": "Food",
   "topicRest": "Rest and work",
   "topicAfterDelivery": "After delivery",
-
   "qFood1": "What should I eat every day?",
-  "aFood1": "Eat something from each group every day: rice or ragi, dal or egg, and green vegetables. Add a little jaggery and groundnut. Drink water often. Take your iron tablet after food.",
   "qFood2": "Can I drink tea and coffee?",
-  "aFood2": "A little is fine, but not right after your iron tablet — it stops the iron from working. Leave one hour between them. Milk, buttermilk and water are better through the day.",
   "qFood3": "I feel sick in the morning. What can I do?",
-  "aFood3": "Eat small amounts more often instead of three big meals. Dry food like puffed rice or a biscuit before getting out of bed helps. If you cannot keep any food or water down for a day, tell your ASHA worker.",
-
   "qRest1": "How much should I rest?",
-  "aRest1": "Rest for two hours in the day, lying on your left side. Sleep well at night. In the last three months your body needs more rest than usual.",
   "qRest2": "Can I do my usual housework?",
-  "aRest2": "Light work is good for you. Avoid lifting heavy pots or water, standing for many hours, and climbing. If you feel giddy or your stomach tightens, stop and sit down.",
   "qRest3": "Can I travel to my mother's village?",
-  "aRest3": "Short journeys are usually fine until the eighth month. Avoid long bumpy road journeys near your delivery date, and always carry your Thayi Card with you.",
-
   "qAfter1": "When should I start feeding the baby?",
-  "aAfter1": "Feed the baby within the first hour after birth. The first thick yellow milk is very important — do not throw it away. Give only breast milk for six months, no water and no honey.",
   "qAfter2": "How long should I rest after delivery?",
-  "aAfter2": "Take full rest for six weeks. Eat well and keep drinking water. Your ASHA worker will visit you at home several times during this period.",
   "qAfter3": "When is the baby's first vaccine?",
-  "aAfter3": "The first vaccines are given at birth itself in the hospital. The next set is at six weeks. Keep the immunisation card safe and take it to every visit.",
-
-  "aFallback": "I am not able to answer that one properly. Your ASHA worker will know — shall I pass this question to her?",
   "aMedicineRefusal": "I cannot advise you about medicines or doses. Please ask your ASHA worker or the doctor at your health centre — they know your record.",
   "contactAshaFromChat": "Send this to my ASHA",
   "messageSentToAsha": "Your question has been noted for {name}. She will call you back.",
   "@messageSentToAsha": {
-    "placeholders": { "name": { "type": "String" } }
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   },
-
   "micPermissionTitle": "Microphone permission",
   "micPermissionBody": "Setu needs the microphone only to listen to your question and turn it into words. Nothing is recorded or kept.",
   "micAllow": "Allow microphone",
   "micDenied": "Microphone was not allowed. You can still type your question.",
   "micUnavailable": "Voice input is not available on this phone. Please type your question.",
-
   "dangerInterruptTitle": "This needs attention now",
   "dangerInterruptBody": "What you described can be serious. Do not wait for an answer here. Call for help now.",
   "dangerInterruptDismiss": "I am safe, go back",
   "dangerInterruptNote": "Your message was not sent. Your safety comes first.",
-
   "dangerSignsTitle": "Danger Signs",
   "dangerSignsIntro": "If any of these happen, get help the same hour. Do not wait for the next checkup.",
   "whatToDoLabel": "What to do",
   "callMyAsha": "Call my ASHA",
-
   "dsBleedingTitle": "Bleeding",
   "dsBleedingBody": "Any bleeding from below during pregnancy, even a small amount.",
   "dsBleedingDo": "Lie down, do not travel alone, and call your ASHA worker or 108 at once.",
@@ -322,14 +354,12 @@
   "dsMovementTitle": "Baby is not moving",
   "dsMovementBody": "The baby moves less than usual, or you have felt no movement for some hours.",
   "dsMovementDo": "Lie on your left side and count the movements. If still less, go to the health centre now.",
-
   "ashaTitle": "My ASHA Worker",
   "ashaRole": "Your ASHA worker",
   "subCentreLabel": "Sub-centre",
   "phoneNumberLabel": "Phone number",
   "callNow": "Call now",
   "ashaNote": "She writes your record and visits you at home. Ask her anything, at any time.",
-
   "afterDeliveryTitle": "After Delivery",
   "afterDeliveryNote": "This is what will happen after your baby is born. Nothing here needs to be done yet.",
   "immunisationSection": "BABY'S VACCINES",
@@ -347,14 +377,12 @@
   "age10Weeks": "10 weeks",
   "age14Weeks": "14 weeks",
   "age9Months": "9 months",
-
   "riskAnaemia": "Low blood (anaemia)",
   "riskHighBp": "High blood pressure",
   "riskUnderweight": "Low weight",
   "riskPreviousCsection": "Previous caesarean",
   "riskAgeRisk": "Age risk",
   "riskTwins": "Twins",
-
   "actWeightBp": "Weight and blood pressure",
   "actBloodTest": "Blood test",
   "actUrineTest": "Urine test",
@@ -363,5 +391,17 @@
   "actScan": "Scan",
   "actBabyHeartbeat": "Baby's heartbeat",
   "actGeneralCheck": "General checkup",
-  "actDeliveryPlanning": "Delivery planning"
+  "actDeliveryPlanning": "Delivery planning",
+  "chatOffline": "I could not reach the assistant just now. Please check your connection, or ask your ASHA worker.",
+  "@chatOffline": {
+    "description": "Shown in Ask Setu when the assistant cannot answer."
+  },
+  "chatNoAnswer": "I do not know the answer to that one. Your ASHA worker can tell you properly.",
+  "@chatNoAnswer": {
+    "description": "Shown in Ask Setu when the assistant cannot answer."
+  },
+  "chatSourceNote": "Answers come from government and WHO health guidance.",
+  "@chatSourceNote": {
+    "description": "Shown in Ask Setu when the assistant cannot answer."
+  }
 }

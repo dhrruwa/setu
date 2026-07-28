@@ -19,8 +19,18 @@ It is covered by `test/danger_sign_detector_test.dart` — keep those tests gree
 Never put personal data in the QR payload. It is `setu://m/<uuid>?t=<token>` and
 nothing else.
 
-The chat never answers about medicines or dosages — `MockChatService` refuses
-those outright, in the client.
+The chat never answers about medicines or dosages — `MedicineGuard` refuses
+those in the client, before anything is sent, so the refusal does not depend on
+a server or on the model behaving. Covered by `test/chat_service_test.dart`.
+
+Ask Setu is a real conversation, not a menu of prepared answers. The model runs
+in the `ask-setu` Supabase Edge Function (`core/functions/ask-setu/`), which
+holds the Gemini key — it must never appear in this app, for the same reason as
+the Supabase service key. The function retrieves approved rows from
+`pregnancy_faqs` and tells the model to answer only from those, so replies stay
+inside clinician-reviewed material. If nothing matches, it says it does not know
+and offers her ASHA worker; it never fills the gap from the model's own
+knowledge.
 
 ## Design system
 

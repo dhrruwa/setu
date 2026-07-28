@@ -1,9 +1,7 @@
 {
   "@@locale": "kn",
-
   "appName": "ಸೇತು ತಾಯಿ",
   "appTagline": "ನಿಮ್ಮ ಗರ್ಭಾವಸ್ಥೆಯ ಸಂಗಾತಿ",
-
   "langKannada": "ಕನ್ನಡ",
   "langEnglish": "English",
   "chooseLanguage": "ನಿಮ್ಮ ಭಾಷೆ ಆರಿಸಿ",
@@ -20,7 +18,6 @@
   "notRecorded": "ಬರೆದಿಲ್ಲ",
   "settingsTitle": "ಸೆಟ್ಟಿಂಗ್ಸ್",
   "logout": "ಹೊರಗೆ ಬನ್ನಿ",
-
   "loginTitle": "ನಿಮ್ಮ ಇಮೇಲ್ ವಿಳಾಸ ಹಾಕಿ",
   "loginSubtitle": "ನಿಮ್ಮ ಇಮೇಲ್‌ಗೆ 6 ಅಂಕಿಯ ಕೋಡ್ ಕಳುಹಿಸುತ್ತೇವೆ",
   "phoneLabel": "ಮೊಬೈಲ್ ನಂಬರ್",
@@ -34,7 +31,11 @@
   "otpTitle": "ಕೋಡ್ ಹಾಕಿ",
   "otpSentTo": "{phone} ಗೆ ಕಳುಹಿಸಿದ್ದೇವೆ",
   "@otpSentTo": {
-    "placeholders": { "phone": { "type": "String" } }
+    "placeholders": {
+      "phone": {
+        "type": "String"
+      }
+    }
   },
   "otpInvalid": "6 ಅಂಕಿಗಳನ್ನೂ ಹಾಕಿ",
   "verify": "ಪರಿಶೀಲಿಸಿ",
@@ -46,7 +47,6 @@
   "otpWrongCode": "ಈ ಕೋಡ್ ಸರಿಯಿಲ್ಲ. ಎಸ್‌ಎಂಎಸ್ ನೋಡಿ ಮತ್ತೆ ಹಾಕಿ.",
   "noNetwork": "ಇಂಟರ್ನೆಟ್ ಇಲ್ಲ. ಸಂಪರ್ಕ ನೋಡಿ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
   "recordNotLinked": "ಈ ನಂಬರ್‌ಗೆ ನಿಮ್ಮ ತಾಯಿ ಕಾರ್ಡ್ ದಾಖಲೆ ಇನ್ನೂ ಜೋಡಿಸಿಲ್ಲ. ನಿಮ್ಮ ಆಶಾ ಕಾರ್ಯಕರ್ತೆಯನ್ನು ಕೇಳಿ.",
-
   "consentTitle": "ನಿಮ್ಮ ಮಾಹಿತಿಯ ಬಗ್ಗೆ",
   "consentWhatTitle": "ನಾವು ಏನು ಇಟ್ಟುಕೊಳ್ಳುತ್ತೇವೆ",
   "consentWhatBody": "ನಿಮ್ಮ ಹೆಸರು, ಫೋನ್ ನಂಬರ್, ಮತ್ತು ನಿಮ್ಮ ತಾಯಿ ಕಾರ್ಡ್‌ನಲ್ಲಿ ಬರೆದಿರುವ ಆರೋಗ್ಯ ಮಾಹಿತಿ.",
@@ -56,25 +56,40 @@
   "consentWithdrawBody": "ಯಾವಾಗ ಬೇಕಾದರೂ ಈ ಒಪ್ಪಿಗೆ ಹಿಂಪಡೆಯಬಹುದು. ನಿಮ್ಮ ಆಶಾ ಕಾರ್ಯಕರ್ತೆಗೆ ಹೇಳಿದರೆ ಸಾಕು.",
   "consentAccept": "ನನಗೆ ಅರ್ಥವಾಯಿತು, ಒಪ್ಪುತ್ತೇನೆ",
   "consentMustAccept": "ಮುಂದೆ ಹೋಗಲು ಒಪ್ಪಿಗೆ ಕೊಡಿ",
-
   "greeting": "ನಮಸ್ಕಾರ, {name}",
   "@greeting": {
-    "placeholders": { "name": { "type": "String" } }
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   },
   "homeToday": "ಇಂದು ನಿಮ್ಮ ಆರೋಗ್ಯ",
   "weeksPregnantLabel": "ಗರ್ಭಾವಸ್ಥೆ",
   "weeksValue": "{weeks} ವಾರ",
   "@weeksValue": {
-    "placeholders": { "weeks": { "type": "int" } }
+    "placeholders": {
+      "weeks": {
+        "type": "int"
+      }
+    }
   },
   "weeksProgress": "40 ವಾರಗಳಲ್ಲಿ {weeks}ನೇ ವಾರ",
   "@weeksProgress": {
-    "placeholders": { "weeks": { "type": "int" } }
+    "placeholders": {
+      "weeks": {
+        "type": "int"
+      }
+    }
   },
   "eddLabel": "ನಿರೀಕ್ಷಿತ ಹೆರಿಗೆ ದಿನ",
   "daysRemaining": "ಇನ್ನು {days} ದಿನ",
   "@daysRemaining": {
-    "placeholders": { "days": { "type": "int" } }
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
   },
   "nextCheckupLabel": "ಮುಂದಿನ ತಪಾಸಣೆ",
   "checkupOverdueBadge": "ತಡವಾಗಿದೆ",
@@ -82,7 +97,6 @@
   "askSetuCardBody": "ಗರ್ಭಾವಸ್ಥೆ ಬಗ್ಗೆ ಏನು ಬೇಕಾದರೂ ಕೇಳಿ. ಮಾತಾಡಿ ಅಥವಾ ಬರೆಯಿರಿ.",
   "exploreLabel": "ನಿಮ್ಮ ದಾಖಲೆ",
   "moreLabel": "ಇನ್ನಷ್ಟು",
-
   "navThayiCard": "ನನ್ನ ತಾಯಿ ಕಾರ್ಡ್",
   "navCheckups": "ನನ್ನ ತಪಾಸಣೆ",
   "navHealth": "ನನ್ನ ಆರೋಗ್ಯ",
@@ -104,7 +118,11 @@
   "consentSection": "ನಿಮ್ಮ ಒಪ್ಪಿಗೆ",
   "consentGivenOn": "{date} ರಂದು ನೀವು ಒಪ್ಪಿಗೆ ಕೊಟ್ಟಿದ್ದೀರಿ",
   "@consentGivenOn": {
-    "placeholders": { "date": { "type": "String" } }
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
   },
   "consentNotRecorded": "ಒಪ್ಪಿಗೆ ದಾಖಲಾಗಿಲ್ಲ",
   "withdrawConsent": "ನನ್ನ ಒಪ್ಪಿಗೆ ಹಿಂಪಡೆಯಿರಿ",
@@ -115,7 +133,6 @@
   "navDangerSigns": "ಅಪಾಯದ ಲಕ್ಷಣ",
   "navAsha": "ನನ್ನ ಆಶಾ ಕಾರ್ಯಕರ್ತೆ",
   "navAfterDelivery": "ಹೆರಿಗೆಯ ನಂತರ",
-
   "emergencyShort": "ತುರ್ತು",
   "emergencyTitle": "ತುರ್ತು",
   "emergencyIntro": "ನಿಮಗೆ ಸಹಾಯ ಮಾಡುವವರಿಗೆ ಈ ಪರದೆ ತೋರಿಸಿ.",
@@ -130,10 +147,13 @@
   "directions": "ದಾರಿ ತೋರಿಸಿ",
   "distanceKm": "{km} ಕಿ.ಮೀ ದೂರ",
   "@distanceKm": {
-    "placeholders": { "km": { "type": "String" } }
+    "placeholders": {
+      "km": {
+        "type": "String"
+      }
+    }
   },
   "callFailed": "ಕರೆ ಮಾಡಲು ಆಗಲಿಲ್ಲ",
-
   "thayiCardTitle": "ನನ್ನ ತಾಯಿ ಕಾರ್ಡ್",
   "qrCaption": "ಆಸ್ಪತ್ರೆಯಲ್ಲಿ ಈ ಕೋಡ್ ತೋರಿಸಿ",
   "worksOffline": "ಇಂಟರ್ನೆಟ್ ಇಲ್ಲದೆಯೂ ಕೆಲಸ ಮಾಡುತ್ತದೆ",
@@ -141,7 +161,11 @@
   "fieldAge": "ವಯಸ್ಸು",
   "ageYears": "{age} ವರ್ಷ",
   "@ageYears": {
-    "placeholders": { "age": { "type": "int" } }
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
   },
   "fieldGuardian": "ಪತಿ / ಪಾಲಕರು",
   "fieldVillage": "ಗ್ರಾಮ",
@@ -150,39 +174,53 @@
   "fieldCardNumber": "ತಾಯಿ ಕಾರ್ಡ್ ನಂಬರ್",
   "fieldAsha": "ಆಶಾ ಕಾರ್ಯಕರ್ತೆ",
   "fieldPhc": "ಆರೋಗ್ಯ ಕೇಂದ್ರ",
-
   "checkupsTitle": "ನನ್ನ ತಪಾಸಣೆ",
   "tabUpcoming": "ಮುಂದಿನವು",
   "tabCompleted": "ಮುಗಿದವು",
   "visitNumber": "{number}ನೇ ತಪಾಸಣೆ",
   "@visitNumber": {
-    "placeholders": { "number": { "type": "int" } }
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
   },
   "whatHappensLabel": "ಏನು ಮಾಡುತ್ತಾರೆ",
   "locationLabel": "ಎಲ್ಲಿ",
   "weightLabel": "ತೂಕ",
   "weightKg": "{kg} ಕೆ.ಜಿ",
   "@weightKg": {
-    "placeholders": { "kg": { "type": "String" } }
+    "placeholders": {
+      "kg": {
+        "type": "String"
+      }
+    }
   },
   "bpLabel": "ರಕ್ತದೊತ್ತಡ",
   "bpValue": "{systolic}/{diastolic}",
   "@bpValue": {
     "placeholders": {
-      "systolic": { "type": "int" },
-      "diastolic": { "type": "int" }
+      "systolic": {
+        "type": "int"
+      },
+      "diastolic": {
+        "type": "int"
+      }
     }
   },
   "recordedBy": "{name} ಬರೆದಿದ್ದಾರೆ",
   "@recordedBy": {
-    "placeholders": { "name": { "type": "String" } }
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   },
   "overdueTitle": "ಈ ತಪಾಸಣೆ ತಡವಾಗಿದೆ",
   "overdueBody": "ಕಾಯಬೇಡಿ. ಇಂದೇ ನಿಮ್ಮ ಆಶಾ ಕಾರ್ಯಕರ್ತೆಯ ಜೊತೆ ಮಾತಾಡಿ.",
   "contactAsha": "ಆಶಾ ಜೊತೆ ಮಾತಾಡಿ",
   "emptyUpcoming": "ಮುಂದಿನ ತಪಾಸಣೆ ಇನ್ನೂ ಗೊತ್ತಾಗಿಲ್ಲ",
   "emptyCompleted": "ಇನ್ನೂ ಯಾವ ತಪಾಸಣೆಯೂ ಆಗಿಲ್ಲ",
-
   "healthTitle": "ನನ್ನ ಆರೋಗ್ಯ",
   "riskFlagsSection": "ರಕ್ತದ ಗುಂಪು ಮತ್ತು ಎಚ್ಚರಿಕೆ",
   "noRiskFlags": "ಯಾವ ಎಚ್ಚರಿಕೆಯೂ ಇಲ್ಲ",
@@ -192,7 +230,11 @@
   "diastolic": "ಕೆಳಗಿನದು",
   "weekShort": "{week}ವಾ",
   "@weekShort": {
-    "placeholders": { "week": { "type": "int" } }
+    "placeholders": {
+      "week": {
+        "type": "int"
+      }
+    }
   },
   "tabletsSection": "ಇಂದಿನ ಮಾತ್ರೆ",
   "tabletIfa": "ಕಬ್ಬಿಣಾಂಶದ ಮಾತ್ರೆ (IFA)",
@@ -204,16 +246,23 @@
   "ttSection": "ಟಿ.ಟಿ. ಲಸಿಕೆ",
   "ttDose": "ಟಿ.ಟಿ. {number}ನೇ ಡೋಸ್",
   "@ttDose": {
-    "placeholders": { "number": { "type": "int" } }
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
   },
   "statusGiven": "ಹಾಕಿಸಲಾಗಿದೆ",
   "statusDue": "ಬಾಕಿ ಇದೆ",
   "givenOn": "{date} ರಂದು ಹಾಕಿಸಲಾಗಿದೆ",
   "@givenOn": {
-    "placeholders": { "date": { "type": "String" } }
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
   },
   "chartNoData": "ಇನ್ನೂ ಅಳತೆ ಆಗಿಲ್ಲ",
-
   "schemesTitle": "ನನ್ನ ಯೋಜನೆಗಳು",
   "badgeEligible": "ನೀವು ಅರ್ಹರು",
   "badgeNotEligible": "ಈಗ ಅರ್ಹರಲ್ಲ",
@@ -221,7 +270,6 @@
   "documentsNeeded": "ತೆಗೆದುಕೊಂಡು ಹೋಗಬೇಕಾದ ದಾಖಲೆ",
   "nearbyHospitals": "ಹತ್ತಿರದ ಆಸ್ಪತ್ರೆಗಳು",
   "schemesFootnote": "ಇಲ್ಲಿ ತೋರಿಸಿರುವ ಸೌಲಭ್ಯ ಮತ್ತು ಅರ್ಹತೆ ಸೂಚನೆ ಮಾತ್ರ. ನಿಮ್ಮ ಆಶಾ ಕಾರ್ಯಕರ್ತೆ ಅಥವಾ ಆರೋಗ್ಯ ಕೇಂದ್ರದಲ್ಲಿ ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ.",
-
   "schemeThayiBhagyaName": "ತಾಯಿ ಭಾಗ್ಯ",
   "schemeThayiBhagyaBenefit": "ಸರ್ಕಾರಿ ಆಸ್ಪತ್ರೆ ದೂರ ಇದ್ದಾಗ, ಗುರುತಿಸಿದ ಖಾಸಗಿ ಆಸ್ಪತ್ರೆಯಲ್ಲಿ ಉಚಿತ ಹೆರಿಗೆ.",
   "schemePmmvyName": "ಪಿ.ಎಂ.ಎಂ.ವಿ.ವೈ",
@@ -234,7 +282,6 @@
   "schemeMadiluBenefit": "ಹೆರಿಗೆಯ ನಂತರ ಆಸ್ಪತ್ರೆಯಲ್ಲಿ ಕೊಡುವ ಕಿಟ್ — ನಿಮಗೆ ಮತ್ತು ಮಗುವಿಗೆ ಬಟ್ಟೆ ಮತ್ತು ಅಗತ್ಯ ವಸ್ತುಗಳು.",
   "schemeJsskName": "ಜೆ.ಎಸ್.ಎಸ್.ಕೆ",
   "schemeJsskBenefit": "ಸರ್ಕಾರಿ ಆಸ್ಪತ್ರೆಯಲ್ಲಿ ಉಚಿತ ಹೆರಿಗೆ, ಉಚಿತ ಔಷಧಿ, ಉಚಿತ ಪರೀಕ್ಷೆ, ಉಚಿತ ಊಟ ಮತ್ತು ಉಚಿತ ವಾಹನ.",
-
   "docThayiCard": "ತಾಯಿ ಕಾರ್ಡ್",
   "docAadhaar": "ನಿಮ್ಮ ಆಧಾರ್ ಕಾರ್ಡ್",
   "docBankPassbook": "ನಿಮ್ಮ ಹೆಸರಿನ ಬ್ಯಾಂಕ್ ಪಾಸ್‌ಬುಕ್",
@@ -242,7 +289,6 @@
   "docHusbandAadhaar": "ಪತಿಯ ಆಧಾರ್ ಕಾರ್ಡ್",
   "docMchRegistration": "ಗರ್ಭ ನೋಂದಣಿ ಚೀಟಿ",
   "docDeliveryProof": "ಹೆರಿಗೆಯ ಡಿಸ್ಚಾರ್ಜ್ ಪತ್ರ",
-
   "askSetuTitle": "ಸೇತುವನ್ನು ಕೇಳಿ",
   "chatWelcome": "ನಮಸ್ಕಾರ. ಗರ್ಭಾವಸ್ಥೆ ಬಗ್ಗೆ ಏನು ಬೇಕಾದರೂ ಕೇಳಿ. ಮಾತಾಡಬಹುದು ಅಥವಾ ಬರೆಯಬಹುದು.",
   "chatHint": "ನಿಮ್ಮ ಪ್ರಶ್ನೆ ಬರೆಯಿರಿ",
@@ -255,52 +301,38 @@
   "topicFood": "ಆಹಾರ",
   "topicRest": "ವಿಶ್ರಾಂತಿ ಮತ್ತು ಕೆಲಸ",
   "topicAfterDelivery": "ಹೆರಿಗೆಯ ನಂತರ",
-
   "qFood1": "ಪ್ರತಿ ದಿನ ಏನು ತಿನ್ನಬೇಕು?",
-  "aFood1": "ಪ್ರತಿ ದಿನ ಎಲ್ಲಾ ಬಗೆಯ ಆಹಾರ ಸ್ವಲ್ಪ ಸ್ವಲ್ಪ ತಿನ್ನಿ: ಅನ್ನ ಅಥವಾ ರಾಗಿ, ಬೇಳೆ ಅಥವಾ ಮೊಟ್ಟೆ, ಮತ್ತು ಸೊಪ್ಪು ತರಕಾರಿ. ಸ್ವಲ್ಪ ಬೆಲ್ಲ ಮತ್ತು ಶೇಂಗಾ ಸೇರಿಸಿ. ಆಗಾಗ ನೀರು ಕುಡಿಯಿರಿ. ಕಬ್ಬಿಣಾಂಶದ ಮಾತ್ರೆಯನ್ನು ಊಟದ ನಂತರ ತೆಗೆದುಕೊಳ್ಳಿ.",
   "qFood2": "ಚಹಾ ಕಾಫಿ ಕುಡಿಯಬಹುದೇ?",
-  "aFood2": "ಸ್ವಲ್ಪ ಪರವಾಗಿಲ್ಲ. ಆದರೆ ಕಬ್ಬಿಣಾಂಶದ ಮಾತ್ರೆಯ ಜೊತೆಗೇ ಬೇಡ — ಅದು ಮಾತ್ರೆ ಕೆಲಸ ಮಾಡದಂತೆ ಮಾಡುತ್ತದೆ. ನಡುವೆ ಒಂದು ಗಂಟೆ ಅಂತರ ಇರಲಿ. ಹಾಲು, ಮಜ್ಜಿಗೆ ಮತ್ತು ನೀರು ಹೆಚ್ಚು ಒಳ್ಳೆಯದು.",
   "qFood3": "ಬೆಳಿಗ್ಗೆ ವಾಕರಿಕೆ ಆಗುತ್ತದೆ. ಏನು ಮಾಡಲಿ?",
-  "aFood3": "ಮೂರು ದೊಡ್ಡ ಊಟದ ಬದಲು ಸ್ವಲ್ಪ ಸ್ವಲ್ಪವಾಗಿ ಹೆಚ್ಚು ಸಲ ತಿನ್ನಿ. ಹಾಸಿಗೆಯಿಂದ ಏಳುವ ಮೊದಲು ಮಂಡಕ್ಕಿ ಅಥವಾ ಬಿಸ್ಕತ್ತು ತಿಂದರೆ ಸಹಾಯ ಆಗುತ್ತದೆ. ಒಂದು ದಿನ ಪೂರ್ತಿ ಊಟ ನೀರು ಏನೂ ಒಳಗೆ ಉಳಿಯದಿದ್ದರೆ ಆಶಾ ಕಾರ್ಯಕರ್ತೆಗೆ ಹೇಳಿ.",
-
   "qRest1": "ಎಷ್ಟು ವಿಶ್ರಾಂತಿ ತೆಗೆದುಕೊಳ್ಳಬೇಕು?",
-  "aRest1": "ಹಗಲಿನಲ್ಲಿ ಎರಡು ಗಂಟೆ ವಿಶ್ರಾಂತಿ ತೆಗೆದುಕೊಳ್ಳಿ, ಎಡ ಮಗ್ಗುಲಲ್ಲಿ ಮಲಗಿ. ರಾತ್ರಿ ಚೆನ್ನಾಗಿ ನಿದ್ದೆ ಮಾಡಿ. ಕೊನೆಯ ಮೂರು ತಿಂಗಳಲ್ಲಿ ದೇಹಕ್ಕೆ ಎಂದಿಗಿಂತ ಹೆಚ್ಚು ವಿಶ್ರಾಂತಿ ಬೇಕು.",
   "qRest2": "ಮನೆ ಕೆಲಸ ಮಾಡಬಹುದೇ?",
-  "aRest2": "ಹಗುರವಾದ ಕೆಲಸ ಒಳ್ಳೆಯದು. ಭಾರವಾದ ಪಾತ್ರೆ ಅಥವಾ ನೀರು ಎತ್ತುವುದು, ಗಂಟೆಗಟ್ಟಲೆ ನಿಲ್ಲುವುದು ಮತ್ತು ಹತ್ತುವುದು ಬೇಡ. ತಲೆ ಸುತ್ತಿದರೆ ಅಥವಾ ಹೊಟ್ಟೆ ಬಿಗಿಯಾದರೆ ನಿಲ್ಲಿಸಿ ಕುಳಿತುಕೊಳ್ಳಿ.",
   "qRest3": "ತವರು ಮನೆಗೆ ಪ್ರಯಾಣ ಮಾಡಬಹುದೇ?",
-  "aRest3": "ಎಂಟನೇ ತಿಂಗಳವರೆಗೆ ಚಿಕ್ಕ ಪ್ರಯಾಣ ಸಾಮಾನ್ಯವಾಗಿ ಪರವಾಗಿಲ್ಲ. ಹೆರಿಗೆ ದಿನ ಹತ್ತಿರ ಬಂದಾಗ ಉದ್ದದ ಕುಲುಕುವ ರಸ್ತೆ ಪ್ರಯಾಣ ಬೇಡ. ಎಲ್ಲಿಗೆ ಹೋದರೂ ತಾಯಿ ಕಾರ್ಡ್ ಜೊತೆಗೆ ಇರಲಿ.",
-
   "qAfter1": "ಮಗುವಿಗೆ ಯಾವಾಗ ಹಾಲುಣಿಸಬೇಕು?",
-  "aAfter1": "ಹುಟ್ಟಿದ ಒಂದು ಗಂಟೆಯ ಒಳಗೆ ಹಾಲುಣಿಸಿ. ಮೊದಲ ದಪ್ಪ ಹಳದಿ ಹಾಲು ತುಂಬಾ ಮುಖ್ಯ — ಅದನ್ನು ಚೆಲ್ಲಬೇಡಿ. ಆರು ತಿಂಗಳವರೆಗೆ ಎದೆ ಹಾಲು ಮಾತ್ರ ಕೊಡಿ, ನೀರು ಜೇನುತುಪ್ಪ ಏನೂ ಬೇಡ.",
   "qAfter2": "ಹೆರಿಗೆಯ ನಂತರ ಎಷ್ಟು ದಿನ ವಿಶ್ರಾಂತಿ ಬೇಕು?",
-  "aAfter2": "ಆರು ವಾರ ಪೂರ್ತಿ ವಿಶ್ರಾಂತಿ ತೆಗೆದುಕೊಳ್ಳಿ. ಚೆನ್ನಾಗಿ ಊಟ ಮಾಡಿ, ನೀರು ಕುಡಿಯುತ್ತಿರಿ. ಈ ಸಮಯದಲ್ಲಿ ಆಶಾ ಕಾರ್ಯಕರ್ತೆ ಹಲವು ಸಲ ಮನೆಗೆ ಬಂದು ನೋಡುತ್ತಾರೆ.",
   "qAfter3": "ಮಗುವಿಗೆ ಮೊದಲ ಲಸಿಕೆ ಯಾವಾಗ?",
-  "aAfter3": "ಮೊದಲ ಲಸಿಕೆಗಳನ್ನು ಹುಟ್ಟಿದಾಗಲೇ ಆಸ್ಪತ್ರೆಯಲ್ಲಿ ಹಾಕುತ್ತಾರೆ. ಮುಂದಿನವು ಆರು ವಾರಕ್ಕೆ. ಲಸಿಕೆ ಕಾರ್ಡ್ ಜೋಪಾನವಾಗಿ ಇಟ್ಟುಕೊಳ್ಳಿ, ಪ್ರತಿ ಸಲ ತೆಗೆದುಕೊಂಡು ಹೋಗಿ.",
-
-  "aFallback": "ಇದಕ್ಕೆ ಸರಿಯಾದ ಉತ್ತರ ನನಗೆ ಗೊತ್ತಿಲ್ಲ. ನಿಮ್ಮ ಆಶಾ ಕಾರ್ಯಕರ್ತೆಗೆ ಗೊತ್ತಿರುತ್ತದೆ — ಈ ಪ್ರಶ್ನೆಯನ್ನು ಅವರಿಗೆ ತಲುಪಿಸಲೇ?",
   "aMedicineRefusal": "ಔಷಧಿ ಅಥವಾ ಮಾತ್ರೆಯ ಪ್ರಮಾಣದ ಬಗ್ಗೆ ನಾನು ಸಲಹೆ ಕೊಡುವುದಿಲ್ಲ. ನಿಮ್ಮ ಆಶಾ ಕಾರ್ಯಕರ್ತೆ ಅಥವಾ ಆರೋಗ್ಯ ಕೇಂದ್ರದ ವೈದ್ಯರನ್ನು ಕೇಳಿ — ನಿಮ್ಮ ದಾಖಲೆ ಅವರಿಗೆ ಗೊತ್ತು.",
   "contactAshaFromChat": "ಇದನ್ನು ನನ್ನ ಆಶಾಗೆ ಕಳುಹಿಸಿ",
   "messageSentToAsha": "ನಿಮ್ಮ ಪ್ರಶ್ನೆಯನ್ನು {name} ಅವರಿಗೆ ತಿಳಿಸಲಾಗಿದೆ. ಅವರು ನಿಮಗೆ ಕರೆ ಮಾಡುತ್ತಾರೆ.",
   "@messageSentToAsha": {
-    "placeholders": { "name": { "type": "String" } }
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   },
-
   "micPermissionTitle": "ಮೈಕ್ರೊಫೋನ್ ಅನುಮತಿ",
   "micPermissionBody": "ನಿಮ್ಮ ಪ್ರಶ್ನೆಯನ್ನು ಕೇಳಿ ಅಕ್ಷರಕ್ಕೆ ಬದಲಿಸಲು ಮಾತ್ರ ಸೇತುವಿಗೆ ಮೈಕ್ರೊಫೋನ್ ಬೇಕು. ಯಾವುದನ್ನೂ ರೆಕಾರ್ಡ್ ಮಾಡುವುದಿಲ್ಲ, ಇಟ್ಟುಕೊಳ್ಳುವುದಿಲ್ಲ.",
   "micAllow": "ಅನುಮತಿ ಕೊಡಿ",
   "micDenied": "ಮೈಕ್ರೊಫೋನ್ ಅನುಮತಿ ಸಿಗಲಿಲ್ಲ. ಬರೆದು ಕೇಳಬಹುದು.",
   "micUnavailable": "ಈ ಫೋನಿನಲ್ಲಿ ಮಾತಿನ ಸೌಲಭ್ಯ ಇಲ್ಲ. ದಯವಿಟ್ಟು ಬರೆದು ಕೇಳಿ.",
-
   "dangerInterruptTitle": "ಇದಕ್ಕೆ ಈಗಲೇ ಗಮನ ಬೇಕು",
   "dangerInterruptBody": "ನೀವು ಹೇಳಿದ್ದು ಗಂಭೀರವಾಗಿರಬಹುದು. ಇಲ್ಲಿ ಉತ್ತರಕ್ಕಾಗಿ ಕಾಯಬೇಡಿ. ಈಗಲೇ ಸಹಾಯಕ್ಕೆ ಕರೆ ಮಾಡಿ.",
   "dangerInterruptDismiss": "ನಾನು ಸುರಕ್ಷಿತವಾಗಿದ್ದೇನೆ, ಹಿಂದೆ ಹೋಗಿ",
   "dangerInterruptNote": "ನಿಮ್ಮ ಸಂದೇಶ ಕಳುಹಿಸಿಲ್ಲ. ನಿಮ್ಮ ಸುರಕ್ಷತೆ ಮೊದಲು.",
-
   "dangerSignsTitle": "ಅಪಾಯದ ಲಕ್ಷಣಗಳು",
   "dangerSignsIntro": "ಇವುಗಳಲ್ಲಿ ಯಾವುದಾದರೂ ಕಂಡರೆ ಅದೇ ಗಂಟೆಯಲ್ಲಿ ಸಹಾಯ ಪಡೆಯಿರಿ. ಮುಂದಿನ ತಪಾಸಣೆಗೆ ಕಾಯಬೇಡಿ.",
   "whatToDoLabel": "ಏನು ಮಾಡಬೇಕು",
   "callMyAsha": "ನನ್ನ ಆಶಾಗೆ ಕರೆ",
-
   "dsBleedingTitle": "ರಕ್ತಸ್ರಾವ",
   "dsBleedingBody": "ಗರ್ಭಾವಸ್ಥೆಯಲ್ಲಿ ಕೆಳಗಿನಿಂದ ರಕ್ತ ಹೋಗುವುದು — ಸ್ವಲ್ಪವಾದರೂ ಸರಿ.",
   "dsBleedingDo": "ಮಲಗಿಕೊಳ್ಳಿ, ಒಬ್ಬರೇ ಪ್ರಯಾಣ ಮಾಡಬೇಡಿ, ತಕ್ಷಣ ಆಶಾ ಕಾರ್ಯಕರ್ತೆಗೆ ಅಥವಾ 108 ಗೆ ಕರೆ ಮಾಡಿ.",
@@ -322,14 +354,12 @@
   "dsMovementTitle": "ಮಗು ಆಡುತ್ತಿಲ್ಲ",
   "dsMovementBody": "ಮಗುವಿನ ಚಲನೆ ಎಂದಿಗಿಂತ ಕಡಿಮೆ, ಅಥವಾ ಕೆಲವು ಗಂಟೆಗಳಿಂದ ಚಲನೆಯೇ ಇಲ್ಲ.",
   "dsMovementDo": "ಎಡ ಮಗ್ಗುಲಲ್ಲಿ ಮಲಗಿ ಚಲನೆ ಎಣಿಸಿ. ಇನ್ನೂ ಕಡಿಮೆ ಇದ್ದರೆ ಈಗಲೇ ಆರೋಗ್ಯ ಕೇಂದ್ರಕ್ಕೆ ಹೋಗಿ.",
-
   "ashaTitle": "ನನ್ನ ಆಶಾ ಕಾರ್ಯಕರ್ತೆ",
   "ashaRole": "ನಿಮ್ಮ ಆಶಾ ಕಾರ್ಯಕರ್ತೆ",
   "subCentreLabel": "ಉಪ ಕೇಂದ್ರ",
   "phoneNumberLabel": "ಫೋನ್ ನಂಬರ್",
   "callNow": "ಈಗ ಕರೆ ಮಾಡಿ",
   "ashaNote": "ನಿಮ್ಮ ದಾಖಲೆಯನ್ನು ಅವರೇ ಬರೆಯುತ್ತಾರೆ ಮತ್ತು ಮನೆಗೆ ಬಂದು ನೋಡುತ್ತಾರೆ. ಯಾವಾಗ ಬೇಕಾದರೂ ಏನು ಬೇಕಾದರೂ ಕೇಳಿ.",
-
   "afterDeliveryTitle": "ಹೆರಿಗೆಯ ನಂತರ",
   "afterDeliveryNote": "ಮಗು ಹುಟ್ಟಿದ ನಂತರ ಏನಾಗುತ್ತದೆ ಎಂಬುದು ಇಲ್ಲಿದೆ. ಈಗ ಏನೂ ಮಾಡಬೇಕಾಗಿಲ್ಲ.",
   "immunisationSection": "ಮಗುವಿನ ಲಸಿಕೆಗಳು",
@@ -347,14 +377,12 @@
   "age10Weeks": "10 ವಾರಕ್ಕೆ",
   "age14Weeks": "14 ವಾರಕ್ಕೆ",
   "age9Months": "9 ತಿಂಗಳಿಗೆ",
-
   "riskAnaemia": "ರಕ್ತಹೀನತೆ",
   "riskHighBp": "ಹೆಚ್ಚಿನ ರಕ್ತದೊತ್ತಡ",
   "riskUnderweight": "ಕಡಿಮೆ ತೂಕ",
   "riskPreviousCsection": "ಹಿಂದೆ ಸಿಸೇರಿಯನ್",
   "riskAgeRisk": "ವಯಸ್ಸಿನ ಅಪಾಯ",
   "riskTwins": "ಅವಳಿ ಮಕ್ಕಳು",
-
   "actWeightBp": "ತೂಕ ಮತ್ತು ರಕ್ತದೊತ್ತಡ",
   "actBloodTest": "ರಕ್ತ ಪರೀಕ್ಷೆ",
   "actUrineTest": "ಮೂತ್ರ ಪರೀಕ್ಷೆ",
@@ -363,5 +391,8 @@
   "actScan": "ಸ್ಕ್ಯಾನ್",
   "actBabyHeartbeat": "ಮಗುವಿನ ಹೃದಯ ಬಡಿತ",
   "actGeneralCheck": "ಸಾಮಾನ್ಯ ತಪಾಸಣೆ",
-  "actDeliveryPlanning": "ಹೆರಿಗೆಯ ಸಿದ್ಧತೆ"
+  "actDeliveryPlanning": "ಹೆರಿಗೆಯ ಸಿದ್ಧತೆ",
+  "chatOffline": "ಈಗ ಸಹಾಯಕವನ್ನು ಸಂಪರ್ಕಿಸಲು ಆಗಲಿಲ್ಲ. ನಿಮ್ಮ ಇಂಟರ್ನೆಟ್ ಪರಿಶೀಲಿಸಿ, ಅಥವಾ ಆಶಾ ಕಾರ್ಯಕರ್ತೆಯನ್ನು ಕೇಳಿ.",
+  "chatNoAnswer": "ಇದಕ್ಕೆ ಉತ್ತರ ನನಗೆ ಗೊತ್ತಿಲ್ಲ. ಆಶಾ ಕಾರ್ಯಕರ್ತೆ ನಿಮಗೆ ಸರಿಯಾಗಿ ಹೇಳಬಲ್ಲರು.",
+  "chatSourceNote": "ಉತ್ತರಗಳು ಸರ್ಕಾರಿ ಮತ್ತು ಡಬ್ಲ್ಯುಎಚ್‌ಒ ಆರೋಗ್ಯ ಮಾರ್ಗಸೂಚಿಗಳಿಂದ ಬಂದವು."
 }

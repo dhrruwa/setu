@@ -642,68 +642,28 @@ class AppLocalizationsEn extends AppLocalizations {
   String get qFood1 => 'What should I eat every day?';
 
   @override
-  String get aFood1 =>
-      'Eat something from each group every day: rice or ragi, dal or egg, and green vegetables. Add a little jaggery and groundnut. Drink water often. Take your iron tablet after food.';
-
-  @override
   String get qFood2 => 'Can I drink tea and coffee?';
-
-  @override
-  String get aFood2 =>
-      'A little is fine, but not right after your iron tablet — it stops the iron from working. Leave one hour between them. Milk, buttermilk and water are better through the day.';
 
   @override
   String get qFood3 => 'I feel sick in the morning. What can I do?';
 
   @override
-  String get aFood3 =>
-      'Eat small amounts more often instead of three big meals. Dry food like puffed rice or a biscuit before getting out of bed helps. If you cannot keep any food or water down for a day, tell your ASHA worker.';
-
-  @override
   String get qRest1 => 'How much should I rest?';
-
-  @override
-  String get aRest1 =>
-      'Rest for two hours in the day, lying on your left side. Sleep well at night. In the last three months your body needs more rest than usual.';
 
   @override
   String get qRest2 => 'Can I do my usual housework?';
 
   @override
-  String get aRest2 =>
-      'Light work is good for you. Avoid lifting heavy pots or water, standing for many hours, and climbing. If you feel giddy or your stomach tightens, stop and sit down.';
-
-  @override
   String get qRest3 => 'Can I travel to my mother\'s village?';
-
-  @override
-  String get aRest3 =>
-      'Short journeys are usually fine until the eighth month. Avoid long bumpy road journeys near your delivery date, and always carry your Thayi Card with you.';
 
   @override
   String get qAfter1 => 'When should I start feeding the baby?';
 
   @override
-  String get aAfter1 =>
-      'Feed the baby within the first hour after birth. The first thick yellow milk is very important — do not throw it away. Give only breast milk for six months, no water and no honey.';
-
-  @override
   String get qAfter2 => 'How long should I rest after delivery?';
 
   @override
-  String get aAfter2 =>
-      'Take full rest for six weeks. Eat well and keep drinking water. Your ASHA worker will visit you at home several times during this period.';
-
-  @override
   String get qAfter3 => 'When is the baby\'s first vaccine?';
-
-  @override
-  String get aAfter3 =>
-      'The first vaccines are given at birth itself in the hospital. The next set is at six weeks. Keep the immunisation card safe and take it to every visit.';
-
-  @override
-  String get aFallback =>
-      'I am not able to answer that one properly. Your ASHA worker will know — shall I pass this question to her?';
 
   @override
   String get aMedicineRefusal =>
@@ -954,4 +914,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get actDeliveryPlanning => 'Delivery planning';
+
+  @override
+  String get chatOffline =>
+      'I could not reach the assistant just now. Please check your connection, or ask your ASHA worker.';
+
+  @override
+  String get chatNoAnswer =>
+      'I do not know the answer to that one. Your ASHA worker can tell you properly.';
+
+  @override
+  String get chatSourceNote =>
+      'Answers come from government and WHO health guidance.';
 }
