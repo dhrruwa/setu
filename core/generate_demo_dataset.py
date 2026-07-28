@@ -133,6 +133,28 @@ OVERDUE = ["m-011", "m-019"]
 OVER_35 = ["m-016"]
 
 
+# The facilities she can be sent to, nearest first. Real places in Hassan
+# district, so the distances and the map pins are not nonsense.
+HEALTH_CENTRES = [
+    ("hc-phc", "Halebeedu Primary Health Centre", "ಹಳೇಬೀಡು ಪ್ರಾಥಮಿಕ ಆರೋಗ್ಯ ಕೇಂದ್ರ",
+     "+91 8177 273041", 13.2137, 75.9946),
+    ("hc-chc", "Belur Community Health Centre", "ಬೇಲೂರು ಸಮುದಾಯ ಆರೋಗ್ಯ ಕೇಂದ್ರ",
+     "+91 8177 222108", 13.1628, 75.8648),
+    ("hc-dh", "Hassan Institute of Medical Sciences", "ಹಾಸನ ವೈದ್ಯಕೀಯ ವಿಜ್ಞಾನ ಸಂಸ್ಥೆ",
+     "+91 8172 268016", 13.0072, 76.0962),
+]
+
+# The national immunisation schedule. Shown before the birth so she knows what
+# is coming and when, rather than finding out on the day.
+BABY_VACCINES = [
+    ("bcg", "birth"), ("hepB0", "birth"), ("opv0", "birth"),
+    ("penta1", "w6"), ("opv1", "w6"), ("rota1", "w6"), ("pcv1", "w6"),
+    ("penta2", "w10"), ("opv2", "w10"), ("rota2", "w10"),
+    ("penta3", "w14"), ("opv3", "w14"), ("rota3", "w14"), ("pcv2", "w14"),
+    ("mr1", "m9"), ("je1", "m9"),
+]
+
+
 def lcg(seed):
     """Tiny deterministic generator — same dataset on every machine, every run."""
     state = seed
