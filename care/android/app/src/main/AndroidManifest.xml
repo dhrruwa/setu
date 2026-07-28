@@ -1,4 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- Scanning a mother's Thayi Card QR at the counter. Presenting the
+         card is her consent, so this is the only way into her record
+         without a request she has approved. -->
+    <uses-permission android:name="android.permission.CAMERA"/>
     <application
         android:label="Setu Care"
         android:name="${applicationName}"

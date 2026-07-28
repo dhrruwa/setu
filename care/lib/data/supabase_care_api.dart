@@ -297,6 +297,43 @@ class SupabaseCareApi implements CareApi {
     );
   }
 
+  // -------------------------------------------------------------- consent
+
+  /// Her record is not open by default. Either she approves a request in Thayi
+  /// Setu, or she shows her Thayi Card QR at the hospital — presenting it is
+  /// the consent.
+  Future<void> requestAccess(String motherId, {String? reason}) =>
+      _client.rpc('request_mother_access',
+          params: {'p_mother_id': motherId, 'p_reason': reason});
+
+  /// False when the token does not match her card, so a guessed id opens
+  /// nothing.
+  Future<bool> grantByQr(String motherId, String token) async {
+    final ok = await _client.rpc('grant_access_by_qr',
+        params: {'p_mother_id': motherId, 'p_token': token});
+    return ok == true;
+  }
+
+  /// none | pending | approved | rejected | expired
+  Future<String> accessState(String motherId) async {
+    final rows = await _client
+        .from('access_grants')
+        .select('status, expires_at')
+        .eq('mother_id', motherId)
+        .order('requested_at', ascending: false)
+        .limit(1);
+    if (rows.isEmpty) return 'none';
+    final r = rows.first;
+    final status = r['status'] as String? ?? 'none';
+    if (status == 'approved') {
+      final exp = r['expires_at'] == null
+          ? null
+          : DateTime.tryParse(r['expires_at'].toString());
+      if (exp != null && exp.isBefore(DateTime.now())) return 'expired';
+    }
+    return status;
+  }
+
   // ------------------------------------------------------------- mapping
 
   Mother _mother(Map<String, dynamic> r) {

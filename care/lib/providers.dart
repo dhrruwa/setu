@@ -9,6 +9,7 @@ import 'data/mock_data.dart';
 import 'data/models.dart';
 import 'data/supabase_care_api.dart';
 
+
 final prefsProvider = Provider<SharedPreferences>(
   (ref) => throw UnimplementedError('prefsProvider must be overridden'),
 );
@@ -179,6 +180,17 @@ final ashasProvider = FutureProvider<List<AshaWorker>>(
 final referralsProvider = FutureProvider<List<Referral>>(
   (ref) => ref.watch(apiProvider).getReferrals(),
 );
+
+// ----------------------------------------------------------------- consent
+
+/// Where this doctor stands with a given mother: none, pending, approved,
+/// rejected or expired. Mock mode has no gate, so it reports approved.
+final accessStateProvider =
+    FutureProvider.family<String, String>((ref, motherId) async {
+  final api = ref.watch(apiProvider);
+  if (api is! SupabaseCareApi) return 'approved';
+  return api.accessState(motherId);
+});
 
 // ----------------------------------------------------- mothers list filters
 

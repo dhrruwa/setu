@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../data/models.dart';
+import '../data/supabase_care_api.dart';
 import '../features/assign_task_sheet.dart';
+import '../features/scan_thayi_card.dart';
 import '../providers.dart';
 import '../theme/tokens.dart';
 import '../widgets/care_widgets.dart';
@@ -58,13 +60,16 @@ class MotherRecordScreen extends ConsumerWidget {
           children: [
             _IdentityPanel(mother: mother),
             Expanded(
-              child: TabBarView(
-                children: [
-                  _TimelineTab(mother: mother),
-                  _VitalsTab(motherId: motherId),
-                  _LabsTab(motherId: motherId),
-                  _NotesTab(motherId: motherId),
-                ],
+              child: _Gated(
+                motherId: motherId,
+                child: TabBarView(
+                  children: [
+                    _TimelineTab(mother: mother),
+                    _VitalsTab(motherId: motherId),
+                    _LabsTab(motherId: motherId),
+                    _NotesTab(motherId: motherId),
+                  ],
+                ),
               ),
             ),
           ],
@@ -650,6 +655,73 @@ class _Quiet extends StatelessWidget {
         minimumSize: const Size(44, 44),
       ),
       icon: Icon(icon),
+    );
+  }
+}
+
+
+/// Nothing clinical renders until she has agreed, or shown her card.
+class _Gated extends ConsumerStatefulWidget {
+  const _Gated({required this.motherId, required this.child});
+
+  final String motherId;
+  final Widget child;
+
+  @override
+  ConsumerState<_Gated> createState() => _GatedState();
+}
+
+class _GatedState extends ConsumerState<_Gated> {
+  bool _busy = false;
+
+  Future<void> _request() async {
+    final api = ref.read(apiProvider);
+    if (api is! SupabaseCareApi) return;
+    setState(() => _busy = true);
+    final messenger = ScaffoldMessenger.of(context);
+    try {
+      await api.requestAccess(widget.motherId,
+          reason: 'Review of antenatal record');
+      ref.invalidate(accessStateProvider(widget.motherId));
+      messenger.showSnackBar(
+        const SnackBar(content: Text('Asked. She decides in her app.')),
+      );
+    } catch (_) {
+      messenger.showSnackBar(
+        const SnackBar(content: Text('Could not send the request')),
+      );
+    }
+    if (mounted) setState(() => _busy = false);
+  }
+
+  Future<void> _scan() async {
+    final scanned = await ScanThayiCard.show(context);
+    if (scanned == null || !mounted) return;
+    ref.invalidate(accessStateProvider(widget.motherId));
+    // A different woman's card opens her record, not the one on screen.
+    if (scanned != widget.motherId) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute<void>(
+          builder: (_) => MotherRecordScreen(motherId: scanned),
+        ),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final state = ref.watch(accessStateProvider(widget.motherId));
+    return state.when(
+      loading: () => const SkeletonList(count: 3),
+      error: (_, __) => const EmptyState(message: 'Could not check access'),
+      data: (value) => value == 'approved'
+          ? widget.child
+          : AccessLocked(
+              state: value,
+              busy: _busy,
+              onRequest: _request,
+              onScan: _scan,
+            ),
     );
   }
 }
