@@ -28,3 +28,19 @@ ios/Flutter/Flutter.podspec
 # Editors
 .idea/
 .vscode/
+
+# Flutter-generated, regenerated on every build — never commit these.
+**/GeneratedPluginRegistrant.*
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/ephemeral/
+**/ios/Flutter/flutter_export_environment.sh
+**/android/local.properties
+
+# Gradle wrapper binaries. Flutter ignores these via each project's nested
+# android/.gitignore, but that file disappears when a branch without that app
+# is checked out, leaving the wrapper visible. Rules at the root survive.
+**/android/gradlew
+**/android/gradlew.bat
+**/android/gradle/wrapper/gradle-wrapper.jar
+**/android/.gradle/
+**/android/captures/
