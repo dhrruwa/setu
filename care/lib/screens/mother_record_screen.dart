@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
+import '../data/mock_data.dart';
 import '../data/models.dart';
 import '../data/supabase_care_api.dart';
 import '../features/assign_task_sheet.dart';
+import '../features/prescription_capture.dart';
 import '../features/scan_thayi_card.dart';
 import '../providers.dart';
 import '../theme/tokens.dart';
@@ -147,6 +149,7 @@ class _TimelineTab extends ConsumerWidget {
     final visits = ref.watch(visitsProvider(mother.id)).valueOrNull;
     final tasks = ref.watch(motherTasksProvider(mother.id)).valueOrNull;
     final notes = ref.watch(notesProvider(mother.id)).valueOrNull;
+    final rx = ref.watch(prescriptionsProvider(mother.id)).valueOrNull;
     final optimistic = ref
         .watch(optimisticTasksProvider)
         .where((t) => t.motherId == mother.id)
@@ -159,6 +162,8 @@ class _TimelineTab extends ConsumerWidget {
       for (final t in [...optimistic, ...?tasks]) _Entry(t.createdAt, task: t),
       for (final n in notes ?? const <ClinicalNote>[])
         _Entry(n.createdAt, note: n),
+      for (final p in rx ?? const <Prescription>[])
+        _Entry(p.takenAt, prescription: p),
     ]..sort((a, b) => b.date.compareTo(a.date));
 
     if (entries.isEmpty) {
@@ -175,11 +180,12 @@ class _TimelineTab extends ConsumerWidget {
 }
 
 class _Entry {
-  _Entry(this.date, {this.visit, this.task, this.note});
+  _Entry(this.date, {this.visit, this.task, this.note, this.prescription});
   final DateTime date;
   final AncVisit? visit;
   final Task? task;
   final ClinicalNote? note;
+  final Prescription? prescription;
 }
 
 class _TimelineTile extends StatelessWidget {
@@ -226,6 +232,10 @@ class _TimelineTile extends StatelessWidget {
           ],
         ),
       );
+    }
+
+    if (entry.prescription != null) {
+      return _PrescriptionTile(rx: entry.prescription!, date: date);
     }
 
     if (entry.note != null) {
@@ -601,6 +611,7 @@ class _ActionsBar extends StatelessWidget {
               ),
             ),
             const SizedBox(width: S.sm),
+            _RxButton(motherId: mother.id),
             _Quiet(
               icon: Icons.science_outlined,
               tooltip: 'Order lab',
@@ -722,6 +733,117 @@ class _GatedState extends ConsumerState<_Gated> {
               onRequest: _request,
               onScan: _scan,
             ),
+    );
+  }
+}
+
+
+/// Photograph the prescription written at this visit.
+class _RxButton extends ConsumerWidget {
+  const _RxButton({required this.motherId});
+
+  final String motherId;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return IconButton(
+      tooltip: 'Add prescription photo',
+      onPressed: () => PrescriptionCapture.show(
+        context,
+        ref,
+        motherId: motherId,
+        doctorName: MockData.doctorName,
+      ),
+      iconSize: 20,
+      style: IconButton.styleFrom(
+        foregroundColor: C.textSoft,
+        side: const BorderSide(color: C.divider),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(S.sm),
+        ),
+        minimumSize: const Size(44, 44),
+      ),
+      icon: const Icon(Icons.receipt_long_outlined),
+    );
+  }
+}
+
+/// The photo itself, fetched through a short-lived signed URL because the
+/// bucket is private.
+class _PrescriptionTile extends ConsumerWidget {
+  const _PrescriptionTile({required this.rx, required this.date});
+
+  final Prescription rx;
+  final String date;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final url = ref.watch(prescriptionUrlProvider(rx.storagePath)).valueOrNull;
+
+    return CareCard(
+      padding: const EdgeInsets.all(S.md),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Icon(Icons.receipt_long_outlined,
+                  size: 15, color: C.teal),
+              const SizedBox(width: 6),
+              Expanded(
+                child: Text('Prescription',
+                    style: T.small.copyWith(
+                        color: C.teal, fontWeight: FontWeight.w600)),
+              ),
+              Text(date, style: T.small),
+            ],
+          ),
+          if (rx.note != null && rx.note!.isNotEmpty) ...[
+            const SizedBox(height: 6),
+            Text(rx.note!, style: T.body),
+          ],
+          const SizedBox(height: S.sm),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(S.sm),
+            child: url == null
+                ? Container(
+                    height: 120,
+                    color: C.bg,
+                    alignment: Alignment.center,
+                    child: const Text('Loading image…', style: T.small),
+                  )
+                : GestureDetector(
+                    onTap: () => showDialog<void>(
+                      context: context,
+                      builder: (_) => Dialog(
+                        backgroundColor: C.ink,
+                        insetPadding: const EdgeInsets.all(S.md),
+                        child: InteractiveViewer(
+                          maxScale: 5,
+                          child: Image.network(url, fit: BoxFit.contain),
+                        ),
+                      ),
+                    ),
+                    child: Image.network(
+                      url,
+                      height: 180,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) => Container(
+                        height: 120,
+                        color: C.bg,
+                        alignment: Alignment.center,
+                        child: const Text('Image unavailable', style: T.small),
+                      ),
+                    ),
+                  ),
+          ),
+          if (rx.prescribedBy != null) ...[
+            const SizedBox(height: 6),
+            RoleTag(name: rx.prescribedBy!, source: VisitSource.doctor),
+          ],
+        ],
+      ),
     );
   }
 }
