@@ -28,3 +28,10 @@ ios/Flutter/Flutter.podspec
 # Editors
 .idea/
 .vscode/
+
+# Flutter-generated, regenerated on every build — never commit these.
+**/GeneratedPluginRegistrant.*
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/ephemeral/
+**/ios/Flutter/flutter_export_environment.sh
+**/android/local.properties
