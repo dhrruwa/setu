@@ -9,6 +9,7 @@ import 'package:supabase_flutter/supabase_flutter.dart' as sb;
 import 'config/env.dart';
 import 'data/chat_service.dart';
 import 'data/models.dart';
+import 'data/access_requests.dart';
 import 'data/asha_directory.dart';
 import 'data/mother_repository.dart';
 import 'data/profile_photo_service.dart';
@@ -214,6 +215,17 @@ final authControllerProvider =
     ref.watch(prefsProvider),
     ref.watch(supabaseClientProvider),
   ),
+);
+
+// ------------------------------------------------------------- consent
+
+final accessRequestsProvider = Provider<AccessRequests>(
+  (ref) => AccessRequests(ref.watch(supabaseClientProvider)),
+);
+
+/// Who has asked to see her record, and who currently can.
+final myAccessGrantsProvider = FutureProvider<List<AccessGrant>>(
+  (ref) => ref.watch(accessRequestsProvider).forMe(),
 );
 
 // -------------------------------------------------------------- onboarding

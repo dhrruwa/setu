@@ -380,6 +380,59 @@ class AppLocalizationsKn extends AppLocalizations {
   String get reportMistake => 'ಇದರಲ್ಲಿ ಏನೋ ತಪ್ಪಿದೆ';
 
   @override
+  String get accessSection => 'ನಿಮ್ಮ ದಾಖಲೆ ನೋಡಲು ಕೇಳಿದವರು';
+
+  @override
+  String accessRequestFrom(String name) {
+    return '$name ನಿಮ್ಮ ಆರೋಗ್ಯ ದಾಖಲೆ ನೋಡಲು ಕೇಳುತ್ತಿದ್ದಾರೆ';
+  }
+
+  @override
+  String accessRequestReason(String reason) {
+    return 'ಕಾರಣ: $reason';
+  }
+
+  @override
+  String get accessApprove => 'ಅನುಮತಿ ಕೊಡಿ';
+
+  @override
+  String get accessReject => 'ಬೇಡ';
+
+  @override
+  String accessApproved(String name) {
+    return '$name ಅವರಿಗೆ ಅನುಮತಿ ಕೊಟ್ಟಿದ್ದೀರಿ';
+  }
+
+  @override
+  String accessRejected(String name) {
+    return '$name ಅವರಿಗೆ ಅನುಮತಿ ಕೊಟ್ಟಿಲ್ಲ';
+  }
+
+  @override
+  String get accessNone => 'ನಿಮ್ಮ ದಾಖಲೆ ನೋಡಲು ಯಾರೂ ಕೇಳಿಲ್ಲ';
+
+  @override
+  String get accessActiveTitle => 'ಈಗ ನಿಮ್ಮ ದಾಖಲೆ ನೋಡಬಹುದು';
+
+  @override
+  String accessActiveUntil(String date) {
+    return '$date ವರೆಗೆ';
+  }
+
+  @override
+  String get accessByQr => 'ನೀವು ಕ್ಯೂಆರ್ ಕೋಡ್ ತೋರಿಸಿದ್ದರಿಂದ';
+
+  @override
+  String get accessRevoke => 'ನಿಲ್ಲಿಸಿ';
+
+  @override
+  String get accessRevoked => 'ನಿಲ್ಲಿಸಲಾಗಿದೆ';
+
+  @override
+  String get accessExplain =>
+      'ನೀವು ಅನುಮತಿ ಕೊಟ್ಟರೆ ಮಾತ್ರ, ಅಥವಾ ಆಸ್ಪತ್ರೆಯಲ್ಲಿ ಕ್ಯೂಆರ್ ಕೋಡ್ ತೋರಿಸಿದರೆ ಮಾತ್ರ ವೈದ್ಯರು ನಿಮ್ಮ ದಾಖಲೆ ತೆರೆಯಬಹುದು.';
+
+  @override
   String get consentSection => 'ನಿಮ್ಮ ಒಪ್ಪಿಗೆ';
 
   @override

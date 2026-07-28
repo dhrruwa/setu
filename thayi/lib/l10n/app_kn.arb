@@ -138,6 +138,35 @@
   "yourDetailsSection": "ನಿಮ್ಮ ವಿವರ",
   "detailsWrittenByAsha": "ಈ ವಿವರವನ್ನು ನಿಮ್ಮ ಆಶಾ ಕಾರ್ಯಕರ್ತೆ ಬರೆದಿದ್ದಾರೆ. ಇಲ್ಲಿ ನೀವು ಬದಲಿಸಲು ಆಗುವುದಿಲ್ಲ.",
   "reportMistake": "ಇದರಲ್ಲಿ ಏನೋ ತಪ್ಪಿದೆ",
+  "accessSection": "ನಿಮ್ಮ ದಾಖಲೆ ನೋಡಲು ಕೇಳಿದವರು",
+  "accessRequestFrom": "{name} ನಿಮ್ಮ ಆರೋಗ್ಯ ದಾಖಲೆ ನೋಡಲು ಕೇಳುತ್ತಿದ್ದಾರೆ",
+  "@accessRequestFrom": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "accessRequestReason": "ಕಾರಣ: {reason}",
+  "@accessRequestReason": {
+    "placeholders": { "reason": { "type": "String" } }
+  },
+  "accessApprove": "ಅನುಮತಿ ಕೊಡಿ",
+  "accessReject": "ಬೇಡ",
+  "accessApproved": "{name} ಅವರಿಗೆ ಅನುಮತಿ ಕೊಟ್ಟಿದ್ದೀರಿ",
+  "@accessApproved": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "accessRejected": "{name} ಅವರಿಗೆ ಅನುಮತಿ ಕೊಟ್ಟಿಲ್ಲ",
+  "@accessRejected": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "accessNone": "ನಿಮ್ಮ ದಾಖಲೆ ನೋಡಲು ಯಾರೂ ಕೇಳಿಲ್ಲ",
+  "accessActiveTitle": "ಈಗ ನಿಮ್ಮ ದಾಖಲೆ ನೋಡಬಹುದು",
+  "accessActiveUntil": "{date} ವರೆಗೆ",
+  "@accessActiveUntil": {
+    "placeholders": { "date": { "type": "String" } }
+  },
+  "accessByQr": "ನೀವು ಕ್ಯೂಆರ್ ಕೋಡ್ ತೋರಿಸಿದ್ದರಿಂದ",
+  "accessRevoke": "ನಿಲ್ಲಿಸಿ",
+  "accessRevoked": "ನಿಲ್ಲಿಸಲಾಗಿದೆ",
+  "accessExplain": "ನೀವು ಅನುಮತಿ ಕೊಟ್ಟರೆ ಮಾತ್ರ, ಅಥವಾ ಆಸ್ಪತ್ರೆಯಲ್ಲಿ ಕ್ಯೂಆರ್ ಕೋಡ್ ತೋರಿಸಿದರೆ ಮಾತ್ರ ವೈದ್ಯರು ನಿಮ್ಮ ದಾಖಲೆ ತೆರೆಯಬಹುದು.",
   "consentSection": "ನಿಮ್ಮ ಒಪ್ಪಿಗೆ",
   "consentGivenOn": "{date} ರಂದು ನೀವು ಒಪ್ಪಿಗೆ ಕೊಟ್ಟಿದ್ದೀರಿ",
   "@consentGivenOn": {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../data/access_requests.dart';
 import '../data/models.dart';
 import '../data/profile_photo_service.dart';
 import '../l10n/app_localizations.dart';
@@ -78,6 +79,9 @@ class ProfileScreen extends ConsumerWidget {
                 ],
               ),
             ),
+            const SizedBox(height: S.lg),
+            SectionHeader(l.accessSection),
+            const _AccessCard(),
             const SizedBox(height: S.lg),
             SectionHeader(l.consentSection),
             const _ConsentCard(),
@@ -410,6 +414,119 @@ class ProfileAvatarButton extends ConsumerWidget {
           padding: const EdgeInsets.all(S.xs),
           child: _Avatar(photo: photo, size: size),
         ),
+      ),
+    );
+  }
+}
+
+
+/// Who may open her record. A doctor gets in only if she says yes here, or if
+/// she showed her QR card at the hospital — presenting it is the consent.
+class _AccessCard extends ConsumerWidget {
+  const _AccessCard();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l = AppLocalizations.of(context);
+    final async = ref.watch(myAccessGrantsProvider);
+    final grants = async.valueOrNull ?? const <AccessGrant>[];
+    final pending = grants.where((g) => g.isPending).toList();
+    final active = grants.where((g) => g.isActive).toList();
+
+    Future<void> decide(AccessGrant g, bool approve) async {
+      final messenger = ScaffoldMessenger.of(context);
+      await ref.read(accessRequestsProvider).decide(g.id, approve: approve);
+      ref.invalidate(myAccessGrantsProvider);
+      messenger.showSnackBar(
+        SnackBar(
+          backgroundColor: approve ? C.green : C.ink,
+          content: Text(
+            approve
+                ? l.accessApproved(g.doctorName)
+                : l.accessRejected(g.doctorName),
+            style: T.body.copyWith(color: C.onDark),
+          ),
+        ),
+      );
+    }
+
+    return SetuCard(
+      padding: const EdgeInsets.all(S.md),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(l.accessExplain, style: T.bodySoft),
+          if (pending.isEmpty && active.isEmpty) ...[
+            const SizedBox(height: S.md),
+            Row(
+              children: [
+                const Icon(Icons.lock_outline, size: 22, color: C.green),
+                const SizedBox(width: S.sm),
+                Expanded(child: Text(l.accessNone, style: T.body)),
+              ],
+            ),
+          ],
+          for (final g in pending) ...[
+            const Divider(height: S.lg),
+            Text(l.accessRequestFrom(g.doctorName), style: T.h2),
+            if (g.reason != null && g.reason!.isNotEmpty) ...[
+              const SizedBox(height: S.xs),
+              Text(l.accessRequestReason(g.reason!), style: T.bodySoft),
+            ],
+            const SizedBox(height: S.md),
+            Row(
+              children: [
+                Expanded(
+                  child: BigActionButton(
+                    label: l.accessApprove,
+                    icon: Icons.check,
+                    onPressed: () => decide(g, true),
+                  ),
+                ),
+                const SizedBox(width: S.sm),
+                Expanded(
+                  child: BigActionButton(
+                    label: l.accessReject,
+                    icon: Icons.close,
+                    outlined: true,
+                    background: C.red,
+                    onPressed: () => decide(g, false),
+                  ),
+                ),
+              ],
+            ),
+          ],
+          for (final g in active) ...[
+            const Divider(height: S.lg),
+            Row(
+              children: [
+                const Icon(Icons.visibility_outlined, size: 22, color: C.amber),
+                const SizedBox(width: S.sm),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(g.doctorName,
+                          style: T.body.copyWith(fontWeight: FontWeight.w600)),
+                      Text(
+                        g.grantedByQr ? l.accessByQr : l.accessActiveTitle,
+                        style: T.label.copyWith(fontSize: 14),
+                      ),
+                      if (g.expiresAt != null)
+                        Text(l.accessActiveUntil(l.formatDate(g.expiresAt!)),
+                            style: T.label.copyWith(fontSize: 14)),
+                    ],
+                  ),
+                ),
+                TextButton(
+                  onPressed: () => decide(g, false),
+                  style: TextButton.styleFrom(foregroundColor: C.red),
+                  child: Text(l.accessRevoke),
+                ),
+              ],
+            ),
+          ],
+        ],
       ),
     );
   }

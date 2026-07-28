@@ -382,6 +382,59 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reportMistake => 'Something here is wrong';
 
   @override
+  String get accessSection => 'WHO WANTS TO SEE YOUR RECORD';
+
+  @override
+  String accessRequestFrom(String name) {
+    return '$name wants to see your health record';
+  }
+
+  @override
+  String accessRequestReason(String reason) {
+    return 'Reason: $reason';
+  }
+
+  @override
+  String get accessApprove => 'Allow';
+
+  @override
+  String get accessReject => 'Do not allow';
+
+  @override
+  String accessApproved(String name) {
+    return 'You allowed $name';
+  }
+
+  @override
+  String accessRejected(String name) {
+    return 'You did not allow $name';
+  }
+
+  @override
+  String get accessNone => 'Nobody has asked to see your record';
+
+  @override
+  String get accessActiveTitle => 'Can see your record now';
+
+  @override
+  String accessActiveUntil(String date) {
+    return 'Until $date';
+  }
+
+  @override
+  String get accessByQr => 'Because you showed your QR code';
+
+  @override
+  String get accessRevoke => 'Stop this';
+
+  @override
+  String get accessRevoked => 'Stopped';
+
+  @override
+  String get accessExplain =>
+      'A doctor can only open your record if you allow it, or if you show your QR code at the hospital.';
+
+  @override
   String get consentSection => 'YOUR PERMISSION';
 
   @override

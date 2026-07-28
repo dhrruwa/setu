@@ -138,6 +138,35 @@
   "yourDetailsSection": "YOUR DETAILS",
   "detailsWrittenByAsha": "These details are written by your ASHA worker. You cannot change them here.",
   "reportMistake": "Something here is wrong",
+  "accessSection": "WHO WANTS TO SEE YOUR RECORD",
+  "accessRequestFrom": "{name} wants to see your health record",
+  "@accessRequestFrom": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "accessRequestReason": "Reason: {reason}",
+  "@accessRequestReason": {
+    "placeholders": { "reason": { "type": "String" } }
+  },
+  "accessApprove": "Allow",
+  "accessReject": "Do not allow",
+  "accessApproved": "You allowed {name}",
+  "@accessApproved": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "accessRejected": "You did not allow {name}",
+  "@accessRejected": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "accessNone": "Nobody has asked to see your record",
+  "accessActiveTitle": "Can see your record now",
+  "accessActiveUntil": "Until {date}",
+  "@accessActiveUntil": {
+    "placeholders": { "date": { "type": "String" } }
+  },
+  "accessByQr": "Because you showed your QR code",
+  "accessRevoke": "Stop this",
+  "accessRevoked": "Stopped",
+  "accessExplain": "A doctor can only open your record if you allow it, or if you show your QR code at the hospital.",
   "consentSection": "YOUR PERMISSION",
   "consentGivenOn": "You agreed on {date}",
   "@consentGivenOn": {

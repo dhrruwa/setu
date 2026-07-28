@@ -776,6 +776,90 @@ abstract class AppLocalizations {
   /// **'Something here is wrong'**
   String get reportMistake;
 
+  /// No description provided for @accessSection.
+  ///
+  /// In en, this message translates to:
+  /// **'WHO WANTS TO SEE YOUR RECORD'**
+  String get accessSection;
+
+  /// No description provided for @accessRequestFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} wants to see your health record'**
+  String accessRequestFrom(String name);
+
+  /// No description provided for @accessRequestReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason: {reason}'**
+  String accessRequestReason(String reason);
+
+  /// No description provided for @accessApprove.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow'**
+  String get accessApprove;
+
+  /// No description provided for @accessReject.
+  ///
+  /// In en, this message translates to:
+  /// **'Do not allow'**
+  String get accessReject;
+
+  /// No description provided for @accessApproved.
+  ///
+  /// In en, this message translates to:
+  /// **'You allowed {name}'**
+  String accessApproved(String name);
+
+  /// No description provided for @accessRejected.
+  ///
+  /// In en, this message translates to:
+  /// **'You did not allow {name}'**
+  String accessRejected(String name);
+
+  /// No description provided for @accessNone.
+  ///
+  /// In en, this message translates to:
+  /// **'Nobody has asked to see your record'**
+  String get accessNone;
+
+  /// No description provided for @accessActiveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Can see your record now'**
+  String get accessActiveTitle;
+
+  /// No description provided for @accessActiveUntil.
+  ///
+  /// In en, this message translates to:
+  /// **'Until {date}'**
+  String accessActiveUntil(String date);
+
+  /// No description provided for @accessByQr.
+  ///
+  /// In en, this message translates to:
+  /// **'Because you showed your QR code'**
+  String get accessByQr;
+
+  /// No description provided for @accessRevoke.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop this'**
+  String get accessRevoke;
+
+  /// No description provided for @accessRevoked.
+  ///
+  /// In en, this message translates to:
+  /// **'Stopped'**
+  String get accessRevoked;
+
+  /// No description provided for @accessExplain.
+  ///
+  /// In en, this message translates to:
+  /// **'A doctor can only open your record if you allow it, or if you show your QR code at the hospital.'**
+  String get accessExplain;
+
   /// No description provided for @consentSection.
   ///
   /// In en, this message translates to:
