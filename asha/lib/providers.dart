@@ -438,6 +438,8 @@ class VisitRepository {
     String? husbandName,
     String? phone,
     String? email,
+    double? homeLat,
+    double? homeLng,
     String? subCentre,
     String? abhaId,
     int gravida = 1,
@@ -482,12 +484,36 @@ class VisitRepository {
           'age': age,
           'village': village,
           'email': email,
+          'home_lat': homeLat,
+          'home_lng': homeLng,
           'lmp': lmp,
           'created_at': now,
         }),
       );
     });
     return id;
+  }
+
+  /// Pin or correct where she lives. Called from her profile when the first
+  /// registration had no fix, or the pin turned out to be wrong.
+  Future<void> setHomeLocation({
+    required String motherId,
+    required double lat,
+    required double lng,
+  }) async {
+    await (_db.update(_db.mothers)..where((m) => m.id.equals(motherId))).write(
+      MothersCompanion(
+        homeLat: Value(lat),
+        homeLng: Value(lng),
+        homeLocatedAt: Value(DateTime.now()),
+      ),
+    );
+    await _db.enqueue(
+      entityTable: 'mothers',
+      recordId: motherId,
+      operation: 'update',
+      payload: payloadOf({'id': motherId, 'home_lat': lat, 'home_lng': lng}),
+    );
   }
 
   Future<void> closeTask(String taskId, {String? visitId}) async {

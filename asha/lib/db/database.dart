@@ -21,6 +21,12 @@ class Mothers extends Table {
   /// How she signs in to Thayi Setu. Entered by the ASHA at registration;
   /// without it she cannot open her own record.
   TextColumn get email => text().nullable()();
+  /// Where she lives, pinned on the first home visit so the next visit —
+  /// by anyone covering the sub-centre — can navigate straight there.
+  RealColumn get homeLat => real().nullable()();
+  RealColumn get homeLng => real().nullable()();
+  TextColumn get homeNote => text().nullable()();
+  DateTimeColumn get homeLocatedAt => dateTime().nullable()();
   TextColumn get village => text()();
   TextColumn get subCentre => text().nullable()();
   TextColumn get abhaId => text().nullable()();
@@ -168,7 +174,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.executor);
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   /// Without this, every phone that already has the database would crash on
   /// "no such column: email" — a fresh install would look fine and every real
@@ -177,6 +183,12 @@ class AppDatabase extends _$AppDatabase {
   MigrationStrategy get migration => MigrationStrategy(
         onUpgrade: (m, from, to) async {
           if (from < 2) await m.addColumn(mothers, mothers.email);
+          if (from < 3) {
+            await m.addColumn(mothers, mothers.homeLat);
+            await m.addColumn(mothers, mothers.homeLng);
+            await m.addColumn(mothers, mothers.homeNote);
+            await m.addColumn(mothers, mothers.homeLocatedAt);
+          }
         },
       );
 

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
+import '../data/home_location.dart';
 import '../l10n/app_localizations.dart';
 import '../providers.dart';
 import '../risk/risk_engine.dart';
@@ -41,6 +42,8 @@ class _RegisterMotherScreenState extends ConsumerState<RegisterMotherScreen> {
   bool _scanning = false;
   bool _fromScan = false;
   bool _saving = false;
+  bool _locating = false;
+  ({double lat, double lng})? _home;
 
   static final _emailPattern = RegExp(r'^[\w.+-]+@[\w-]+\.[\w.-]+$');
 
@@ -52,6 +55,24 @@ class _RegisterMotherScreenState extends ConsumerState<RegisterMotherScreen> {
     'gdm',
     'anaemia',
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    // She is at the house right now, so take the fix immediately rather than
+    // making her remember to press something at the end.
+    _pinHouse();
+  }
+
+  Future<void> _pinHouse() async {
+    setState(() => _locating = true);
+    final at = await HomeLocation.capture();
+    if (!mounted) return;
+    setState(() {
+      _locating = false;
+      if (at != null) _home = at;
+    });
+  }
 
   @override
   void dispose() {
@@ -158,6 +179,8 @@ class _RegisterMotherScreenState extends ConsumerState<RegisterMotherScreen> {
       husbandName: _husband.text.trim().isEmpty ? null : _husband.text.trim(),
       phone: _phone.text.trim().isEmpty ? null : _phone.text.trim(),
       email: email.isEmpty ? null : email,
+      homeLat: _home?.lat,
+      homeLng: _home?.lng,
       subCentre: _subCentre.text.trim(),
       abhaId: _abha.text.trim().isEmpty ? null : _abha.text.trim(),
       gravida: int.tryParse(_gravida.text) ?? 1,
@@ -472,6 +495,39 @@ class _RegisterMotherScreenState extends ConsumerState<RegisterMotherScreen> {
                   activeThumbColor: C.teal,
                   title: Text(l.fieldBpl, style: T.body),
                 ),
+              ],
+            ),
+          ),
+          const SizedBox(height: S.md),
+          SectionHeader(l.homeLocationSection),
+          SetuCard(
+            padding: const EdgeInsets.all(S.md),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                LocationChip(
+                  busy: _locating,
+                  hasFix: _home != null,
+                  busyLabel: l.homeLocationBusy,
+                  foundLabel: _home == null
+                      ? l.homeLocationFound
+                      : '${l.homeLocationFound} · '
+                          '${HomeLocation.format(_home!.lat, _home!.lng)}',
+                  missingLabel: l.homeLocationMissing,
+                  colorFound: C.green,
+                  colorMissing: C.textSoft,
+                ),
+                const SizedBox(height: S.sm),
+                Text(l.homeLocationWhy, style: T.label.copyWith(fontSize: 14)),
+                if (_home == null && !_locating) ...[
+                  const SizedBox(height: S.md),
+                  BigActionButton(
+                    label: l.homeLocationCapture,
+                    icon: Icons.my_location,
+                    outlined: true,
+                    onPressed: _pinHouse,
+                  ),
+                ],
               ],
             ),
           ),

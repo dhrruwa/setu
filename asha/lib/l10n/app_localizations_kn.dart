@@ -352,6 +352,46 @@ class AppLocalizationsKn extends AppLocalizations {
   String get pickDate => 'ದಿನ ಆರಿಸಿ';
 
   @override
+  String get homeLocationSection => 'ಅವರ ಮನೆ';
+
+  @override
+  String get homeLocationCapture => 'ಈ ಮನೆಯ ಸ್ಥಳ ಗುರುತಿಸಿ';
+
+  @override
+  String get homeLocationBusy => 'ಸ್ಥಳ ಹುಡುಕುತ್ತಿದೆ…';
+
+  @override
+  String get homeLocationFound => 'ಸ್ಥಳ ಗುರುತಿಸಲಾಗಿದೆ';
+
+  @override
+  String get homeLocationMissing =>
+      'ಇನ್ನೂ ಸ್ಥಳ ಇಲ್ಲ — ಮುಂದಿನ ಭೇಟಿಯಲ್ಲಿ ಗುರುತಿಸಬಹುದು';
+
+  @override
+  String get homeLocationWhy =>
+      'ಈಗ ಗುರುತಿಸಿದರೆ, ಮುಂದಿನ ಸಲ ನೀವು ಅಥವಾ ನಿಮ್ಮ ಬದಲಿಗೆ ಬರುವವರು ನೇರವಾಗಿ ಇಲ್ಲಿಗೆ ಬರಬಹುದು.';
+
+  @override
+  String get homeLocationDirections => 'ಅವರ ಮನೆಗೆ ದಾರಿ';
+
+  @override
+  String get homeLocationStreetView => 'ಬೀದಿ ನೋಟ';
+
+  @override
+  String get homeLocationNoStreetView =>
+      'ಇಲ್ಲಿ ಬೀದಿ ನೋಟ ಇಲ್ಲ. ಹೆಚ್ಚಿನ ಹಳ್ಳಿಗಳಲ್ಲಿ ಇದು ಸಿಗುವುದಿಲ್ಲ.';
+
+  @override
+  String get homeLocationSaved => 'ಸ್ಥಳ ಉಳಿಸಲಾಗಿದೆ';
+
+  @override
+  String get homeLocationFailed =>
+      'ಸ್ಥಳ ಸಿಗಲಿಲ್ಲ. ಮನೆಯ ಹೊರಗೆ ನಿಂತು ಪ್ರಯತ್ನಿಸಿ.';
+
+  @override
+  String get homeLocationOpenFailed => 'ನಕ್ಷೆ ತೆರೆಯಲು ಆಗಲಿಲ್ಲ';
+
+  @override
   String get prevComplications => 'ಹಿಂದಿನ ತೊಂದರೆಗಳು';
 
   @override

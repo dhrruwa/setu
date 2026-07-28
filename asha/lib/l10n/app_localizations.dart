@@ -734,6 +734,78 @@ abstract class AppLocalizations {
   /// **'Choose date'**
   String get pickDate;
 
+  /// No description provided for @homeLocationSection.
+  ///
+  /// In en, this message translates to:
+  /// **'HER HOUSE'**
+  String get homeLocationSection;
+
+  /// No description provided for @homeLocationCapture.
+  ///
+  /// In en, this message translates to:
+  /// **'Pin this house'**
+  String get homeLocationCapture;
+
+  /// No description provided for @homeLocationBusy.
+  ///
+  /// In en, this message translates to:
+  /// **'Finding the location…'**
+  String get homeLocationBusy;
+
+  /// No description provided for @homeLocationFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Location pinned'**
+  String get homeLocationFound;
+
+  /// No description provided for @homeLocationMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'No location yet — you can pin it on your next visit'**
+  String get homeLocationMissing;
+
+  /// No description provided for @homeLocationWhy.
+  ///
+  /// In en, this message translates to:
+  /// **'Pinning it now means you, or anyone covering for you, can navigate straight here next time.'**
+  String get homeLocationWhy;
+
+  /// No description provided for @homeLocationDirections.
+  ///
+  /// In en, this message translates to:
+  /// **'Directions to her house'**
+  String get homeLocationDirections;
+
+  /// No description provided for @homeLocationStreetView.
+  ///
+  /// In en, this message translates to:
+  /// **'Street view'**
+  String get homeLocationStreetView;
+
+  /// No description provided for @homeLocationNoStreetView.
+  ///
+  /// In en, this message translates to:
+  /// **'No street view here. Most villages have no coverage.'**
+  String get homeLocationNoStreetView;
+
+  /// No description provided for @homeLocationSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Location saved'**
+  String get homeLocationSaved;
+
+  /// No description provided for @homeLocationFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not get a location. Try outside the house.'**
+  String get homeLocationFailed;
+
+  /// No description provided for @homeLocationOpenFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open maps'**
+  String get homeLocationOpenFailed;
+
   /// No description provided for @prevComplications.
   ///
   /// In en, this message translates to:

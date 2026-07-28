@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
+import '../data/home_location.dart';
 import '../db/database.dart';
 import '../l10n/app_localizations.dart';
 import '../providers.dart';
@@ -114,6 +115,8 @@ class _Header extends StatelessWidget {
               RiskChip(label: label, level: level),
             ],
           ),
+          const SizedBox(height: S.sm),
+          _HomeRow(mother: mother),
           const SizedBox(height: S.sm),
           Wrap(
             spacing: S.md,
@@ -499,6 +502,132 @@ class _QrCard extends StatelessWidget {
           ),
         ),
         kFabClearance,
+      ],
+    );
+  }
+}
+
+
+/// Her house: navigate to it once pinned, or pin it on this visit.
+///
+/// Street View sits behind the directions button on purpose — coverage in
+/// rural villages is close to nonexistent, so it is a nice-to-have, never the
+/// way to find a house.
+class _HomeRow extends ConsumerStatefulWidget {
+  const _HomeRow({required this.mother});
+
+  final Mother mother;
+
+  @override
+  ConsumerState<_HomeRow> createState() => _HomeRowState();
+}
+
+class _HomeRowState extends ConsumerState<_HomeRow> {
+  bool _busy = false;
+
+  Future<void> _pin() async {
+    final l = AppLocalizations.of(context);
+    final messenger = ScaffoldMessenger.of(context);
+    setState(() => _busy = true);
+
+    final at = await HomeLocation.capture();
+    if (!mounted) return;
+    setState(() => _busy = false);
+
+    if (at == null) {
+      messenger.showSnackBar(
+        SnackBar(content: Text(l.homeLocationFailed, style: T.body)),
+      );
+      return;
+    }
+    await ref.read(visitRepositoryProvider).setHomeLocation(
+          motherId: widget.mother.id,
+          lat: at.lat,
+          lng: at.lng,
+        );
+    messenger.showSnackBar(
+      SnackBar(
+        backgroundColor: C.green,
+        content:
+            Text(l.homeLocationSaved, style: T.body.copyWith(color: C.onDark)),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final m = widget.mother;
+    final lat = m.homeLat;
+    final lng = m.homeLng;
+
+    if (lat == null || lng == null) {
+      return OutlinedButton.icon(
+        onPressed: _busy ? null : _pin,
+        icon: const Icon(Icons.my_location, size: 18),
+        label: Text(_busy ? l.homeLocationBusy : l.homeLocationCapture),
+        style: OutlinedButton.styleFrom(
+          minimumSize: const Size.fromHeight(42),
+          textStyle: T.button.copyWith(fontSize: 15),
+        ),
+      );
+    }
+
+    return Row(
+      children: [
+        Expanded(
+          child: FilledButton.icon(
+            onPressed: () async {
+              final ok = await HomeLocation.navigateTo(lat, lng, label: m.name);
+              if (!context.mounted || ok) return;
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                    content:
+                        Text(l.homeLocationOpenFailed, style: T.body)),
+              );
+            },
+            icon: const Icon(Icons.directions, size: 18),
+            label: Text(l.homeLocationDirections),
+            style: FilledButton.styleFrom(
+              minimumSize: const Size.fromHeight(42),
+              textStyle: T.button.copyWith(fontSize: 15),
+            ),
+          ),
+        ),
+        const SizedBox(width: S.sm),
+        IconButton(
+          tooltip: l.homeLocationStreetView,
+          onPressed: () async {
+            final ok = await HomeLocation.streetView(lat, lng);
+            if (!context.mounted || ok) return;
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                  content:
+                      Text(l.homeLocationNoStreetView, style: T.body)),
+            );
+          },
+          icon: const Icon(Icons.streetview, size: 20),
+          style: IconButton.styleFrom(
+            side: const BorderSide(color: C.divider),
+            minimumSize: const Size(42, 42),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(S.sm),
+            ),
+          ),
+        ),
+        const SizedBox(width: S.sm),
+        IconButton(
+          tooltip: l.homeLocationCapture,
+          onPressed: _busy ? null : _pin,
+          icon: const Icon(Icons.my_location, size: 20),
+          style: IconButton.styleFrom(
+            side: const BorderSide(color: C.divider),
+            minimumSize: const Size(42, 42),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(S.sm),
+            ),
+          ),
+        ),
       ],
     );
   }

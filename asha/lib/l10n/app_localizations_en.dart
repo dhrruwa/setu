@@ -354,6 +354,46 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pickDate => 'Choose date';
 
   @override
+  String get homeLocationSection => 'HER HOUSE';
+
+  @override
+  String get homeLocationCapture => 'Pin this house';
+
+  @override
+  String get homeLocationBusy => 'Finding the location…';
+
+  @override
+  String get homeLocationFound => 'Location pinned';
+
+  @override
+  String get homeLocationMissing =>
+      'No location yet — you can pin it on your next visit';
+
+  @override
+  String get homeLocationWhy =>
+      'Pinning it now means you, or anyone covering for you, can navigate straight here next time.';
+
+  @override
+  String get homeLocationDirections => 'Directions to her house';
+
+  @override
+  String get homeLocationStreetView => 'Street view';
+
+  @override
+  String get homeLocationNoStreetView =>
+      'No street view here. Most villages have no coverage.';
+
+  @override
+  String get homeLocationSaved => 'Location saved';
+
+  @override
+  String get homeLocationFailed =>
+      'Could not get a location. Try outside the house.';
+
+  @override
+  String get homeLocationOpenFailed => 'Could not open maps';
+
+  @override
   String get prevComplications => 'PREVIOUS COMPLICATIONS';
 
   @override
