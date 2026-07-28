@@ -1,11 +1,42 @@
 import 'models.dart';
 import 'mock_data.dart';
 
-/// The typed API surface. Every function returns mock data after a short
-/// artificial delay; a Supabase client will be swapped in behind these exact
-/// signatures later. No screen may talk to anything but this.
-class CareApi {
-  CareApi() {
+/// The typed API surface every screen talks to. Two implementations sit behind
+/// it: [MockCareApi] for a demo with no backend, and SupabaseCareApi for the
+/// real shared platform. No screen knows which one it has.
+abstract class CareApi {
+  Future<List<Mother>> getMothers();
+  Future<Mother?> getMother(String id);
+  Future<List<AncVisit>> getVisits(String motherId);
+  Future<List<Lab>> getLabs(String motherId);
+  Future<List<ClinicalNote>> getNotes(String motherId);
+  Future<List<AshaWorker>> getAshas();
+  Future<List<Task>> getTasks({String? motherId});
+  Future<List<Referral>> getReferrals();
+  Future<DashboardSummary> getDashboard();
+
+  /// The ASHA is resolved from the mother's assignment, never chosen.
+  Future<Task> assignTask({
+    required String motherId,
+    required TaskType type,
+    required String instruction,
+    required DateTime dueDate,
+    required TaskPriority priority,
+  });
+
+  Future<ClinicalNote> addNote({
+    required String motherId,
+    required String body,
+  });
+
+  /// Synchronous lookup for rows already in hand. Null before the list loads.
+  Mother? motherOf(String id);
+}
+
+/// In-memory demo data, with a short artificial delay. Used when there is no
+/// session, so the app still demos with no backend at all.
+class MockCareApi implements CareApi {
+  MockCareApi() {
     _mothers = MockData.mothers;
     _tasks = MockData.seedTasks(_mothers);
     _referrals = MockData.seedReferrals(_mothers);
@@ -28,27 +59,29 @@ class CareApi {
   Future<T> _delayed<T>(T value) =>
       Future.delayed(_latency).then((_) => value);
 
-  // ------------------------------------------------------------- mothers
-
+  @override
   Future<List<Mother>> getMothers() => _delayed(List.unmodifiable(_mothers));
 
-  Future<Mother?> getMother(String id) => _delayed(
-        _mothers.where((m) => m.id == id).firstOrNull,
-      );
+  @override
+  Future<Mother?> getMother(String id) =>
+      _delayed(_mothers.where((m) => m.id == id).firstOrNull);
 
+  @override
   Future<List<AncVisit>> getVisits(String motherId) =>
       _delayed(List.unmodifiable(_visits[motherId] ?? const []));
 
+  @override
   Future<List<Lab>> getLabs(String motherId) =>
       _delayed(List.unmodifiable(_labs[motherId] ?? const []));
 
+  @override
   Future<List<ClinicalNote>> getNotes(String motherId) =>
       _delayed(List.unmodifiable(_notes[motherId] ?? const []));
 
+  @override
   Future<List<AshaWorker>> getAshas() => _delayed(MockData.ashas);
 
-  // --------------------------------------------------------------- tasks
-
+  @override
   Future<List<Task>> getTasks({String? motherId}) => _delayed(
         List.unmodifiable(
           motherId == null
@@ -57,9 +90,7 @@ class CareApi {
         ),
       );
 
-  /// The point of the whole product. The ASHA is resolved from the mother's
-  /// assignment — never chosen by the doctor — because the system already
-  /// knows who covers her.
+  @override
   Future<Task> assignTask({
     required String motherId,
     required TaskType type,
@@ -86,13 +117,11 @@ class CareApi {
     return task;
   }
 
-  // ----------------------------------------------------------- referrals
-
+  @override
   Future<List<Referral>> getReferrals() =>
       _delayed(List.unmodifiable(_referrals));
 
-  // --------------------------------------------------------------- notes
-
+  @override
   Future<ClinicalNote> addNote({
     required String motherId,
     required String body,
@@ -109,8 +138,7 @@ class CareApi {
     return note;
   }
 
-  // ----------------------------------------------------------- dashboard
-
+  @override
   Future<DashboardSummary> getDashboard() async {
     await Future.delayed(_latency);
 
@@ -158,5 +186,6 @@ class CareApi {
     );
   }
 
+  @override
   Mother? motherOf(String id) => _mothers.where((m) => m.id == id).firstOrNull;
 }

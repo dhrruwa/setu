@@ -1,50 +1,145 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:supabase_flutter/supabase_flutter.dart' as sb;
 
+import 'config/env.dart';
 import 'data/care_api.dart';
+import 'data/mock_data.dart';
 import 'data/models.dart';
+import 'data/supabase_care_api.dart';
 
 final prefsProvider = Provider<SharedPreferences>(
   (ref) => throw UnimplementedError('prefsProvider must be overridden'),
 );
 
-final apiProvider = Provider<CareApi>((ref) => CareApi());
+/// The swap point. With a real session the console reads the shared platform —
+/// the same rows the ASHA app writes and the mother sees in Thayi. Without
+/// one it falls back to demo data rather than showing an empty screen.
+final apiProvider = Provider<CareApi>((ref) {
+  final client = ref.watch(supabaseClientProvider);
+  final signedIn = ref.watch(authProvider) != null;
+  if (client != null && signedIn && client.auth.currentSession != null) {
+    return SupabaseCareApi(client, doctorName: MockData.doctorName);
+  }
+  return MockCareApi();
+});
 
 // -------------------------------------------------------------------- auth
 
-/// Mock auth: any credentials succeed and a fake session is kept locally.
-/// Protected routes bounce to /login when this is null.
+/// A signed-in medical officer. Protected by construction: no session, no app.
 class Session {
   const Session({required this.email});
   final String email;
 }
 
+/// Null when Supabase is switched off, unconfigured, or failed to initialise.
+final supabaseClientProvider = Provider<sb.SupabaseClient?>((ref) {
+  if (!Env.useSupabase || !Env.isSupabaseConfigured) return null;
+  try {
+    return sb.Supabase.instance.client;
+  } catch (_) {
+    return null;
+  }
+});
+
 class AuthController extends StateNotifier<Session?> {
-  AuthController(this._prefs) : super(_read(_prefs));
+  AuthController(this._prefs, this._client) : super(_read(_prefs));
 
   static const _key = 'care_session_email';
   final SharedPreferences _prefs;
+  final sb.SupabaseClient? _client;
 
   static Session? _read(SharedPreferences prefs) {
     final email = prefs.getString(_key);
     return email == null ? null : Session(email: email);
   }
 
-  Future<void> signIn(String email) async {
-    await Future.delayed(const Duration(milliseconds: 350));
+  /// Set when no code could be sent — provider disabled, or the clinic's
+  /// connection is down. She then signs in locally rather than being locked
+  /// out of records she can still read.
+  bool _otpUnavailable = false;
+
+  bool get otpUnavailable => _otpUnavailable;
+
+  static bool _cannotSend(Object error) {
+    if (error is sb.AuthException) {
+      final code = error.code ?? '';
+      final message = error.message.toLowerCase();
+      if (code == 'email_provider_disabled' ||
+          message.contains('provider disabled') ||
+          message.contains('unsupported')) {
+        return true;
+      }
+    }
+    final text = error.toString().toLowerCase();
+    return text.contains('socketexception') ||
+        text.contains('failed host lookup') ||
+        text.contains('connection closed') ||
+        text.contains('timed out');
+  }
+
+  /// Emails a six digit code. SMTP credentials live in Supabase's server-side
+  /// config and never touch this app.
+  Future<void> sendOtp(String email) async {
+    final client = _client;
+    if (client == null) {
+      _otpUnavailable = true;
+      return;
+    }
+    try {
+      await client.auth.signInWithOtp(email: email.trim());
+      _otpUnavailable = false;
+    } catch (error) {
+      if (_cannotSend(error)) {
+        _otpUnavailable = true;
+        debugPrint('OTP could not be sent; using local sign-in.');
+        return;
+      }
+      rethrow;
+    }
+  }
+
+  /// Verifies the code and opens a real Supabase session. Her staff row is
+  /// what RLS then resolves her scope from — doctor sees the facility.
+  Future<void> verifyOtp({
+    required String email,
+    required String code,
+  }) async {
+    final client = _client;
+    if (client == null || _otpUnavailable) {
+      await _persist(email);
+      return;
+    }
+
+    final response = await client.auth.verifyOTP(
+      type: sb.OtpType.email,
+      email: email.trim(),
+      token: code,
+    );
+    if (response.session == null) {
+      throw const sb.AuthException('Verification did not return a session');
+    }
+    await _persist(email.trim());
+  }
+
+  Future<void> _persist(String email) async {
     await _prefs.setString(_key, email);
     state = Session(email: email);
   }
 
   Future<void> signOut() async {
+    await _client?.auth.signOut();
     await _prefs.remove(_key);
     state = null;
   }
 }
 
 final authProvider = StateNotifierProvider<AuthController, Session?>(
-  (ref) => AuthController(ref.watch(prefsProvider)),
+  (ref) => AuthController(
+    ref.watch(prefsProvider),
+    ref.watch(supabaseClientProvider),
+  ),
 );
 
 // -------------------------------------------------------------------- data

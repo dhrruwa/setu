@@ -3,9 +3,9 @@ import 'package:setu_care/data/care_api.dart';
 import 'package:setu_care/data/models.dart';
 
 void main() {
-  late CareApi api;
+  late MockCareApi api;
 
-  setUp(() => api = CareApi());
+  setUp(() => api = MockCareApi());
 
   group('seed data', () {
     test('25 mothers across 4 villages', () async {
