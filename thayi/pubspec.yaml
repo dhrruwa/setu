@@ -40,4 +40,5 @@ flutter:
   uses-material-design: true
   generate: true
   assets:
+    - assets/brand/
     - assets/google_fonts/

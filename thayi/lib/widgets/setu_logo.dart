@@ -4,8 +4,14 @@ import 'package:flutter/material.dart';
 
 import '../theme/tokens.dart';
 
-/// Setu means bridge. The mark is an arc joining two banks, with a warm dot
-/// resting on it - the mother being carried across.
+/// The Thayi Setu mark: a mother holding her child, cradled in two leaves.
+///
+/// It ships as an asset so the launcher icon and the mark inside the app are
+/// the same image — she should recognise on the splash screen the thing she
+/// tapped on her home screen.
+///
+/// If the asset ever fails to load, the painted bridge below is drawn instead,
+/// so the first screen of the app can never be a broken-image box.
 class SetuLogo extends StatelessWidget {
   const SetuLogo({super.key, this.size = 96});
 
@@ -17,11 +23,22 @@ class SetuLogo extends StatelessWidget {
       width: size,
       height: size,
       decoration: BoxDecoration(
-        color: C.teal,
         borderRadius: BorderRadius.circular(size * 0.28),
         boxShadow: kCardShadow,
       ),
-      child: CustomPaint(painter: _BridgePainter()),
+      clipBehavior: Clip.antiAlias,
+      child: Image.asset(
+        'assets/brand/logo.png',
+        width: size,
+        height: size,
+        fit: BoxFit.cover,
+        errorBuilder: (context, _, __) => Container(
+          width: size,
+          height: size,
+          color: C.teal,
+          child: CustomPaint(painter: _BridgePainter()),
+        ),
+      ),
     );
   }
 }
