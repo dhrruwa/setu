@@ -43,7 +43,10 @@ class _ShellState extends ConsumerState<Shell> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(_titles[_index], style: T.h2),
-            Text(MockData.facility, style: T.small),
+            Text(
+              ref.watch(facilityProvider).valueOrNull ?? MockData.facility,
+              style: T.small,
+            ),
           ],
         ),
         actions: [
@@ -51,14 +54,21 @@ class _ShellState extends ConsumerState<Shell> {
           const SizedBox(width: S.sm),
         ],
       ),
-      body: IndexedStack(
-        index: _index,
-        children: const [
-          DashboardScreen(),
-          MothersScreen(),
-          ReferralsScreen(),
-          AshaWorkersScreen(),
-          AnalyticsScreen(),
+      body: Column(
+        children: [
+          if (ref.watch(isDemoDataProvider)) const _DemoDataBanner(),
+          Expanded(
+            child: IndexedStack(
+              index: _index,
+              children: const [
+                DashboardScreen(),
+                MothersScreen(),
+                ReferralsScreen(),
+                AshaWorkersScreen(),
+                AnalyticsScreen(),
+              ],
+            ),
+          ),
         ],
       ),
       bottomNavigationBar: NavigationBar(
@@ -164,6 +174,38 @@ class _UserMenu extends ConsumerWidget {
         child: const Text('SR',
             style: TextStyle(
                 color: C.teal, fontWeight: FontWeight.w700, fontSize: 12)),
+      ),
+    );
+  }
+}
+
+/// Shown whenever the console is not reading the real caseload.
+///
+/// Amber, not red: nothing is clinically wrong, but every number on screen is
+/// invented and no decision should be made from it. Red is reserved for a
+/// patient in danger.
+class _DemoDataBanner extends StatelessWidget {
+  const _DemoDataBanner();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      color: C.amberSoft,
+      padding: const EdgeInsets.symmetric(
+          horizontal: S.screen, vertical: S.sm),
+      child: Row(
+        children: [
+          const Icon(Icons.info_outline, size: 16, color: C.amber),
+          const SizedBox(width: S.sm),
+          const Expanded(
+            child: Text(
+              'Demo data — not connected to the health record. '
+              'Sign out and sign in again to load real patients.',
+              style: T.small,
+            ),
+          ),
+        ],
       ),
     );
   }

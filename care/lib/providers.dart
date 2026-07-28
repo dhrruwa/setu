@@ -26,6 +26,35 @@ final apiProvider = Provider<CareApi>((ref) {
   return MockCareApi();
 });
 
+/// True when the console is serving demo data rather than the real caseload.
+///
+/// This has to be visible on screen. A sign-in that persisted locally but never
+/// obtained a Supabase session lands on [MockCareApi], and its invented
+/// mothers are indistinguishable from a real facility's — so the console looks
+/// like it is working while showing a caseload that does not exist. A doctor
+/// must never be left guessing which of the two she is reading.
+final isDemoDataProvider = Provider<bool>((ref) => ref.watch(apiProvider) is! SupabaseCareApi);
+
+/// The signed-in medical officer's own facility, rather than a hard-coded one.
+final facilityProvider = FutureProvider<String>((ref) async {
+  final client = ref.watch(supabaseClientProvider);
+  final user = client?.auth.currentUser;
+  if (client == null || user == null) return MockData.facility;
+  try {
+    final row = await client
+        .from('staff')
+        .select('facility, name')
+        .eq('auth_user_id', user.id)
+        .maybeSingle();
+    final facility = row?['facility'] as String?;
+    return (facility == null || facility.isEmpty)
+        ? MockData.facility
+        : facility;
+  } catch (_) {
+    return MockData.facility;
+  }
+});
+
 // -------------------------------------------------------------------- auth
 
 /// A signed-in medical officer. Protected by construction: no session, no app.
