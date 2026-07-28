@@ -446,6 +446,18 @@ abstract class AppLocalizations {
   /// **'Check your email. The code can take a minute to arrive.'**
   String get checkYourEmail;
 
+  /// No description provided for @emailNotRegistered.
+  ///
+  /// In en, this message translates to:
+  /// **'This email is not registered yet. Your ASHA worker adds it when she registers you — please ask her.'**
+  String get emailNotRegistered;
+
+  /// No description provided for @emailChecking.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking…'**
+  String get emailChecking;
+
   /// No description provided for @sendOtp.
   ///
   /// In en, this message translates to:

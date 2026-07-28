@@ -196,6 +196,13 @@ class AppLocalizationsKn extends AppLocalizations {
       'ನಿಮ್ಮ ಇಮೇಲ್ ನೋಡಿ. ಕೋಡ್ ಬರಲು ಒಂದು ನಿಮಿಷ ಆಗಬಹುದು.';
 
   @override
+  String get emailNotRegistered =>
+      'ಈ ಇಮೇಲ್ ಇನ್ನೂ ನೋಂದಣಿ ಆಗಿಲ್ಲ. ನಿಮ್ಮ ಆಶಾ ಕಾರ್ಯಕರ್ತೆ ನಿಮ್ಮನ್ನು ನೋಂದಾಯಿಸುವಾಗ ಇದನ್ನು ಸೇರಿಸುತ್ತಾರೆ — ಅವರನ್ನು ಕೇಳಿ.';
+
+  @override
+  String get emailChecking => 'ಪರಿಶೀಲಿಸುತ್ತಿದೆ…';
+
+  @override
   String get sendOtp => 'ಕೋಡ್ ಕಳುಹಿಸಿ';
 
   @override

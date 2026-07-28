@@ -26,6 +26,7 @@ class _RegisterMotherScreenState extends ConsumerState<RegisterMotherScreen> {
   final _age = TextEditingController();
   final _husband = TextEditingController();
   final _phone = TextEditingController();
+  final _email = TextEditingController();
   final _village = TextEditingController();
   final _subCentre = TextEditingController(text: 'ಹೊಸಳ್ಳಿ ಉಪ ಕೇಂದ್ರ');
   final _abha = TextEditingController();
@@ -40,6 +41,8 @@ class _RegisterMotherScreenState extends ConsumerState<RegisterMotherScreen> {
   bool _scanning = false;
   bool _fromScan = false;
   bool _saving = false;
+
+  static final _emailPattern = RegExp(r'^[\w.+-]+@[\w-]+\.[\w.-]+$');
 
   static const _complicationIds = [
     'cSection',
@@ -57,6 +60,7 @@ class _RegisterMotherScreenState extends ConsumerState<RegisterMotherScreen> {
       _age,
       _husband,
       _phone,
+      _email,
       _village,
       _subCentre,
       _abha,
@@ -117,6 +121,14 @@ class _RegisterMotherScreenState extends ConsumerState<RegisterMotherScreen> {
     final age = int.tryParse(_age.text);
     final village = _village.text.trim();
 
+    final email = _email.text.trim();
+    if (email.isNotEmpty && !_emailPattern.hasMatch(email)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(l.emailInvalidField, style: T.body)),
+      );
+      return;
+    }
+
     if (name.isEmpty || age == null || village.isEmpty || _lmp == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(l.requiredField, style: T.body)),
@@ -145,6 +157,7 @@ class _RegisterMotherScreenState extends ConsumerState<RegisterMotherScreen> {
       lmp: _lmp!,
       husbandName: _husband.text.trim().isEmpty ? null : _husband.text.trim(),
       phone: _phone.text.trim().isEmpty ? null : _phone.text.trim(),
+      email: email.isEmpty ? null : email,
       subCentre: _subCentre.text.trim(),
       abhaId: _abha.text.trim().isEmpty ? null : _abha.text.trim(),
       gravida: int.tryParse(_gravida.text) ?? 1,
@@ -322,6 +335,25 @@ class _RegisterMotherScreenState extends ConsumerState<RegisterMotherScreen> {
                   label: l.fieldPhone,
                   number: true,
                   maxLength: 10,
+                ),
+                _Field(
+                  controller: _email,
+                  label: l.fieldEmail,
+                  email: true,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: S.md, top: 0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Icon(Icons.info_outline, size: 18, color: C.teal),
+                      const SizedBox(width: S.sm),
+                      Expanded(
+                        child: Text(l.fieldEmailWhy,
+                            style: T.label.copyWith(fontSize: 14)),
+                      ),
+                    ],
+                  ),
                 ),
                 _Field(controller: _village, label: l.fieldVillage),
                 _Field(controller: _subCentre, label: l.fieldSubCentre),
@@ -543,12 +575,14 @@ class _Field extends StatelessWidget {
     required this.controller,
     required this.label,
     this.number = false,
+    this.email = false,
     this.maxLength,
   });
 
   final TextEditingController controller;
   final String label;
   final bool number;
+  final bool email;
   final int? maxLength;
 
   @override
@@ -557,7 +591,12 @@ class _Field extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: S.md),
       child: TextField(
         controller: controller,
-        keyboardType: number ? TextInputType.number : TextInputType.text,
+        keyboardType: number
+            ? TextInputType.number
+            : email
+                ? TextInputType.emailAddress
+                : TextInputType.text,
+        autocorrect: !email,
         maxLength: maxLength,
         style: T.body,
         inputFormatters:

@@ -65,6 +65,8 @@
   "emailHint": "name@example.com",
   "emailInvalid": "Please enter a correct email address",
   "checkYourEmail": "Check your email. The code can take a minute to arrive.",
+  "emailNotRegistered": "This email is not registered yet. Your ASHA worker adds it when she registers you — please ask her.",
+  "emailChecking": "Checking…",
   "sendOtp": "Send code",
   "otpTitle": "Enter the code",
   "otpSentTo": "Sent to {phone}",

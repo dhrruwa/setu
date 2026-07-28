@@ -18,6 +18,9 @@ class Mothers extends Table {
   IntColumn get age => integer()();
   TextColumn get husbandName => text().nullable()();
   TextColumn get phone => text().nullable()();
+  /// How she signs in to Thayi Setu. Entered by the ASHA at registration;
+  /// without it she cannot open her own record.
+  TextColumn get email => text().nullable()();
   TextColumn get village => text()();
   TextColumn get subCentre => text().nullable()();
   TextColumn get abhaId => text().nullable()();
@@ -165,7 +168,17 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.executor);
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
+
+  /// Without this, every phone that already has the database would crash on
+  /// "no such column: email" — a fresh install would look fine and every real
+  /// device would not.
+  @override
+  MigrationStrategy get migration => MigrationStrategy(
+        onUpgrade: (m, from, to) async {
+          if (from < 2) await m.addColumn(mothers, mothers.email);
+        },
+      );
 
   // ------------------------------------------------------------- mothers
 

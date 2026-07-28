@@ -34,6 +34,11 @@ class $MothersTable extends Mothers with TableInfo<$MothersTable, Mother> {
   late final GeneratedColumn<String> phone = GeneratedColumn<String>(
       'phone', aliasedName, true,
       type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _emailMeta = const VerificationMeta('email');
+  @override
+  late final GeneratedColumn<String> email = GeneratedColumn<String>(
+      'email', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _villageMeta =
       const VerificationMeta('village');
   @override
@@ -130,6 +135,7 @@ class $MothersTable extends Mothers with TableInfo<$MothersTable, Mother> {
         age,
         husbandName,
         phone,
+        email,
         village,
         subCentre,
         abhaId,
@@ -180,6 +186,10 @@ class $MothersTable extends Mothers with TableInfo<$MothersTable, Mother> {
     if (data.containsKey('phone')) {
       context.handle(
           _phoneMeta, phone.isAcceptableOrUnknown(data['phone']!, _phoneMeta));
+    }
+    if (data.containsKey('email')) {
+      context.handle(
+          _emailMeta, email.isAcceptableOrUnknown(data['email']!, _emailMeta));
     }
     if (data.containsKey('village')) {
       context.handle(_villageMeta,
@@ -262,6 +272,8 @@ class $MothersTable extends Mothers with TableInfo<$MothersTable, Mother> {
           .read(DriftSqlType.string, data['${effectivePrefix}husband_name']),
       phone: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}phone']),
+      email: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}email']),
       village: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}village'])!,
       subCentre: attachedDatabase.typeMapping
@@ -303,6 +315,10 @@ class Mother extends DataClass implements Insertable<Mother> {
   final int age;
   final String? husbandName;
   final String? phone;
+
+  /// How she signs in to Thayi Setu. Entered by the ASHA at registration;
+  /// without it she cannot open her own record.
+  final String? email;
   final String village;
   final String? subCentre;
   final String? abhaId;
@@ -326,6 +342,7 @@ class Mother extends DataClass implements Insertable<Mother> {
       required this.age,
       this.husbandName,
       this.phone,
+      this.email,
       required this.village,
       this.subCentre,
       this.abhaId,
@@ -350,6 +367,9 @@ class Mother extends DataClass implements Insertable<Mother> {
     }
     if (!nullToAbsent || phone != null) {
       map['phone'] = Variable<String>(phone);
+    }
+    if (!nullToAbsent || email != null) {
+      map['email'] = Variable<String>(email);
     }
     map['village'] = Variable<String>(village);
     if (!nullToAbsent || subCentre != null) {
@@ -385,6 +405,8 @@ class Mother extends DataClass implements Insertable<Mother> {
           : Value(husbandName),
       phone:
           phone == null && nullToAbsent ? const Value.absent() : Value(phone),
+      email:
+          email == null && nullToAbsent ? const Value.absent() : Value(email),
       village: Value(village),
       subCentre: subCentre == null && nullToAbsent
           ? const Value.absent()
@@ -417,6 +439,7 @@ class Mother extends DataClass implements Insertable<Mother> {
       age: serializer.fromJson<int>(json['age']),
       husbandName: serializer.fromJson<String?>(json['husbandName']),
       phone: serializer.fromJson<String?>(json['phone']),
+      email: serializer.fromJson<String?>(json['email']),
       village: serializer.fromJson<String>(json['village']),
       subCentre: serializer.fromJson<String?>(json['subCentre']),
       abhaId: serializer.fromJson<String?>(json['abhaId']),
@@ -441,6 +464,7 @@ class Mother extends DataClass implements Insertable<Mother> {
       'age': serializer.toJson<int>(age),
       'husbandName': serializer.toJson<String?>(husbandName),
       'phone': serializer.toJson<String?>(phone),
+      'email': serializer.toJson<String?>(email),
       'village': serializer.toJson<String>(village),
       'subCentre': serializer.toJson<String?>(subCentre),
       'abhaId': serializer.toJson<String?>(abhaId),
@@ -463,6 +487,7 @@ class Mother extends DataClass implements Insertable<Mother> {
           int? age,
           Value<String?> husbandName = const Value.absent(),
           Value<String?> phone = const Value.absent(),
+          Value<String?> email = const Value.absent(),
           String? village,
           Value<String?> subCentre = const Value.absent(),
           Value<String?> abhaId = const Value.absent(),
@@ -482,6 +507,7 @@ class Mother extends DataClass implements Insertable<Mother> {
         age: age ?? this.age,
         husbandName: husbandName.present ? husbandName.value : this.husbandName,
         phone: phone.present ? phone.value : this.phone,
+        email: email.present ? email.value : this.email,
         village: village ?? this.village,
         subCentre: subCentre.present ? subCentre.value : this.subCentre,
         abhaId: abhaId.present ? abhaId.value : this.abhaId,
@@ -504,6 +530,7 @@ class Mother extends DataClass implements Insertable<Mother> {
       husbandName:
           data.husbandName.present ? data.husbandName.value : this.husbandName,
       phone: data.phone.present ? data.phone.value : this.phone,
+      email: data.email.present ? data.email.value : this.email,
       village: data.village.present ? data.village.value : this.village,
       subCentre: data.subCentre.present ? data.subCentre.value : this.subCentre,
       abhaId: data.abhaId.present ? data.abhaId.value : this.abhaId,
@@ -531,6 +558,7 @@ class Mother extends DataClass implements Insertable<Mother> {
           ..write('age: $age, ')
           ..write('husbandName: $husbandName, ')
           ..write('phone: $phone, ')
+          ..write('email: $email, ')
           ..write('village: $village, ')
           ..write('subCentre: $subCentre, ')
           ..write('abhaId: $abhaId, ')
@@ -555,6 +583,7 @@ class Mother extends DataClass implements Insertable<Mother> {
       age,
       husbandName,
       phone,
+      email,
       village,
       subCentre,
       abhaId,
@@ -577,6 +606,7 @@ class Mother extends DataClass implements Insertable<Mother> {
           other.age == this.age &&
           other.husbandName == this.husbandName &&
           other.phone == this.phone &&
+          other.email == this.email &&
           other.village == this.village &&
           other.subCentre == this.subCentre &&
           other.abhaId == this.abhaId &&
@@ -598,6 +628,7 @@ class MothersCompanion extends UpdateCompanion<Mother> {
   final Value<int> age;
   final Value<String?> husbandName;
   final Value<String?> phone;
+  final Value<String?> email;
   final Value<String> village;
   final Value<String?> subCentre;
   final Value<String?> abhaId;
@@ -618,6 +649,7 @@ class MothersCompanion extends UpdateCompanion<Mother> {
     this.age = const Value.absent(),
     this.husbandName = const Value.absent(),
     this.phone = const Value.absent(),
+    this.email = const Value.absent(),
     this.village = const Value.absent(),
     this.subCentre = const Value.absent(),
     this.abhaId = const Value.absent(),
@@ -639,6 +671,7 @@ class MothersCompanion extends UpdateCompanion<Mother> {
     required int age,
     this.husbandName = const Value.absent(),
     this.phone = const Value.absent(),
+    this.email = const Value.absent(),
     required String village,
     this.subCentre = const Value.absent(),
     this.abhaId = const Value.absent(),
@@ -665,6 +698,7 @@ class MothersCompanion extends UpdateCompanion<Mother> {
     Expression<int>? age,
     Expression<String>? husbandName,
     Expression<String>? phone,
+    Expression<String>? email,
     Expression<String>? village,
     Expression<String>? subCentre,
     Expression<String>? abhaId,
@@ -686,6 +720,7 @@ class MothersCompanion extends UpdateCompanion<Mother> {
       if (age != null) 'age': age,
       if (husbandName != null) 'husband_name': husbandName,
       if (phone != null) 'phone': phone,
+      if (email != null) 'email': email,
       if (village != null) 'village': village,
       if (subCentre != null) 'sub_centre': subCentre,
       if (abhaId != null) 'abha_id': abhaId,
@@ -709,6 +744,7 @@ class MothersCompanion extends UpdateCompanion<Mother> {
       Value<int>? age,
       Value<String?>? husbandName,
       Value<String?>? phone,
+      Value<String?>? email,
       Value<String>? village,
       Value<String?>? subCentre,
       Value<String?>? abhaId,
@@ -729,6 +765,7 @@ class MothersCompanion extends UpdateCompanion<Mother> {
       age: age ?? this.age,
       husbandName: husbandName ?? this.husbandName,
       phone: phone ?? this.phone,
+      email: email ?? this.email,
       village: village ?? this.village,
       subCentre: subCentre ?? this.subCentre,
       abhaId: abhaId ?? this.abhaId,
@@ -763,6 +800,9 @@ class MothersCompanion extends UpdateCompanion<Mother> {
     }
     if (phone.present) {
       map['phone'] = Variable<String>(phone.value);
+    }
+    if (email.present) {
+      map['email'] = Variable<String>(email.value);
     }
     if (village.present) {
       map['village'] = Variable<String>(village.value);
@@ -817,6 +857,7 @@ class MothersCompanion extends UpdateCompanion<Mother> {
           ..write('age: $age, ')
           ..write('husbandName: $husbandName, ')
           ..write('phone: $phone, ')
+          ..write('email: $email, ')
           ..write('village: $village, ')
           ..write('subCentre: $subCentre, ')
           ..write('abhaId: $abhaId, ')
@@ -4006,6 +4047,7 @@ typedef $$MothersTableCreateCompanionBuilder = MothersCompanion Function({
   required int age,
   Value<String?> husbandName,
   Value<String?> phone,
+  Value<String?> email,
   required String village,
   Value<String?> subCentre,
   Value<String?> abhaId,
@@ -4027,6 +4069,7 @@ typedef $$MothersTableUpdateCompanionBuilder = MothersCompanion Function({
   Value<int> age,
   Value<String?> husbandName,
   Value<String?> phone,
+  Value<String?> email,
   Value<String> village,
   Value<String?> subCentre,
   Value<String?> abhaId,
@@ -4127,6 +4170,9 @@ class $$MothersTableFilterComposer
 
   ColumnFilters<String> get phone => $composableBuilder(
       column: $table.phone, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get email => $composableBuilder(
+      column: $table.email, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get village => $composableBuilder(
       column: $table.village, builder: (column) => ColumnFilters(column));
@@ -4277,6 +4323,9 @@ class $$MothersTableOrderingComposer
   ColumnOrderings<String> get phone => $composableBuilder(
       column: $table.phone, builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<String> get email => $composableBuilder(
+      column: $table.email, builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<String> get village => $composableBuilder(
       column: $table.village, builder: (column) => ColumnOrderings(column));
 
@@ -4341,6 +4390,9 @@ class $$MothersTableAnnotationComposer
 
   GeneratedColumn<String> get phone =>
       $composableBuilder(column: $table.phone, builder: (column) => column);
+
+  GeneratedColumn<String> get email =>
+      $composableBuilder(column: $table.email, builder: (column) => column);
 
   GeneratedColumn<String> get village =>
       $composableBuilder(column: $table.village, builder: (column) => column);
@@ -4498,6 +4550,7 @@ class $$MothersTableTableManager extends RootTableManager<
             Value<int> age = const Value.absent(),
             Value<String?> husbandName = const Value.absent(),
             Value<String?> phone = const Value.absent(),
+            Value<String?> email = const Value.absent(),
             Value<String> village = const Value.absent(),
             Value<String?> subCentre = const Value.absent(),
             Value<String?> abhaId = const Value.absent(),
@@ -4519,6 +4572,7 @@ class $$MothersTableTableManager extends RootTableManager<
             age: age,
             husbandName: husbandName,
             phone: phone,
+            email: email,
             village: village,
             subCentre: subCentre,
             abhaId: abhaId,
@@ -4540,6 +4594,7 @@ class $$MothersTableTableManager extends RootTableManager<
             required int age,
             Value<String?> husbandName = const Value.absent(),
             Value<String?> phone = const Value.absent(),
+            Value<String?> email = const Value.absent(),
             required String village,
             Value<String?> subCentre = const Value.absent(),
             Value<String?> abhaId = const Value.absent(),
@@ -4561,6 +4616,7 @@ class $$MothersTableTableManager extends RootTableManager<
             age: age,
             husbandName: husbandName,
             phone: phone,
+            email: email,
             village: village,
             subCentre: subCentre,
             abhaId: abhaId,

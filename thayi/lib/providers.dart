@@ -101,6 +101,21 @@ class AuthController extends StateNotifier<AuthState> {
         message.contains('unsupported');
   }
 
+  /// True only when an ASHA has registered this address against a mother.
+  ///
+  /// Her account is created by her ASHA during a home visit, never by typing
+  /// an address here. Anything else must not receive a code.
+  Future<bool> isRegistered(String email) async {
+    final client = _client;
+    // With no backend the local demo flow accepts anything, as it always has.
+    if (client == null) return true;
+    final result = await client.rpc(
+      'mother_email_registered',
+      params: {'p_email': email.trim()},
+    );
+    return result == true;
+  }
+
   /// Emails her a six digit code. The SMTP credentials live in Supabase's
   /// server-side config and never touch this app.
   Future<void> sendOtp(String email) async {
@@ -110,7 +125,12 @@ class AuthController extends StateNotifier<AuthState> {
       return;
     }
     try {
-      await client.auth.signInWithOtp(email: email.trim());
+      await client.auth.signInWithOtp(
+        email: email.trim(),
+        // Never mint an account from this screen. Even if the check above
+        // were bypassed, Supabase must refuse an unknown address.
+        shouldCreateUser: false,
+      );
       _otpUnavailable = false;
     } on sb.AuthException catch (error) {
       if (_isProviderDisabled(error)) {

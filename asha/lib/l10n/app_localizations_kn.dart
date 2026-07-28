@@ -312,6 +312,16 @@ class AppLocalizationsKn extends AppLocalizations {
   String get fieldPhone => 'ಫೋನ್ ನಂಬರ್';
 
   @override
+  String get fieldEmail => 'ಇಮೇಲ್ ವಿಳಾಸ';
+
+  @override
+  String get fieldEmailWhy =>
+      'ಇದರಿಂದಲೇ ಅವರು ತಾಯಿ ಸೇತು ಆ್ಯಪ್‌ಗೆ ಒಳಗೆ ಬರುತ್ತಾರೆ. ಇದಿಲ್ಲದೆ ಅವರು ತಮ್ಮ ದಾಖಲೆ ನೋಡಲು ಆಗುವುದಿಲ್ಲ.';
+
+  @override
+  String get emailInvalidField => 'ಸರಿಯಾದ ಇಮೇಲ್ ವಿಳಾಸ ಹಾಕಿ';
+
+  @override
   String get fieldVillage => 'ಗ್ರಾಮ';
 
   @override

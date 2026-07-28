@@ -314,6 +314,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get fieldPhone => 'Phone number';
 
   @override
+  String get fieldEmail => 'Email address';
+
+  @override
+  String get fieldEmailWhy =>
+      'She signs in to Thayi Setu with this. Without it she cannot open her own record.';
+
+  @override
+  String get emailInvalidField => 'Please enter a correct email address';
+
+  @override
   String get fieldVillage => 'Village';
 
   @override

@@ -656,6 +656,24 @@ abstract class AppLocalizations {
   /// **'Phone number'**
   String get fieldPhone;
 
+  /// No description provided for @fieldEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Email address'**
+  String get fieldEmail;
+
+  /// No description provided for @fieldEmailWhy.
+  ///
+  /// In en, this message translates to:
+  /// **'She signs in to Thayi Setu with this. Without it she cannot open her own record.'**
+  String get fieldEmailWhy;
+
+  /// No description provided for @emailInvalidField.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a correct email address'**
+  String get emailInvalidField;
+
   /// No description provided for @fieldVillage.
   ///
   /// In en, this message translates to:

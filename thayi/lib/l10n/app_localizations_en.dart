@@ -196,6 +196,13 @@ class AppLocalizationsEn extends AppLocalizations {
       'Check your email. The code can take a minute to arrive.';
 
   @override
+  String get emailNotRegistered =>
+      'This email is not registered yet. Your ASHA worker adds it when she registers you — please ask her.';
+
+  @override
+  String get emailChecking => 'Checking…';
+
+  @override
   String get sendOtp => 'Send code';
 
   @override
