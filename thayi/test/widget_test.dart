@@ -20,7 +20,7 @@ void main() {
     await tester.pump();
 
     // Kannada is the default locale, not English.
-    expect(find.text('ಸೇತು ತಾಯಿ'), findsOneWidget);
+    expect(find.text('ತಾಯಿ ಸೇತು'), findsOneWidget);
     expect(find.byType(SplashScreen), findsOneWidget);
 
     // Let the splash timer fire so the test does not end with it pending.

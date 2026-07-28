@@ -9,7 +9,7 @@ class AppLocalizationsKn extends AppLocalizations {
   AppLocalizationsKn([String locale = 'kn']) : super(locale);
 
   @override
-  String get appName => 'ಸೇತು ಆಶಾ';
+  String get appName => 'ಆಶಾ ಸೇತು';
 
   @override
   String get appTagline => 'ನಿಮ್ಮ ಕ್ಷೇತ್ರ ಸಂಗಾತಿ';

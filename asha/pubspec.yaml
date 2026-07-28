@@ -1,5 +1,5 @@
 name: setu_asha
-description: "Setu ASHA - the field app of Setu, a maternal health platform for rural Karnataka."
+description: "ASHA Setu - the field app of Setu, a maternal health platform for rural Karnataka."
 publish_to: "none"
 version: 1.0.0+1
 
@@ -48,3 +48,4 @@ flutter:
   assets:
     - assets/google_fonts/
     - assets/rules/
+    - assets/brand/

@@ -36,11 +36,11 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>Setu ASHA uses the camera to photograph a mother's paper Thayi Card and to attach photos to a visit record.</string>
+	<string>ASHA Setu uses the camera to photograph a mother's paper Thayi Card and to attach photos to a visit record.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Setu ASHA opens your photos only when you choose one to attach to a visit record.</string>
+	<string>ASHA Setu opens your photos only when you choose one to attach to a visit record.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Setu ASHA records where a home visit took place, to confirm the visit. A visit is always saved even if location is unavailable.</string>
+	<string>ASHA Setu records where a home visit took place, to confirm the visit. A visit is always saved even if location is unavailable.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
