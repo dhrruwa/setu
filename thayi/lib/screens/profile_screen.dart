@@ -66,19 +66,21 @@ class ProfileScreen extends ConsumerWidget {
                   Text(l.languageLabel, style: T.label),
                   const SizedBox(height: S.sm),
                   const LanguageToggle(),
+                  const Divider(height: S.lg),
+                  // Kept here rather than at the foot of the screen: below
+                  // the consent card it was effectively invisible.
+                  BigActionButton(
+                    label: l.logout,
+                    icon: Icons.logout,
+                    outlined: true,
+                    onPressed: () => _signOut(context, ref),
+                  ),
                 ],
               ),
             ),
             const SizedBox(height: S.lg),
             SectionHeader(l.consentSection),
             const _ConsentCard(),
-            const SizedBox(height: S.lg),
-            BigActionButton(
-              label: l.logout,
-              icon: Icons.logout,
-              outlined: true,
-              onPressed: () => _signOut(context, ref),
-            ),
             kFabClearance,
           ],
         ),
