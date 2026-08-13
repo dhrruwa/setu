@@ -724,8 +724,11 @@ if __name__ == "__main__":
 
     dart = emit_dart(mothers, visits)
     written = [sql_path]
+    # demo_dataset.dart, not seed_data.dart: ASHA already owns a SeedData that
+    # boots its local database, and writing over it silently broke the app.
+    # A generator must never claim a filename an app already uses.
     for app in ("thayi", "asha", "care"):
-        target = os.path.join(root, app, "lib", "data", "seed_data.dart")
+        target = os.path.join(root, app, "lib", "data", "demo_dataset.dart")
         if os.path.isdir(os.path.dirname(target)):
             with open(target, "w", encoding="utf-8") as f:
                 f.write(dart)
