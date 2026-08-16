@@ -10,7 +10,11 @@ import '../widgets/call_button.dart';
 
 /// The full-screen interrupt. It is pushed by the client the moment
 /// [DangerSignDetector] matches - before anything is sent anywhere.
-class DangerAlertScreen extends ConsumerWidget {
+///
+/// It reads itself aloud as it opens. This is the one screen where a woman who
+/// cannot read would otherwise get nothing at all from it, and the instruction
+/// on it is to go to the health centre now.
+class DangerAlertScreen extends ConsumerStatefulWidget {
   const DangerAlertScreen({super.key, required this.match});
 
   final DangerMatch match;
@@ -25,9 +29,50 @@ class DangerAlertScreen extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<DangerAlertScreen> createState() => _DangerAlertScreenState();
+}
+
+class _DangerAlertScreenState extends ConsumerState<DangerAlertScreen> {
+  bool _spoken = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_spoken) return;
+    _spoken = true;
+    // After the first frame, so the warning is on screen before it is heard.
+    WidgetsBinding.instance.addPostFrameCallback((_) => _speak());
+  }
+
+  Future<void> _speak() async {
+    final voice = ref.read(voiceServiceProvider);
+    if (voice == null || !mounted) return;
+    final l = AppLocalizations.of(context);
+    final lang = ref.read(localeControllerProvider).languageCode;
+    try {
+      await voice.speak(
+        '${l.dangerSignTitle(widget.match.sign)}. '
+        '${l.dangerSignDo(widget.match.sign)}',
+        lang: lang,
+      );
+    } catch (_) {
+      // Silence here is acceptable: the warning is already on screen in full,
+      // and there is nothing useful to tell her about a speech failure while
+      // she is being told to go to hospital.
+    }
+  }
+
+  @override
+  void dispose() {
+    ref.read(voiceServiceProvider)?.stopSpeaking();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
     final mother = ref.watch(motherProvider).valueOrNull;
+    final match = widget.match;
 
     return PopScope(
       // She has to make a choice here, not swipe it away by accident.

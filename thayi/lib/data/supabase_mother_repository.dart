@@ -31,9 +31,16 @@ class SupabaseMotherRepository implements MotherRepository {
       throw const RepositoryException('Not signed in');
     }
 
+    // The foreign key is named explicitly. `mothers` carries two references to
+    // `asha_workers` — the canonical `asha_worker_id` and a legacy `asha_id` —
+    // and with both present PostgREST refuses the embed as ambiguous
+    // (PGRST201) rather than picking one. That error surfaced as an empty app:
+    // every screen depends on this row, so the failure looked like missing
+    // data rather than a broken query.
     final row = await _client
         .from('mothers')
-        .select('*, asha:asha_workers(*), phc:health_centres(*)')
+        .select('*, asha:asha_workers!mothers_asha_worker_fk(*), '
+            'phc:health_centres(*)')
         .eq('auth_user_id', user.id)
         .maybeSingle();
 

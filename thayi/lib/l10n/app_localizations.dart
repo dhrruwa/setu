@@ -1544,23 +1544,11 @@ abstract class AppLocalizations {
   /// **'What should I eat every day?'**
   String get qFood1;
 
-  /// No description provided for @aFood1.
-  ///
-  /// In en, this message translates to:
-  /// **'Eat something from each group every day: rice or ragi, dal or egg, and green vegetables. Add a little jaggery and groundnut. Drink water often. Take your iron tablet after food.'**
-  String get aFood1;
-
   /// No description provided for @qFood2.
   ///
   /// In en, this message translates to:
   /// **'Can I drink tea and coffee?'**
   String get qFood2;
-
-  /// No description provided for @aFood2.
-  ///
-  /// In en, this message translates to:
-  /// **'A little is fine, but not right after your iron tablet — it stops the iron from working. Leave one hour between them. Milk, buttermilk and water are better through the day.'**
-  String get aFood2;
 
   /// No description provided for @qFood3.
   ///
@@ -1568,23 +1556,11 @@ abstract class AppLocalizations {
   /// **'I feel sick in the morning. What can I do?'**
   String get qFood3;
 
-  /// No description provided for @aFood3.
-  ///
-  /// In en, this message translates to:
-  /// **'Eat small amounts more often instead of three big meals. Dry food like puffed rice or a biscuit before getting out of bed helps. If you cannot keep any food or water down for a day, tell your ASHA worker.'**
-  String get aFood3;
-
   /// No description provided for @qRest1.
   ///
   /// In en, this message translates to:
   /// **'How much should I rest?'**
   String get qRest1;
-
-  /// No description provided for @aRest1.
-  ///
-  /// In en, this message translates to:
-  /// **'Rest for two hours in the day, lying on your left side. Sleep well at night. In the last three months your body needs more rest than usual.'**
-  String get aRest1;
 
   /// No description provided for @qRest2.
   ///
@@ -1592,23 +1568,11 @@ abstract class AppLocalizations {
   /// **'Can I do my usual housework?'**
   String get qRest2;
 
-  /// No description provided for @aRest2.
-  ///
-  /// In en, this message translates to:
-  /// **'Light work is good for you. Avoid lifting heavy pots or water, standing for many hours, and climbing. If you feel giddy or your stomach tightens, stop and sit down.'**
-  String get aRest2;
-
   /// No description provided for @qRest3.
   ///
   /// In en, this message translates to:
   /// **'Can I travel to my mother\'s village?'**
   String get qRest3;
-
-  /// No description provided for @aRest3.
-  ///
-  /// In en, this message translates to:
-  /// **'Short journeys are usually fine until the eighth month. Avoid long bumpy road journeys near your delivery date, and always carry your Thayi Card with you.'**
-  String get aRest3;
 
   /// No description provided for @qAfter1.
   ///
@@ -1616,41 +1580,17 @@ abstract class AppLocalizations {
   /// **'When should I start feeding the baby?'**
   String get qAfter1;
 
-  /// No description provided for @aAfter1.
-  ///
-  /// In en, this message translates to:
-  /// **'Feed the baby within the first hour after birth. The first thick yellow milk is very important — do not throw it away. Give only breast milk for six months, no water and no honey.'**
-  String get aAfter1;
-
   /// No description provided for @qAfter2.
   ///
   /// In en, this message translates to:
   /// **'How long should I rest after delivery?'**
   String get qAfter2;
 
-  /// No description provided for @aAfter2.
-  ///
-  /// In en, this message translates to:
-  /// **'Take full rest for six weeks. Eat well and keep drinking water. Your ASHA worker will visit you at home several times during this period.'**
-  String get aAfter2;
-
   /// No description provided for @qAfter3.
   ///
   /// In en, this message translates to:
   /// **'When is the baby\'s first vaccine?'**
   String get qAfter3;
-
-  /// No description provided for @aAfter3.
-  ///
-  /// In en, this message translates to:
-  /// **'The first vaccines are given at birth itself in the hospital. The next set is at six weeks. Keep the immunisation card safe and take it to every visit.'**
-  String get aAfter3;
-
-  /// No description provided for @aFallback.
-  ///
-  /// In en, this message translates to:
-  /// **'I am not able to answer that one properly. Your ASHA worker will know — shall I pass this question to her?'**
-  String get aFallback;
 
   /// No description provided for @aMedicineRefusal.
   ///
@@ -2101,6 +2041,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delivery planning'**
   String get actDeliveryPlanning;
+
+  /// Shown in Ask Setu when the assistant cannot answer.
+  ///
+  /// In en, this message translates to:
+  /// **'I could not reach the assistant just now. Please check your connection, or ask your ASHA worker.'**
+  String get chatOffline;
+
+  /// Shown in Ask Setu when the assistant cannot answer.
+  ///
+  /// In en, this message translates to:
+  /// **'I do not know the answer to that one. Your ASHA worker can tell you properly.'**
+  String get chatNoAnswer;
+
+  /// Shown in Ask Setu when the assistant cannot answer.
+  ///
+  /// In en, this message translates to:
+  /// **'Answers come from government and WHO health guidance.'**
+  String get chatSourceNote;
+
+  /// Voice input and playback in Ask Setu.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen'**
+  String get voiceListen;
+
+  /// Voice input and playback in Ask Setu.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop'**
+  String get voiceStop;
+
+  /// Voice input and playback in Ask Setu.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not play it just now. Check your connection.'**
+  String get voiceUnavailable;
+
+  /// Voice input and playback in Ask Setu.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold to speak'**
+  String get voiceHold;
+
+  /// Voice input and playback in Ask Setu.
+  ///
+  /// In en, this message translates to:
+  /// **'Listening… release to send'**
+  String get voiceRecording;
+
+  /// Voice input and playback in Ask Setu.
+  ///
+  /// In en, this message translates to:
+  /// **'I did not catch that. Try once more.'**
+  String get voiceNothingHeard;
+
+  /// Clearing the saved Ask Setu transcript.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear these messages?'**
+  String get chatClearTitle;
+
+  /// Clearing the saved Ask Setu transcript.
+  ///
+  /// In en, this message translates to:
+  /// **'This removes the questions and answers saved on this phone. Nothing else in your record changes.'**
+  String get chatClearBody;
+
+  /// Clearing the saved Ask Setu transcript.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get chatClearConfirm;
 }
 
 class _AppLocalizationsDelegate

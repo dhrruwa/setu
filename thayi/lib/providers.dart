@@ -7,7 +7,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' as sb;
 
 import 'config/env.dart';
+import 'data/chat_history.dart';
 import 'data/chat_service.dart';
+import 'data/voice_service.dart';
 import 'data/models.dart';
 import 'data/access_requests.dart';
 import 'data/asha_directory.dart';
@@ -444,9 +446,30 @@ final dangerSignDetectorProvider =
 
 // -------------------------------------------------------------------- chat
 
-final chatServiceProvider = Provider<ChatService>(
-  (ref) => const MockChatService(),
+/// Her transcript, kept on the phone only.
+final chatHistoryProvider = Provider<ChatHistory>(
+  (ref) => ChatHistory(ref.watch(prefsProvider)),
 );
+
+/// Speech, both directions. Null when there is no Supabase client to reach the
+/// Edge Functions through — the UI hides its voice controls rather than
+/// offering a button that cannot work.
+final voiceServiceProvider = Provider<VoiceService?>((ref) {
+  final client = ref.watch(supabaseClientProvider);
+  if (client == null) return null;
+  final service = SupabaseVoiceService(client);
+  ref.onDispose(service.dispose);
+  return service;
+});
+
+/// The assistant runs on the server. With a session she gets the real thing;
+/// without one there is nothing to talk to, and [MockChatService] says so
+/// rather than inventing an answer.
+final chatServiceProvider = Provider<ChatService>((ref) {
+  final client = ref.watch(supabaseClientProvider);
+  if (client == null) return const MockChatService();
+  return GeminiChatService(client);
+});
 
 // -------------------------------------------------------- tablets for today
 

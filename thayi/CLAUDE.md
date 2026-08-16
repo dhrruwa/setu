@@ -19,8 +19,34 @@ It is covered by `test/danger_sign_detector_test.dart` — keep those tests gree
 Never put personal data in the QR payload. It is `setu://m/<uuid>?t=<token>` and
 nothing else.
 
-The chat never answers about medicines or dosages — `MockChatService` refuses
-those outright, in the client.
+The chat never answers about medicines or dosages — `MedicineGuard` refuses
+those in the client, before anything is sent, so the refusal does not depend on
+a server or on the model behaving. Covered by `test/chat_service_test.dart`.
+
+Ask Setu is a real conversation, not a menu of prepared answers. The model runs
+in the `ask-setu` Supabase Edge Function (`core/functions/ask-setu/`), which
+holds the Gemini key — it must never appear in this app, for the same reason as
+the Supabase service key. The function retrieves approved rows from
+`pregnancy_faqs` and tells the model to answer only from those, so replies stay
+inside clinician-reviewed material. If nothing matches, it says it does not know
+and offers her ASHA worker; it never fills the gap from the model's own
+knowledge.
+
+Speech runs through `VoiceService` (`lib/data/voice_service.dart`) and two Edge
+Functions, `speak` and `transcribe`. The ElevenLabs key lives in Supabase
+secrets, never in this app — it is billed per character.
+
+Kannada constrains the models: ElevenLabs only supports it on `eleven_v3`
+(Multilingual v2 and Flash v2.5 do not include Kannada at all), and Scribe v2
+transcribes it at under 5% word error, which beats the recogniser on most cheap
+Android handsets. `speech_to_text` is kept only as the offline fallback.
+
+Synthesised audio is cached in the private `speech-cache` bucket under a hash of
+the text, because danger-sign warnings are the same sentences every time and
+each re-synthesis is paid for.
+
+The danger alert screen speaks itself aloud on open. That is the one screen a
+woman who cannot read would otherwise get nothing from.
 
 ## Design system
 

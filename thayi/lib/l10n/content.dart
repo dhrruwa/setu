@@ -94,18 +94,12 @@ extension SetuContent on AppLocalizations {
         _ => id,
       };
 
-  String chatAnswer(ChatAnswer answer) => switch (answer) {
-        ChatAnswer.food1 => aFood1,
-        ChatAnswer.food2 => aFood2,
-        ChatAnswer.food3 => aFood3,
-        ChatAnswer.rest1 => aRest1,
-        ChatAnswer.rest2 => aRest2,
-        ChatAnswer.rest3 => aRest3,
-        ChatAnswer.after1 => aAfter1,
-        ChatAnswer.after2 => aAfter2,
-        ChatAnswer.after3 => aAfter3,
-        ChatAnswer.medicineRefusal => aMedicineRefusal,
-        ChatAnswer.fallback => aFallback,
+  /// The assistant writes its own answers now. These are only the sentences
+  /// shown when it cannot answer — each one hands her to her ASHA worker.
+  String chatFailure(ChatFailure failure) => switch (failure) {
+        ChatFailure.medicine => aMedicineRefusal,
+        ChatFailure.offline => chatOffline,
+        ChatFailure.noAnswer => chatNoAnswer,
       };
 
   String chatTopic(ChatTopic topic) => switch (topic) {

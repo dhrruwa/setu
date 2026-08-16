@@ -24,6 +24,10 @@ dependencies:
   image_picker: ^1.2.3
   path_provider: ^2.1.6
   geolocator: ^14.0.3
+  # Her voice in, the assistant's voice out. Recording goes to ElevenLabs
+  # Scribe; playback is the mp3 the speak function returns.
+  record: ^6.1.2
+  audioplayers: ^6.5.1
 
 dev_dependencies:
   flutter_test:
@@ -41,5 +45,6 @@ flutter:
   uses-material-design: true
   generate: true
   assets:
+    - assets/brand/
     - assets/google_fonts/
     - assets/brand/
