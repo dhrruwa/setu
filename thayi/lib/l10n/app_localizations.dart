@@ -2059,6 +2059,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Answers come from government and WHO health guidance.'**
   String get chatSourceNote;
+
+  /// Voice input and playback in Ask Setu.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen'**
+  String get voiceListen;
+
+  /// Voice input and playback in Ask Setu.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop'**
+  String get voiceStop;
+
+  /// Voice input and playback in Ask Setu.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not play it just now. Check your connection.'**
+  String get voiceUnavailable;
+
+  /// Voice input and playback in Ask Setu.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold to speak'**
+  String get voiceHold;
+
+  /// Voice input and playback in Ask Setu.
+  ///
+  /// In en, this message translates to:
+  /// **'Listening… release to send'**
+  String get voiceRecording;
+
+  /// Voice input and playback in Ask Setu.
+  ///
+  /// In en, this message translates to:
+  /// **'I did not catch that. Try once more.'**
+  String get voiceNothingHeard;
 }
 
 class _AppLocalizationsDelegate

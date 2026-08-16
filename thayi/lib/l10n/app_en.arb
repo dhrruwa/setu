@@ -492,5 +492,29 @@
   "chatSourceNote": "Answers come from government and WHO health guidance.",
   "@chatSourceNote": {
     "description": "Shown in Ask Setu when the assistant cannot answer."
+  },
+  "voiceListen": "Listen",
+  "@voiceListen": {
+    "description": "Voice input and playback in Ask Setu."
+  },
+  "voiceStop": "Stop",
+  "@voiceStop": {
+    "description": "Voice input and playback in Ask Setu."
+  },
+  "voiceUnavailable": "Could not play it just now. Check your connection.",
+  "@voiceUnavailable": {
+    "description": "Voice input and playback in Ask Setu."
+  },
+  "voiceHold": "Hold to speak",
+  "@voiceHold": {
+    "description": "Voice input and playback in Ask Setu."
+  },
+  "voiceRecording": "Listening… release to send",
+  "@voiceRecording": {
+    "description": "Voice input and playback in Ask Setu."
+  },
+  "voiceNothingHeard": "I did not catch that. Try once more.",
+  "@voiceNothingHeard": {
+    "description": "Voice input and playback in Ask Setu."
   }
 }

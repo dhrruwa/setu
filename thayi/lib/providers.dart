@@ -8,6 +8,7 @@ import 'package:supabase_flutter/supabase_flutter.dart' as sb;
 
 import 'config/env.dart';
 import 'data/chat_service.dart';
+import 'data/voice_service.dart';
 import 'data/models.dart';
 import 'data/access_requests.dart';
 import 'data/asha_directory.dart';
@@ -443,6 +444,17 @@ final dangerSignDetectorProvider =
     Provider<DangerSignDetector>((ref) => const DangerSignDetector());
 
 // -------------------------------------------------------------------- chat
+
+/// Speech, both directions. Null when there is no Supabase client to reach the
+/// Edge Functions through — the UI hides its voice controls rather than
+/// offering a button that cannot work.
+final voiceServiceProvider = Provider<VoiceService?>((ref) {
+  final client = ref.watch(supabaseClientProvider);
+  if (client == null) return null;
+  final service = SupabaseVoiceService(client);
+  ref.onDispose(service.dispose);
+  return service;
+});
 
 /// The assistant runs on the server. With a session she gets the real thing;
 /// without one there is nothing to talk to, and [MockChatService] says so

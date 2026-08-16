@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
 import '../data/chat_service.dart';
+import '../data/voice_service.dart';
 import '../l10n/app_localizations.dart';
 import '../l10n/content.dart';
 import '../providers.dart';
@@ -57,16 +61,24 @@ class _AskSetuScreenState extends ConsumerState<AskSetuScreen> {
   final _input = TextEditingController();
   final _scroll = ScrollController();
   final _speech = SpeechToText();
+  final _recorder = SpeechRecorder();
 
   final List<_Message> _messages = [];
   bool _thinking = false;
   bool _listening = false;
   bool _speechReady = false;
 
+  /// Capturing her voice for Scribe.
+  bool _recording = false;
+
+  /// Waiting on the transcription to come back.
+  bool _transcribing = false;
+
   @override
   void dispose() {
     _input.dispose();
     _scroll.dispose();
+    _recorder.dispose();
     super.dispose();
   }
 
@@ -128,6 +140,95 @@ class _AskSetuScreenState extends ConsumerState<AskSetuScreen> {
         curve: Curves.easeOut,
       );
     });
+  }
+
+  /// Records her question and sends the audio to Scribe.
+  ///
+  /// Preferred over the device recogniser because Android's own Kannada support
+  /// is unreliable and missing entirely on many of the cheap handsets these
+  /// women use, whereas Scribe transcribes Kannada at under 5% word error.
+  /// [_toggleMic] is kept as the fallback for when the network is not there.
+  Future<void> _toggleScribe() async {
+    final l = AppLocalizations.of(context);
+    final voice = ref.read(voiceServiceProvider);
+    if (voice == null) return _toggleMic();
+
+    if (_recording) {
+      setState(() => _recording = false);
+      final file = await _recorder.stop();
+      if (file == null || !mounted) return;
+
+      setState(() => _transcribing = true);
+      try {
+        final lang = ref.read(localeControllerProvider).languageCode;
+        final text = await voice.transcribe(file, lang: lang);
+        if (text != null && mounted) {
+          _input.value = TextEditingValue(
+            text: text,
+            selection: TextSelection.collapsed(offset: text.length),
+          );
+        }
+      } on VoiceException catch (e) {
+        if (!mounted) return;
+        _toast(switch (e.failure) {
+          VoiceFailure.nothingHeard => l.voiceNothingHeard,
+          VoiceFailure.noPermission => l.micDenied,
+          // No connection: fall back to whatever the phone itself can do.
+          VoiceFailure.offline => l.micUnavailable,
+        });
+        if (e.failure == VoiceFailure.offline && mounted) await _toggleMic();
+      } finally {
+        // The upload is the only copy that matters; the file is temporary.
+        unawaited(file.delete().catchError((_) => file));
+        if (mounted) setState(() => _transcribing = false);
+      }
+      return;
+    }
+
+    if (!await _ensureMicPermission()) return;
+    try {
+      await _recorder.start(await getTemporaryDirectory());
+      if (mounted) setState(() => _recording = true);
+    } on VoiceException {
+      if (mounted) _toast(l.micDenied);
+    }
+  }
+
+  /// Explains before asking. The system dialog on its own means nothing to
+  /// someone who has never been asked for a microphone before.
+  Future<bool> _ensureMicPermission() async {
+    final l = AppLocalizations.of(context);
+    final status = await Permission.microphone.status;
+    if (status.isGranted) return true;
+    if (!mounted) return false;
+
+    final agreed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        backgroundColor: C.card,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(S.radius),
+        ),
+        title: Text(l.micPermissionTitle, style: T.h2),
+        content: Text(l.micPermissionBody, style: T.body),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(false),
+            child: Text(l.cancel),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.of(dialogContext).pop(true),
+            style:
+                FilledButton.styleFrom(minimumSize: const Size(120, S.tapMin)),
+            child: Text(l.micAllow),
+          ),
+        ],
+      ),
+    );
+    if (agreed != true) return false;
+    final result = await Permission.microphone.request();
+    if (!result.isGranted && mounted) _toast(l.micDenied);
+    return result.isGranted;
   }
 
   Future<void> _toggleMic() async {
@@ -233,9 +334,10 @@ class _AskSetuScreenState extends ConsumerState<AskSetuScreen> {
       title: l.askSetuTitle,
       bottomBar: _Composer(
         input: _input,
-        listening: _listening,
+        listening: _listening || _recording,
+        transcribing: _transcribing,
         onSend: () => _send(_input.text),
-        onMic: _toggleMic,
+        onMic: _toggleScribe,
         // Tapping an opener sends that sentence to the assistant exactly as if
         // she had typed it, and she can keep talking from the answer.
         onSuggestion: (q) => _send(l.suggestedQuestion(q.id)),
@@ -265,8 +367,13 @@ class _AskSetuScreenState extends ConsumerState<AskSetuScreen> {
                         ),
                       ),
                     ),
-                  ] else
+                  ] else ...[
                     _Bubble.setu(text: m.text!),
+                    // Tap to hear it. Not automatic: she may be sitting with
+                    // family, and an answer about her pregnancy read aloud is
+                    // hers to choose.
+                    _ListenButton(text: m.text!),
+                  ],
                 ],
                 if (_thinking) ...[
                   const SizedBox(height: S.md),
@@ -387,6 +494,7 @@ class _Composer extends StatelessWidget {
   const _Composer({
     required this.input,
     required this.listening,
+    required this.transcribing,
     required this.onSend,
     required this.onMic,
     required this.onSuggestion,
@@ -394,6 +502,7 @@ class _Composer extends StatelessWidget {
 
   final TextEditingController input;
   final bool listening;
+  final bool transcribing;
   final VoidCallback onSend;
   final VoidCallback onMic;
   final void Function(SuggestedQuestion) onSuggestion;
@@ -461,7 +570,11 @@ class _Composer extends StatelessWidget {
                       textInputAction: TextInputAction.send,
                       onSubmitted: (_) => onSend(),
                       decoration: InputDecoration(
-                        hintText: listening ? l.chatListening : l.chatHint,
+                        hintText: transcribing
+                            ? l.chatThinking
+                            : listening
+                                ? l.voiceRecording
+                                : l.chatHint,
                       ),
                     ),
                   ),
@@ -471,7 +584,7 @@ class _Composer extends StatelessWidget {
                     label: l.chatSpeak,
                     color: listening ? C.red : C.tealSoft,
                     iconColor: listening ? C.onDark : C.teal,
-                    onTap: onMic,
+                    onTap: transcribing ? () {} : onMic,
                   ),
                   const SizedBox(width: S.sm),
                   _RoundButton(
@@ -568,6 +681,84 @@ class _RoundButton extends StatelessWidget {
             width: S.tapMin,
             height: S.tapMin,
             child: Icon(icon, color: iconColor, size: 28),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Reads one answer aloud.
+///
+/// Deliberately a per-message control rather than a global setting: she may be
+/// sitting with family, and an answer about her own pregnancy read out loud is
+/// hers to ask for.
+class _ListenButton extends ConsumerStatefulWidget {
+  const _ListenButton({required this.text});
+
+  final String text;
+
+  @override
+  ConsumerState<_ListenButton> createState() => _ListenButtonState();
+}
+
+class _ListenButtonState extends ConsumerState<_ListenButton> {
+  bool _busy = false;
+  bool _playing = false;
+
+  Future<void> _toggle() async {
+    final voice = ref.read(voiceServiceProvider);
+    if (voice == null) return;
+    final l = AppLocalizations.of(context);
+
+    if (_playing) {
+      await voice.stopSpeaking();
+      if (mounted) setState(() => _playing = false);
+      return;
+    }
+
+    setState(() => _busy = true);
+    try {
+      final lang = ref.read(localeControllerProvider).languageCode;
+      await voice.speak(widget.text, lang: lang);
+      if (mounted) setState(() => _playing = true);
+    } on VoiceException {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(l.voiceUnavailable, style: T.body)),
+      );
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // No control at all when there is nothing to play through, rather than a
+    // button that cannot work.
+    if (ref.watch(voiceServiceProvider) == null) return const SizedBox.shrink();
+    final l = AppLocalizations.of(context);
+
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Padding(
+        padding: const EdgeInsets.only(top: S.xs, left: S.xs),
+        child: TextButton.icon(
+          onPressed: _busy ? null : _toggle,
+          icon: _busy
+              ? const SizedBox(
+                  width: 18,
+                  height: 18,
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                )
+              : Icon(_playing ? Icons.stop_circle_outlined
+                              : Icons.volume_up_outlined, size: 22),
+          label: Text(_playing ? l.voiceStop : l.voiceListen),
+          style: TextButton.styleFrom(
+            foregroundColor: C.teal,
+            minimumSize: const Size(0, S.tapMin),
+            padding: const EdgeInsets.symmetric(horizontal: S.sm),
+            textStyle: T.button.copyWith(fontSize: 16),
           ),
         ),
       ),

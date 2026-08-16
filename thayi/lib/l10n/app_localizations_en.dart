@@ -1091,4 +1091,23 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get chatSourceNote =>
       'Answers come from government and WHO health guidance.';
+
+  @override
+  String get voiceListen => 'Listen';
+
+  @override
+  String get voiceStop => 'Stop';
+
+  @override
+  String get voiceUnavailable =>
+      'Could not play it just now. Check your connection.';
+
+  @override
+  String get voiceHold => 'Hold to speak';
+
+  @override
+  String get voiceRecording => 'Listening… release to send';
+
+  @override
+  String get voiceNothingHeard => 'I did not catch that. Try once more.';
 }

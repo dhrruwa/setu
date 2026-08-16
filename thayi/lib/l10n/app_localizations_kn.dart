@@ -1085,4 +1085,23 @@ class AppLocalizationsKn extends AppLocalizations {
   @override
   String get chatSourceNote =>
       'ಉತ್ತರಗಳು ಸರ್ಕಾರಿ ಮತ್ತು ಡಬ್ಲ್ಯುಎಚ್‌ಒ ಆರೋಗ್ಯ ಮಾರ್ಗಸೂಚಿಗಳಿಂದ ಬಂದವು.';
+
+  @override
+  String get voiceListen => 'ಕೇಳಿ';
+
+  @override
+  String get voiceStop => 'ನಿಲ್ಲಿಸಿ';
+
+  @override
+  String get voiceUnavailable =>
+      'ಈಗ ಧ್ವನಿ ಕೇಳಿಸಲು ಆಗಲಿಲ್ಲ. ಇಂಟರ್ನೆಟ್ ಪರಿಶೀಲಿಸಿ.';
+
+  @override
+  String get voiceHold => 'ಮಾತನಾಡಲು ಒತ್ತಿ ಹಿಡಿಯಿರಿ';
+
+  @override
+  String get voiceRecording => 'ಕೇಳುತ್ತಿದ್ದೇನೆ… ಬಿಟ್ಟರೆ ಕಳುಹಿಸುತ್ತದೆ';
+
+  @override
+  String get voiceNothingHeard => 'ಸರಿಯಾಗಿ ಕೇಳಿಸಲಿಲ್ಲ. ಇನ್ನೊಮ್ಮೆ ಪ್ರಯತ್ನಿಸಿ.';
 }
