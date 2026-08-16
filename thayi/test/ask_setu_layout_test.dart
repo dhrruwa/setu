@@ -71,4 +71,25 @@ void main() {
     expect(find.textContaining('Namaskara'), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
+
+  testWidgets('the keyboard does not cover the box she types into',
+      (tester) async {
+    // Scaffold insets its body for the keyboard but leaves
+    // bottomNavigationBar alone, so the composer has to lift itself.
+    const keyboard = 300.0;
+    tester.view.physicalSize = const Size(400, 800);
+    tester.view.devicePixelRatio = 1.0;
+    tester.view.viewInsets = const FakeViewPadding(bottom: keyboard);
+    addTearDown(tester.view.reset);
+
+    await tester.pumpWidget(harness());
+    await tester.pumpAndSettle();
+
+    final field = tester.getRect(find.byType(TextField));
+    expect(
+      field.bottom,
+      lessThanOrEqualTo(800.0 - keyboard),
+      reason: 'the text field is underneath the keyboard',
+    );
+  });
 }

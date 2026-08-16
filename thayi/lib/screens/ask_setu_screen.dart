@@ -523,6 +523,12 @@ class _Composer extends StatelessWidget {
         color: C.bg,
         border: Border(top: BorderSide(color: C.divider)),
       ),
+      // Scaffold insets its *body* for the keyboard but leaves
+      // bottomNavigationBar where it is, so without this the keyboard covers
+      // the very box she is typing into. SafeArea contributes nothing here
+      // while the keyboard is up — MediaQuery.padding.bottom is zero then —
+      // so the two do not double up.
+      padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom),
       child: SafeArea(
         top: false,
         child: Column(
