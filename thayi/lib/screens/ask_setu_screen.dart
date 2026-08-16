@@ -87,8 +87,7 @@ class _AskSetuScreenState extends ConsumerState<AskSetuScreen> {
   /// her, not part of what was discussed.
   List<ChatTurn> get _history => [
         for (final m in _messages)
-          if (m.text != null)
-            ChatTurn(fromMother: m.fromMother, text: m.text!),
+          if (m.text != null) ChatTurn(fromMother: m.fromMother, text: m.text!),
       ];
 
   Future<void> _send(String raw) async {
@@ -294,10 +293,9 @@ class _AskSetuScreenState extends ConsumerState<AskSetuScreen> {
       return;
     }
 
-    final localeId =
-        ref.read(localeControllerProvider).languageCode == 'kn'
-            ? 'kn_IN'
-            : 'en_IN';
+    final localeId = ref.read(localeControllerProvider).languageCode == 'kn'
+        ? 'kn_IN'
+        : 'en_IN';
 
     setState(() => _listening = true);
     await _speech.listen(
@@ -336,6 +334,7 @@ class _AskSetuScreenState extends ConsumerState<AskSetuScreen> {
         input: _input,
         listening: _listening || _recording,
         transcribing: _transcribing,
+        showOpeners: _messages.isEmpty,
         onSend: () => _send(_input.text),
         onMic: _toggleScribe,
         // Tapping an opener sends that sentence to the assistant exactly as if
@@ -347,8 +346,11 @@ class _AskSetuScreenState extends ConsumerState<AskSetuScreen> {
           Expanded(
             child: ListView(
               controller: _scroll,
-              padding: const EdgeInsets.fromLTRB(S.screen, S.md, S.screen, S.md),
+              padding:
+                  const EdgeInsets.fromLTRB(S.screen, S.md, S.screen, S.md),
               children: [
+                _Disclaimer(text: l.chatDisclaimer),
+                const SizedBox(height: S.md),
                 _Bubble.setu(text: l.chatWelcome),
                 for (final m in _messages) ...[
                   const SizedBox(height: S.md),
@@ -409,8 +411,7 @@ class _Bubble extends StatelessWidget {
         constraints: BoxConstraints(
           maxWidth: MediaQuery.of(context).size.width * 0.82,
         ),
-        padding: const EdgeInsets.symmetric(
-            horizontal: S.md, vertical: S.md),
+        padding: const EdgeInsets.symmetric(horizontal: S.md, vertical: S.md),
         decoration: BoxDecoration(
           color: fromMother ? C.terraSoft : C.card,
           borderRadius: BorderRadius.only(
@@ -495,6 +496,7 @@ class _Composer extends StatelessWidget {
     required this.input,
     required this.listening,
     required this.transcribing,
+    required this.showOpeners,
     required this.onSend,
     required this.onMic,
     required this.onSuggestion,
@@ -503,6 +505,11 @@ class _Composer extends StatelessWidget {
   final TextEditingController input;
   final bool listening;
   final bool transcribing;
+
+  /// Openers belong on an empty screen. Once she is talking they are 108px of
+  /// permanent furniture between her and the conversation — and with the
+  /// keyboard up they left the message list no height at all.
+  final bool showOpeners;
   final VoidCallback onSend;
   final VoidCallback onMic;
   final void Function(SuggestedQuestion) onSuggestion;
@@ -519,43 +526,50 @@ class _Composer extends StatelessWidget {
       child: SafeArea(
         top: false,
         child: Column(
+          // Without this the composer eats the entire screen. Scaffold hands
+          // bottomNavigationBar loose height constraints, and a Column defaults
+          // to MainAxisSize.max, so it expanded to the full 600px and left the
+          // message list exactly zero — the conversation was never on screen.
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // Tappable questions matter more than the text field for someone
-            // who cannot type.
-            SizedBox(
-              height: 108,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.fromLTRB(S.screen, S.sm, S.screen, 0),
-                children: [
-                  for (final topic in ChatTopic.values)
-                    Padding(
-                      padding: const EdgeInsets.only(right: S.md),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(l.chatTopic(topic), style: T.label),
-                          const SizedBox(height: S.xs),
-                          Row(
-                            children: [
-                              for (final q in kSuggestedQuestions
-                                  .where((q) => q.topic == topic))
-                                Padding(
-                                  padding: const EdgeInsets.only(right: S.sm),
-                                  child: _Chip(
-                                    label: l.suggestedQuestion(q.id),
-                                    onTap: () => onSuggestion(q),
+            // who cannot type — but only until she has started talking.
+            if (showOpeners)
+              SizedBox(
+                height: 108,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  padding:
+                      const EdgeInsets.fromLTRB(S.screen, S.sm, S.screen, 0),
+                  children: [
+                    for (final topic in ChatTopic.values)
+                      Padding(
+                        padding: const EdgeInsets.only(right: S.md),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(l.chatTopic(topic), style: T.label),
+                            const SizedBox(height: S.xs),
+                            Row(
+                              children: [
+                                for (final q in kSuggestedQuestions
+                                    .where((q) => q.topic == topic))
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: S.sm),
+                                    child: _Chip(
+                                      label: l.suggestedQuestion(q.id),
+                                      onTap: () => onSuggestion(q),
+                                    ),
                                   ),
-                                ),
-                            ],
-                          ),
-                        ],
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                ],
+                  ],
+                ),
               ),
-            ),
             Padding(
               padding: const EdgeInsets.fromLTRB(S.screen, S.sm, S.screen, 0),
               child: Row(
@@ -597,23 +611,7 @@ class _Composer extends StatelessWidget {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(S.screen, S.sm, S.screen, S.sm),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.info_outline, size: 16, color: C.textSoft),
-                  const SizedBox(width: S.xs),
-                  Flexible(
-                    child: Text(
-                      l.chatDisclaimer,
-                      style: T.label.copyWith(fontSize: 14),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            const SizedBox(height: S.sm),
           ],
         ),
       ),
@@ -751,8 +749,11 @@ class _ListenButtonState extends ConsumerState<_ListenButton> {
                   height: 18,
                   child: CircularProgressIndicator(strokeWidth: 2),
                 )
-              : Icon(_playing ? Icons.stop_circle_outlined
-                              : Icons.volume_up_outlined, size: 22),
+              : Icon(
+                  _playing
+                      ? Icons.stop_circle_outlined
+                      : Icons.volume_up_outlined,
+                  size: 22),
           label: Text(_playing ? l.voiceStop : l.voiceListen),
           style: TextButton.styleFrom(
             foregroundColor: C.teal,
@@ -762,6 +763,36 @@ class _ListenButtonState extends ConsumerState<_ListenButton> {
           ),
         ),
       ),
+    );
+  }
+}
+
+/// Said once, at the top of the conversation.
+///
+/// It used to sit inside the composer, which meant it was pinned above the
+/// keyboard for the whole conversation and cost height the message list needed.
+/// She reads it when she arrives; repeating it under every reply does not make
+/// it any truer.
+class _Disclaimer extends StatelessWidget {
+  const _Disclaimer({required this.text});
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Icon(Icons.info_outline, size: 15, color: C.textSoft),
+        const SizedBox(width: S.xs),
+        Flexible(
+          child: Text(
+            text,
+            style: T.label.copyWith(fontSize: 13),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ],
     );
   }
 }
