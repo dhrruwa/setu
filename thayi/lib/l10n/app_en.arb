@@ -516,5 +516,17 @@
   "voiceNothingHeard": "I did not catch that. Try once more.",
   "@voiceNothingHeard": {
     "description": "Voice input and playback in Ask Setu."
+  },
+  "chatClearTitle": "Clear these messages?",
+  "@chatClearTitle": {
+    "description": "Clearing the saved Ask Setu transcript."
+  },
+  "chatClearBody": "This removes the questions and answers saved on this phone. Nothing else in your record changes.",
+  "@chatClearBody": {
+    "description": "Clearing the saved Ask Setu transcript."
+  },
+  "chatClearConfirm": "Clear",
+  "@chatClearConfirm": {
+    "description": "Clearing the saved Ask Setu transcript."
   }
 }

@@ -1110,4 +1110,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get voiceNothingHeard => 'I did not catch that. Try once more.';
+
+  @override
+  String get chatClearTitle => 'Clear these messages?';
+
+  @override
+  String get chatClearBody =>
+      'This removes the questions and answers saved on this phone. Nothing else in your record changes.';
+
+  @override
+  String get chatClearConfirm => 'Clear';
 }

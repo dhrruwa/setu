@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' as sb;
 
 import 'config/env.dart';
+import 'data/chat_history.dart';
 import 'data/chat_service.dart';
 import 'data/voice_service.dart';
 import 'data/models.dart';
@@ -444,6 +445,11 @@ final dangerSignDetectorProvider =
     Provider<DangerSignDetector>((ref) => const DangerSignDetector());
 
 // -------------------------------------------------------------------- chat
+
+/// Her transcript, kept on the phone only.
+final chatHistoryProvider = Provider<ChatHistory>(
+  (ref) => ChatHistory(ref.watch(prefsProvider)),
+);
 
 /// Speech, both directions. Null when there is no Supabase client to reach the
 /// Edge Functions through — the UI hides its voice controls rather than

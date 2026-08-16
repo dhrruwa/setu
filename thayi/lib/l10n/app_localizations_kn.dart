@@ -1104,4 +1104,14 @@ class AppLocalizationsKn extends AppLocalizations {
 
   @override
   String get voiceNothingHeard => 'ಸರಿಯಾಗಿ ಕೇಳಿಸಲಿಲ್ಲ. ಇನ್ನೊಮ್ಮೆ ಪ್ರಯತ್ನಿಸಿ.';
+
+  @override
+  String get chatClearTitle => 'ಈ ಸಂದೇಶಗಳನ್ನು ಅಳಿಸಬೇಕೇ?';
+
+  @override
+  String get chatClearBody =>
+      'ಈ ಫೋನಿನಲ್ಲಿ ಉಳಿಸಿರುವ ಪ್ರಶ್ನೆ ಮತ್ತು ಉತ್ತರಗಳು ಅಳಿಸಿಹೋಗುತ್ತವೆ. ನಿಮ್ಮ ಆರೋಗ್ಯ ದಾಖಲೆಯಲ್ಲಿ ಬೇರೇನೂ ಬದಲಾಗುವುದಿಲ್ಲ.';
+
+  @override
+  String get chatClearConfirm => 'ಅಳಿಸಿ';
 }

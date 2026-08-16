@@ -2095,6 +2095,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'I did not catch that. Try once more.'**
   String get voiceNothingHeard;
+
+  /// Clearing the saved Ask Setu transcript.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear these messages?'**
+  String get chatClearTitle;
+
+  /// Clearing the saved Ask Setu transcript.
+  ///
+  /// In en, this message translates to:
+  /// **'This removes the questions and answers saved on this phone. Nothing else in your record changes.'**
+  String get chatClearBody;
+
+  /// Clearing the saved Ask Setu transcript.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get chatClearConfirm;
 }
 
 class _AppLocalizationsDelegate

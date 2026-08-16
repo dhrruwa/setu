@@ -1,4 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:setu_thayi/data/chat_history.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:setu_thayi/data/chat_service.dart';
 
 void main() {
@@ -49,11 +51,64 @@ void main() {
     expect(reply.failure, ChatFailure.offline);
   });
 
+  _historyTests();
+
   test('history serialises to the roles the assistant expects', () {
     const turns = [
       ChatTurn(fromMother: true, text: 'what should I eat'),
       ChatTurn(fromMother: false, text: 'Eat a little more than usual.'),
     ];
     expect(turns.map((t) => t.toJson()['role']).toList(), ['user', 'model']);
+  });
+}
+
+/// The transcript survives leaving the screen — everything the assistant told
+/// her used to vanish the moment she navigated away.
+void _historyTests() {
+  group('saved transcript', () {
+    setUp(() => SharedPreferences.setMockInitialValues({}));
+
+    test('round-trips a conversation', () async {
+      final history = ChatHistory(await SharedPreferences.getInstance());
+      await history.save(const [
+        StoredMessage(fromMother: true, text: 'can I eat papaya'),
+        StoredMessage(fromMother: false, text: 'Ripe papaya is fine.'),
+        StoredMessage(fromMother: false, text: null, blocked: true),
+      ]);
+
+      final loaded = ChatHistory(await SharedPreferences.getInstance()).load();
+      expect(loaded, hasLength(3));
+      expect(loaded[0].fromMother, isTrue);
+      expect(loaded[1].text, 'Ripe papaya is fine.');
+      // A blocked turn is a note, not something that was said.
+      expect(loaded[2].blocked, isTrue);
+      expect(loaded[2].text, isNull);
+    });
+
+    test('keeps only the most recent turns', () async {
+      final history = ChatHistory(await SharedPreferences.getInstance());
+      await history.save([
+        for (var i = 0; i < ChatHistory.maxMessages + 20; i++)
+          StoredMessage(fromMother: i.isEven, text: 'message $i'),
+      ]);
+      final loaded = history.load();
+      expect(loaded, hasLength(ChatHistory.maxMessages));
+      // The oldest were dropped, not the newest.
+      expect(loaded.last.text, 'message ${ChatHistory.maxMessages + 19}');
+    });
+
+    test('a corrupt store loses the transcript, not the screen', () async {
+      SharedPreferences.setMockInitialValues({'ask_setu_history': 'not json'});
+      final history = ChatHistory(await SharedPreferences.getInstance());
+      expect(history.load(), isEmpty);
+    });
+
+    test('clearing removes it', () async {
+      final history = ChatHistory(await SharedPreferences.getInstance());
+      await history.save(
+          const [StoredMessage(fromMother: true, text: 'hello')]);
+      await history.clear();
+      expect(history.load(), isEmpty);
+    });
   });
 }

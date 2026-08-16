@@ -6,6 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
+import '../data/chat_history.dart';
 import '../data/chat_service.dart';
 import '../data/voice_service.dart';
 import '../l10n/app_localizations.dart';
@@ -75,6 +76,68 @@ class _AskSetuScreenState extends ConsumerState<AskSetuScreen> {
   bool _transcribing = false;
 
   @override
+  void initState() {
+    super.initState();
+    // Read straight back, before the first frame, so she never sees an empty
+    // screen flash into a conversation she already had.
+    final stored = ref.read(chatHistoryProvider).load();
+    _messages.addAll(stored.map((m) => m.blocked
+        ? _Message.blocked()
+        : m.fromMother
+            ? _Message.fromMother(m.text!)
+            : _Message.fromSetu(m.text!)));
+    if (_messages.isNotEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToEnd());
+    }
+  }
+
+  /// Written after every turn rather than on dispose: she may close the app
+  /// from this screen, and a transcript that only survives a clean exit is not
+  /// a transcript.
+  void _persist() {
+    ref.read(chatHistoryProvider).save([
+      for (final m in _messages)
+        if (m.failure == null)
+          StoredMessage(
+            fromMother: m.fromMother,
+            text: m.text,
+            blocked: m.blocked,
+          ),
+    ]);
+  }
+
+  Future<void> _clearHistory() async {
+    final l = AppLocalizations.of(context);
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        backgroundColor: C.card,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(S.radius)),
+        title: Text(l.chatClearTitle, style: T.h2),
+        content: Text(l.chatClearBody, style: T.body),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(false),
+            child: Text(l.cancel),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.of(dialogContext).pop(true),
+            style: FilledButton.styleFrom(
+              minimumSize: const Size(120, S.tapMin),
+              backgroundColor: C.red,
+            ),
+            child: Text(l.chatClearConfirm),
+          ),
+        ],
+      ),
+    );
+    if (confirmed != true) return;
+    await ref.read(chatHistoryProvider).clear();
+    if (mounted) setState(_messages.clear);
+  }
+
+  @override
   void dispose() {
     _input.dispose();
     _scroll.dispose();
@@ -105,6 +168,7 @@ class _AskSetuScreenState extends ConsumerState<AskSetuScreen> {
           ..add(_Message.blocked());
         _input.clear();
       });
+      _persist();
       _scrollToEnd();
       await DangerAlertScreen.show(context, match);
       return;
@@ -127,6 +191,7 @@ class _AskSetuScreenState extends ConsumerState<AskSetuScreen> {
           : _Message.failed(reply.failure!));
       _thinking = false;
     });
+    _persist();
     _scrollToEnd();
   }
 
@@ -330,6 +395,14 @@ class _AskSetuScreenState extends ConsumerState<AskSetuScreen> {
 
     return SetuScaffold(
       title: l.askSetuTitle,
+      actions: [
+        if (_messages.isNotEmpty)
+          IconButton(
+            onPressed: _clearHistory,
+            icon: const Icon(Icons.delete_outline, size: 26),
+            tooltip: l.chatClearTitle,
+          ),
+      ],
       bottomBar: _Composer(
         input: _input,
         listening: _listening || _recording,
